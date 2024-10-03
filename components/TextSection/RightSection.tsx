@@ -10,7 +10,7 @@ export const RightTextSection = ({
 }: {
   title: React.ReactNode;
   extraBtn?: React.ReactNode;
-  description: React.ReactNode;
+  description?: React.ReactNode;
   subHeader?: string;
   subContent?: string;
   image: { src: string; alt: string };
@@ -25,7 +25,12 @@ export const RightTextSection = ({
           </span>
         )}
         {title}
-        <div className="my-4">{description}</div>
+        {subContent && (
+          <div className="border-l-3 border-primary pl-4 my-4">
+            {subContent}
+          </div>
+        )}
+        {description && <div className="my-4">{description}</div>}
         {extraBtn}
       </div>
 

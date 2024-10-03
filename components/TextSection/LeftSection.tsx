@@ -11,7 +11,7 @@ export const LeftTextSection = ({
   title: React.ReactNode;
   extraBtn?: React.ReactNode;
 
-  description: React.ReactNode;
+  description?: React.ReactNode;
   subHeader: string;
   subContent?: string;
   image: { src: string; alt: string };
@@ -33,7 +33,7 @@ export const LeftTextSection = ({
             {subContent}
           </div>
         )}
-        <div className="my-4">{description}</div>
+        {description && <div className="my-4">{description}</div>}
         {extraBtn}
       </div>
     </section>
