@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import NextLink from "next/link";
 import { Button } from "@nextui-org/button";
 import Values from "@/components/Home/Values";
 import AboutSection from "@/components/Home/AboutSection";
@@ -16,6 +17,7 @@ export default function Home() {
         image={{ src: "/home/user-experience-interface-1.png", alt: "Vison" }}
         extraBtn={
           <Button
+            as={NextLink}
             href="/contact"
             radius="full"
             className="border border-primary font-semibold bg-background text-foreground"

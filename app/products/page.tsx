@@ -1,9 +1,10 @@
-import { RightTextSection } from "@/components/TextSection/RightSection";
-import { Button } from "@nextui-org/button";
 import React from "react";
+import { Metadata } from "next";
+import NextLink from "next/link";
+import { Button } from "@nextui-org/button";
+import { RightTextSection } from "@/components/TextSection/RightSection";
 import products from "./products";
 import ProductCard from "@/components/ProductCard";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Our Products",
@@ -16,6 +17,7 @@ function About() {
         image={{ src: "/home/user-experience-interface-1.png", alt: "Vison" }}
         extraBtn={
           <Button
+            as={NextLink}
             href="/contact"
             radius="full"
             className="border border-primary font-semibold bg-background text-foreground"
@@ -70,6 +72,7 @@ function About() {
           it! info@saltechapps.com or +1 (844) 877-1078
         </p>
         <Button
+          as={NextLink}
           href="/contact"
           className=" bg-primary font-semibold text-foreground"
         >
