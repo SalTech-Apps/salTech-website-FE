@@ -20,13 +20,13 @@ function Services() {
           title={
             <>
               {" "}
-              <span className="text-primary">Innovative</span>
+              <span className="text-primary">Innovative </span>
               Services for Ambitious Brands.
             </>
           }
           description={`We offer a strategic approach to software development and digital marketing.`}
         />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center py-8 md:py-12 bg-background bg-[url('/layout/net.png')]">
+        <div className="container mx-auto px-4 md:px-40 grid grid-cols-1 md:grid-cols-3 gap-8 text-center py-8 md:py-12 bg-background bg-[url('/layout/net.png')]">
           {/* Service Card 1 */}
 
           <ServiceCard

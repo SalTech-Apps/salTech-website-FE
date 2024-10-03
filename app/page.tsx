@@ -19,6 +19,7 @@ export default function Home() {
         image={{ src: "/home/user-experience-interface-1.png", alt: "Vison" }}
         extraBtn={
           <Button
+            href="/contact"
             radius="full"
             className="border border-primary font-semibold bg-background text-foreground"
           >
