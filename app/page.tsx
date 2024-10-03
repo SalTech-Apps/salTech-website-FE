@@ -1,16 +1,13 @@
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code";
-import { button as buttonStyles } from "@nextui-org/theme";
-
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+import { Metadata } from "next";
+import { Button } from "@nextui-org/button";
 import Values from "@/components/Home/Values";
 import AboutSection from "@/components/Home/AboutSection";
 import { RightTextSection } from "@/components/TextSection/RightSection";
 import { LeftTextSection } from "@/components/TextSection/LeftSection";
-import { Button } from "@nextui-org/button";
+
+export const metadata: Metadata = {
+  title: "SalTech",
+};
 
 export default function Home() {
   return (

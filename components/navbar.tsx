@@ -28,7 +28,6 @@ export const Navbar = () => {
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">ACME</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden sm:flex gap-4 justify-center m-auto">
@@ -52,7 +51,7 @@ export const Navbar = () => {
 
           <NextLink
             className="hidden md:block bg-primary text-foreground py-3 px-6 xl:py-4 xl:px-8 rounded-full"
-            href="#"
+            href="/contact"
           >
             Get in Touch
           </NextLink>

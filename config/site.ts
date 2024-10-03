@@ -25,15 +25,15 @@ export const siteConfig = {
       href: "/products",
     },
     {
-      label:"Contact Us",
-      href:"/contact"
-    }
+      label: "Contact Us",
+      href: "/contact",
+    },
   ],
   footerLinks: [
-    { label: "Home", href: "#" },
-    { label: "Who We Are", href: "#" },
-    { label: "Careers", href: "#" },
-    { label: "Contact Us", href: "#" },
+    { label: "Home", href: "/" },
+    { label: "Who We Are", href: "/about" },
+    { label: "Careers", href: "/careers" },
+    { label: "Contact Us", href: "/contact" },
   ],
   navMenuItems: [
     {

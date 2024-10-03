@@ -1,7 +1,12 @@
 import React from "react";
-import AboutSection from "@/components/Home/AboutSection";
+import { Metadata } from "next";
 import { LeftTextSection } from "@/components/TextSection/LeftSection";
 import ScamAlert from "@/components/ScamAlert";
+
+export const metadata: Metadata = {
+  title: "Careers ",
+  description: "Work With Us",
+};
 
 function Services() {
   return (

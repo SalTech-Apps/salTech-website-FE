@@ -1,5 +1,6 @@
 import { siteConfig } from "@/config/site";
 import NextLink from "next/link";
+import { Logo } from "./icons";
 
 export default function Footer() {
   return (
@@ -8,7 +9,11 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between gap-6">
           {/* Company Info */}
           <div className="w-full md:w-1/3">
-            <h2 className="text-xl font-bold text-yellow-500">SalTech</h2>
+            <div className="flex gap-2 items-center">
+              {" "}
+              <Logo />
+              <h2 className="text-xl font-bold text-yellow-500">SalTech</h2>
+            </div>
             <p className="text-sm mt-4">
               Founded on the principles of fostering black enterprise and
               promoting social mobility, SalTech is a leading technology and
