@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+// import { Metadata } from "next";
 import { Input, Textarea } from "@nextui-org/input";
 import {
   Modal,
@@ -16,6 +17,11 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import emailjs from "@emailjs/browser";
 import contactFormSchema, { FormValues } from "./contact.types";
+
+// export const metadata: Metadata = {
+//   title: "Contact Us ",
+//   description: "Send Us a Message",
+// };
 
 function ContactUs() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -53,7 +59,7 @@ function ContactUs() {
     <div className=" bg-background">
       <section className="flex flex-wrap items-center justify-between pb-12 overflow-hidden bg-background bg-[url('/layout/net.png')]">
         {/* Image */}
-        <div className="w-full md:w-1/2 overflow-hidden">
+        <div className="w-full md:w-1/2 overflow-hidden bg-zinc-100">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3032.2191421732014!2d-80.00796434127807!3d40.536747384243434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88348ca7c6f419a1%3A0x2410b8c130451f23!2s3202%20McKnight%20E%20Dr%2C%20Pittsburgh%2C%20PA%2015237%2C%20USA!5e0!3m2!1sen!2sng!4v1727984212927!5m2!1sen!2sng"
             width="600"

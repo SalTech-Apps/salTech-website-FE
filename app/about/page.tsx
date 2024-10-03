@@ -1,6 +1,12 @@
+import React from "react";
+import { Metadata } from "next";
 import { LeftTextSection } from "@/components/TextSection/LeftSection";
 import { RightTextSection } from "@/components/TextSection/RightSection";
-import React from "react";
+
+export const metadata: Metadata = {
+  title: "Who We Are",
+  description: "About US",
+};
 
 function About() {
   return (

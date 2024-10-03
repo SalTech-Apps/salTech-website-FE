@@ -1,4 +1,5 @@
 import React from "react";
+import { Metadata } from "next";
 import ScamAlert from "@/components/ScamAlert";
 import { LeftTextSection } from "@/components/TextSection/LeftSection";
 // import {
@@ -10,6 +11,11 @@ import { LeftTextSection } from "@/components/TextSection/LeftSection";
 // } from "react-icons/fa";
 import ServiceCard from "@/components/ServiceCard";
 import AboutSection from "@/components/Home/AboutSection";
+
+export const metadata: Metadata = {
+  title: "Services ",
+  description: "Innovative Services for Ambitious Brands.",
+};
 
 function Services() {
   return (

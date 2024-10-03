@@ -3,6 +3,11 @@ import { Button } from "@nextui-org/button";
 import React from "react";
 import products from "./products";
 import ProductCard from "@/components/ProductCard";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Our Products",
+};
 
 function About() {
   return (
