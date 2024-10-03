@@ -14,13 +14,17 @@ export const LeftTextSection = ({
   description?: React.ReactNode;
   subHeader: string;
   subContent?: string;
-  image: { src: string; alt: string };
+  image: { src: string; alt: string; map?: React.ReactNode };
 }) => {
   return (
     <section className="flex flex-wrap items-center justify-between pb-12 max-h-[50rem] overflow-hidden bg-background bg-[url('/layout/net.png')]">
       {/* Image */}
       <div className="w-full md:w-1/2 overflow-hidden">
-        <img src={image.src} alt={image.alt} className="w-full" />
+        {!image.map ? (
+          <img src={image.src} alt={image.alt} className="w-full" />
+        ) : (
+          image.map
+        )}
       </div>
       {/* Text */}
       <div className="w-full md:w-1/2 mt-8 md:mt-0 px-8 md:px-12 2xl:px-14">

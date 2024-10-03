@@ -1,6 +1,7 @@
 import React from "react";
 import AboutSection from "@/components/Home/AboutSection";
 import { LeftTextSection } from "@/components/TextSection/LeftSection";
+import ScamAlert from "@/components/ScamAlert";
 
 function Services() {
   return (
@@ -22,20 +23,13 @@ function Services() {
           </>
         }
         subHeader={"Proud and Passionate"}
+        image={{
+          src: "/career/handshake.png",
+          alt: "Proud and Passionate",
+        }}
       />
 
-      <AboutSection
-        subHeader={"What We Are"}
-        title={
-          <>
-            {" "}
-            <span className="text-primary">Innovative</span> Services for
-            Ambitious Brands.
-          </>
-        }
-        description={`We offer a strategic approach to software development and digital marketing.`}
-        subConent={""}
-      />
+      <ScamAlert />
     </div>
   );
 }

@@ -26,7 +26,7 @@ function Services() {
           }
           description={`We offer a strategic approach to software development and digital marketing.`}
         />
-        <div className="grid grid-cols-1 md:grid-cols-3  gap-8 text-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center py-8 md:py-12 bg-background bg-[url('/layout/net.png')]">
           {/* Service Card 1 */}
 
           <ServiceCard
@@ -74,6 +74,21 @@ function Services() {
           </>
         }
         subHeader={"Proud and Passionate"}
+        image={{
+          src: "",
+          alt: "",
+          map: (
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3032.2191421732014!2d-80.00796434127807!3d40.536747384243434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88348ca7c6f419a1%3A0x2410b8c130451f23!2s3202%20McKnight%20E%20Dr%2C%20Pittsburgh%2C%20PA%2015237%2C%20USA!5e0!3m2!1sen!2sng!4v1727984212927!5m2!1sen!2sng"
+              width="600"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen={true}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          ),
+        }}
       />
       <ScamAlert />
     </div>
