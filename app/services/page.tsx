@@ -2,15 +2,9 @@ import React from "react";
 import { Metadata } from "next";
 import ScamAlert from "@/components/ScamAlert";
 import { LeftTextSection } from "@/components/TextSection/LeftSection";
-// import {
-//   FaMobileAlt,
-//   FaCode,
-//   FaGlobe,
-//   FaBullhorn,
-//   FaBuilding,
-// } from "react-icons/fa";
 import ServiceCard from "@/components/ServiceCard";
 import AboutSection from "@/components/Home/AboutSection";
+import PageName from "@/components/PageName";
 
 export const metadata: Metadata = {
   title: "Services ",
@@ -20,6 +14,11 @@ export const metadata: Metadata = {
 function Services() {
   return (
     <div className=" bg-background">
+      <PageName>
+        <h1 className="text-5xl md:text-6xl lg:text-9xl font-extrabold text-center m-auto h-fit">
+          Services
+        </h1>
+      </PageName>
       <div className="container mx-auto">
         <AboutSection
           subHeader={"What We Are"}

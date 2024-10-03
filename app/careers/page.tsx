@@ -2,6 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { LeftTextSection } from "@/components/TextSection/LeftSection";
 import ScamAlert from "@/components/ScamAlert";
+import PageName from "@/components/PageName";
 
 export const metadata: Metadata = {
   title: "Careers ",
@@ -11,6 +12,11 @@ export const metadata: Metadata = {
 function Services() {
   return (
     <div className=" bg-background">
+      <PageName>
+        <h1 className="text-5xl md:text-6xl lg:text-9xl font-extrabold text-center m-auto h-fit">
+          Careers
+        </h1>
+      </PageName>
       <LeftTextSection
         title={<h2 className="text-3xl font-bold mt-4 ">Work With Us</h2>}
         description={

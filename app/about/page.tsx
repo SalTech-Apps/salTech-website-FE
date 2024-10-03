@@ -2,6 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { LeftTextSection } from "@/components/TextSection/LeftSection";
 import { RightTextSection } from "@/components/TextSection/RightSection";
+import PageName from "@/components/PageName";
 
 export const metadata: Metadata = {
   title: "Who We Are",
@@ -11,10 +12,15 @@ export const metadata: Metadata = {
 function About() {
   return (
     <div className=" bg-background">
-      {/* Header Section */}
-      <section className="text-center p-8 w-5/6 mx-auto">
-        <h1 className="text-4xl font-bold w-2/3 mx-auto">
-          <span className=" text-yellow-500">Re-thinking</span> data-driven
+      {" "}
+      <PageName>
+        <h1 className="text-5xl md:text-6xl lg:text-9xl font-extrabold text-center m-auto h-fit">
+          <span className=" text-primary">Who</span> We Are
+        </h1>
+      </PageName>
+      <section className="text-center p-8 w-full md:w-5/6 mx-auto">
+        <h1 className="text-4xl font-bold w-full md:w-2/3 mx-auto">
+          <span className=" text-primary">Re-thinking</span> data-driven
           mobility through community commerce
         </h1>
         <p className=" mt-4 max-w-4xl mx-auto">
@@ -34,7 +40,6 @@ function About() {
           robust and adaptable short,mid, and long term strategies.
         </p>
       </section>
-
       {/* Domestic Investor Base Section */}
       <LeftTextSection
         title={
@@ -59,7 +64,6 @@ function About() {
           alt: "Proud and Passionate",
         }}
       />
-
       {/* Global Vision Section */}
       <RightTextSection
         title={

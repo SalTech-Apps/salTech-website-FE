@@ -17,6 +17,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import emailjs from "@emailjs/browser";
 import contactFormSchema, { FormValues } from "./contact.types";
+import PageName from "@/components/PageName";
 
 // export const metadata: Metadata = {
 //   title: "Contact Us ",
@@ -57,6 +58,11 @@ function ContactUs() {
 
   return (
     <div className=" bg-background">
+      <PageName>
+        <h1 className="text-5xl md:text-6xl lg:text-9xl font-extrabold text-center m-auto h-fit">
+          <span className=" text-primary">Contact</span> Us
+        </h1>
+      </PageName>
       <section className="flex flex-wrap items-center justify-between pb-12 overflow-hidden bg-background bg-[url('/layout/net.png')]">
         {/* Image */}
         <div className="w-full md:w-1/2 overflow-hidden bg-zinc-100">
