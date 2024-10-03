@@ -22,7 +22,7 @@ export const Navbar = () => {
       shouldHideOnScroll
       maxWidth="xl"
       position="sticky"
-      className=" container py-8"
+      className=""
     >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
@@ -47,16 +47,16 @@ export const Navbar = () => {
             </NavbarItem>
           ))}
         </ul>
-          <NavbarItem className="flex gap-4 items-center" >
-            <ThemeSwitch className="hidden md:block" />
+        <NavbarItem className="flex gap-4 items-center">
+          <ThemeSwitch className="hidden md:block" />
 
-            <NextLink
-              className="hidden md:block bg-primary text-foreground py-3 px-6 xl:py-4 xl:px-8 rounded-full"
-              href="#"
-            >
-              Get in Touch
-            </NextLink>
-          </NavbarItem>
+          <NextLink
+            className="hidden md:block bg-primary text-foreground py-3 px-6 xl:py-4 xl:px-8 rounded-full"
+            href="#"
+          >
+            Get in Touch
+          </NextLink>
+        </NavbarItem>
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">

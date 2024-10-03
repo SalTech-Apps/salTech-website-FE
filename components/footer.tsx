@@ -3,7 +3,7 @@ import NextLink from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-primary/30 text-foreground">
+    <footer className="bg-zinc-100 text-foreground">
       <div className="container mx-auto py-8 px-4">
         <div className="flex flex-col md:flex-row justify-between gap-6">
           {/* Company Info */}
