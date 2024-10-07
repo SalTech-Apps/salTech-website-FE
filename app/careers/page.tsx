@@ -27,7 +27,7 @@ function Services() {
             thinking. We channel our curiosity into creating simple solutions
             for complex issues. We believe our efforts support purposeful,
             sustainable work that helps shape our communities and the future.
-            SalTec is more than a family; we share and are committed to
+            SalTech is more than a family; we share and are committed to
             continuous growth.Does this sound like where you want to be? If yes,
             apply to one of our postings; send your resume to
             support@saltechapps.com

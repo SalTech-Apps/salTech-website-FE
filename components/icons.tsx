@@ -12,7 +12,7 @@ export const Logo: React.FC<IconSvgProps> = ({
   <Image
     width={50}
     height={50}
-    src="https://res.cloudinary.com/dbr3c0f1q/image/upload/v1727995468/logos/salTech/cr08uzf6eyugxyqzosti.png"
+    src="https://res.cloudinary.com/dbr3c0f1q/image/upload/v1727995468/logos/SalTech/cr08uzf6eyugxyqzosti.png"
     alt={"SalTech Logo"}
   />
 );

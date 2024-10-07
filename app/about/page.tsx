@@ -25,7 +25,7 @@ function About() {
         </h1>
         <p className=" mt-4 max-w-4xl mx-auto">
           Established on the foundation of fostering black enterprise and social
-          mobility, SalTec is a technology and information services
+          mobility, SalTech is a technology and information services
           organization. Our diverse teams provide support on trailblazing
           technology transformations with the goal of providing equitable access
           to people from all walks of life.
@@ -53,7 +53,7 @@ function About() {
         with a timeline for transition to absolute domestic content. At
         SalTech, communication is enabled by the fast growing trend of
         virtual workspaces. Our operations are global with offices spread
-        across Africa, Europe and North America. We collaborate with
+        across world, Europe and North America. We collaborate with
         stakeholders in diverse industries and from different communities,
         with the unified goal of providing ACCESS. Our teams are dynamic and
         lean on industry best practices to deliver top notch platforms for

@@ -32,12 +32,14 @@ export default function Home() {
         }
         description={
           <>
-            In the heart of Africa, where vibrant cultures intertwine and
-            ancient wisdom echoes through the ages, a passionate group of
-            visionaries has embarked on a transformative journey. We are SalTech
-            Innovations, a self-founded company committed to preserving our rich
-            African heritage while propelling our continent into the digital
-            future.
+            SalTech is an innovative lab with a diverse team of individuals
+            dedicated to using digital tools to drive and solve unique
+            human-related issues. As a self-founded company, we are committed to
+            leveraging our products and partnerships to positively impact our
+            youth population. We develop products and launch projects quickly
+            across healthcare, fintech, lifestyle, human resources, and
+            business2business applications, all with the intention of changing
+            the world as we know it.
           </>
         }
       />
@@ -66,15 +68,15 @@ export default function Home() {
         Through Innovation. We believe that by harnessing the power of
         innovative mobile technologies, we can empower individuals,
         businesses, and communities to overcome local challenges and drive
-        positive change across Africa.`}
+        positive change across world.`}
         description={
           <>
             As technology becomes an integral part of daily life, we reimagine
             its role in fostering community growth and development. We are
             dedicated to creating opportunities for people and businesses to
             thrive by providing access to cutting-edge mobile solutions tailored
-            to the unique needs of African users. By bridging the digital
-            divide, we strive to build a brighter future for Africa, where
+            to the unique needs of all our users. By bridging the digital
+            divide, we strive to build a brighter future for everyone, where
             everyone has the tools and resources to succeed.
           </>
         }
@@ -84,7 +86,7 @@ export default function Home() {
         subHeader={"What We Are"}
         title={undefined}
         description={
-          "Founded on the principles of fostering black enterprise and driving social mobility, SalTec is a technology and information services organization. We are dedicated to revolutionizing the digital landscape in Africa by developing innovative solutions that empower individuals, businesses, and communities."
+          "Founded on the principles of fostering black enterprise and driving social mobility, SalTech is a technology and information services organization. We are dedicated to revolutionizing the digital landscape in Africa by developing innovative solutions that empower individuals, businesses, and communities."
         }
         subConent={""}
       />
