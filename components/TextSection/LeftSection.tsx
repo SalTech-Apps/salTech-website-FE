@@ -17,17 +17,17 @@ export const LeftTextSection = ({
   image: { src: string; alt: string; map?: React.ReactNode };
 }) => {
   return (
-    <section className="flex flex-wrap items-center justify-between pb-12 max-h-[50rem] overflow-hidden bg-background bg-[url('/layout/net.png')]">
+    <section className="flex flex-wrap items-center justify-between  max-h-[50rem] overflow-hidden bg-background bg-[url('/layout/net.png')] dark:bg-[url('/layout/net-dark.png')] bg-cover bg-bottom">
       {/* Image */}
-      <div className="w-full md:w-1/2 overflow-hidden">
+      <div className="w-full md:w-1/2 h-full overflow-hidden">
         {!image.map ? (
-          <img src={image.src} alt={image.alt} className="w-full" />
+          <img src={image.src} alt={image.alt} className="w-full h-full" />
         ) : (
           image.map
         )}
       </div>
       {/* Text */}
-      <div className="w-full md:w-1/2 mt-8 md:mt-0 px-8 md:px-12 2xl:px-14">
+      <div className="w-full md:w-1/2 mt-8 md:mt-0 px-8 md:px-12 2xl:px-14 pb-12 ">
         <span className="bg-primary/30 rounded-full text-black dark:text-white  px-4 py-2 ">
           {subHeader}
         </span>

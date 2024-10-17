@@ -4,7 +4,7 @@ import { Logo } from "./icons";
 
 export default function Footer() {
   return (
-    <footer className="bg-zinc-100 dark:bg-zinc-700 text-foreground">
+    <footer className="bg-zinc-100 dark:bg-primary/40 text-foreground">
       <div className="container mx-auto py-8 px-4">
         <div className="flex flex-col md:flex-row justify-between gap-6">
           {/* Company Info */}
@@ -52,7 +52,7 @@ export default function Footer() {
           </div>
 
           {/* Newsletter */}
-          <div className="w-full mt-6 md:mt-0 md:w-1/3">
+          {/* <div className="w-full mt-6 md:mt-0 md:w-1/3">
             <h3 className="text-lg font-semibold">Newsletter Signup</h3>
             <div className="flex flex-col md:flex-row mt-4">
               <input
@@ -77,7 +77,7 @@ export default function Footer() {
                 </svg>
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
