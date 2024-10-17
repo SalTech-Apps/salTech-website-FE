@@ -14,13 +14,10 @@ const Values = () => {
               {value.title}
             </div>
             <div className="rounded-lg overflow-hidden shadow-lg  mt-4 ">
-              <div className="bg-primary dark:text-black text-white font-semibold px-2 py-4">
-                <p className="">
-                  Equalization, not Disruption: Systems Approach Hinged on
-                  Technology
-                </p>
+              <div className="bg-primary dark:text-black text-white font-semibold px-2 py-4 min-h-20">
+                <p className="">{value.subText}</p>
               </div>
-              <div className="my-2 p-2 text-center">
+              <div className="my-2 p-2 text-center md:min-h-56">
                 <p>{value.description}</p>
               </div>
             </div>

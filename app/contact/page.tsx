@@ -63,7 +63,7 @@ function ContactUs() {
           <span className=" text-primary">Contact</span> Us
         </h1>
       </PageName>
-      <section className="flex flex-wrap items-center justify-between pb-12 overflow-hidden bg-background bg-[url('/layout/net.png')]">
+      <section className="flex flex-wrap items-center justify-between pb-12 overflow-hidden bg-background bg-cover bg-bottom bg-[url('/layout/net.png')] dark:bg-[url('/layout/net-dark.png')]">
         {/* Image */}
         <div className="w-full md:w-1/2 overflow-hidden bg-zinc-100">
           <iframe

@@ -16,9 +16,9 @@ export const RightTextSection = ({
   image: { src: string; alt: string };
 }) => {
   return (
-    <section className="flex flex-wrap items-center justify-between pb-12 max-h-[50rem] overflow-hidden bg-background bg-[url('/layout/net.png')]">
+    <section className="flex flex-wrap items-center justify-between max-h-[50rem] overflow-hidden bg-background bg-[url('/layout/net.png')] dark:bg-[url('/layout/net-dark.png')] bg-cover bg-bottom">
       {/* Text */}
-      <div className="w-full md:w-1/2 mt-8 md:mt-0 px-8 md:px-12 2xl:px-14">
+      <div className="w-full md:w-1/2 mt-8 md:mt-0 px-8 md:px-12 2xl:px-14  pb-12">
         {subHeader && (
           <span className="bg-primary/30 rounded-full text-black dark:text-white font-bold px-4 py-2 ">
             {subHeader}
@@ -35,8 +35,8 @@ export const RightTextSection = ({
       </div>
 
       {/* Image */}
-      <div className="w-full md:w-1/2 overflow-hidden">
-        <img src={image.src} alt={image.alt} className="w-full" />
+      <div className="w-full h-full md:w-1/2 overflow-hidden">
+        <img src={image.src} alt={image.alt} className="w-full h-full" />
       </div>
     </section>
   );
