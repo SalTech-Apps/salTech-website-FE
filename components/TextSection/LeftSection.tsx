@@ -17,7 +17,7 @@ export const LeftTextSection = ({
   image: { src: string; alt: string; map?: React.ReactNode };
 }) => {
   return (
-    <section className="flex flex-wrap items-center justify-between  max-h-[50rem] overflow-hidden bg-background bg-[url('/layout/net.png')] dark:bg-[url('/layout/net-dark.png')] bg-cover bg-bottom">
+    <section className="w-full 2xl:container mx-auto flex flex-wrap items-center justify-between  max-h-[50rem] overflow-hidden bg-background bg-[url('/layout/net.png')] dark:bg-[url('/layout/net-dark.png')] bg-cover bg-bottom">
       {/* Image */}
       <div className="w-full md:w-1/2 h-full overflow-hidden">
         {!image.map ? (

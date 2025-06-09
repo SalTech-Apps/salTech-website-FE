@@ -29,6 +29,7 @@
     "@react-aria/visually-hidden": "3.8.12",
     "clsx": "2.1.1",
     "framer-motion": "~11.1.1",
+    "gsap": "^3.13.0",
     "intl-messageformat": "^10.5.0",
     "next": "14.2.4",
     "next-themes": "^0.2.1",
@@ -39,6 +40,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@types/gsap": "^3.0.0",
     "@types/node": "20.5.7",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",

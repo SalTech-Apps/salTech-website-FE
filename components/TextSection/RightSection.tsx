@@ -16,7 +16,7 @@ export const RightTextSection = ({
   image: { src: string; alt: string };
 }) => {
   return (
-    <section className="flex flex-wrap items-center justify-between max-h-[50rem] overflow-hidden bg-background bg-[url('/layout/net.png')] dark:bg-[url('/layout/net-dark.png')] bg-cover bg-bottom">
+    <section className=" mx-auto w-full 2xl:container flex flex-wrap items-center justify-between max-h-[50rem] overflow-hidden bg-background bg-[url('/layout/net.png')] dark:bg-[url('/layout/net-dark.png')] bg-cover bg-bottom">
       {/* Text */}
       <div className="w-full md:w-1/2 mt-8 md:mt-0 px-8 md:px-12 2xl:px-14  pb-12">
         {subHeader && (
