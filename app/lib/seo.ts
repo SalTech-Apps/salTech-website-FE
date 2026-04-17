@@ -9,7 +9,7 @@ export const DEFAULT_DESCRIPTION =
 
 const BASE_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_SITE_URL) ||
-  "https://jesfemmultiservice.com";
+  "https://www.saltechapps.com";
 const DEFAULT_OG_IMAGE = "/assets/logo/logo-transparent.webp";
 
 /** Build absolute URL for a path (no leading slash required). */

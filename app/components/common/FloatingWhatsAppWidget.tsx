@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { FloatingWhatsApp } from "@digicroz/react-floating-whatsapp";
 import { getSiteConfig } from "@/lib/siteConfig";
 
-const FALLBACK_PHONE = "2340000000000";
-const ACCOUNT_NAME = "Jesfem";
+const FALLBACK_PHONE = "+1(717)903-2868";
+const ACCOUNT_NAME = "SalTech";
 
 /** Convert site config WhatsApp string to digits-only international format (e.g. 2348012345678). */
 function phoneNumberFromWhatsApp(whatsapp: string | undefined): string {

@@ -21,7 +21,8 @@ export function meta({
     "Page";
   return buildMetaTags({
     title: titleFromSlug,
-    description: "SALTECH real estate and property investment.",
+    description:
+      "SalTech — mission-critical digital products, platform engineering, and product design.",
     path: location.pathname,
   });
 }
@@ -82,7 +83,9 @@ export default function PageBySlug() {
     if (notFound || loading) return;
     const pageTitle = seoTitle || title;
     const pageDescription = seoDescription;
-    document.title = pageTitle ? `${pageTitle} | ${SITE_NAME}` : `${SITE_NAME} | Premium Real Estate`;
+    document.title = pageTitle
+      ? `${pageTitle} | ${SITE_NAME}`
+      : `${SITE_NAME} | Mission-Critical Digital Products`;
     let metaDesc = document.querySelector('meta[name="description"]');
     let createdMeta: HTMLMetaElement | null = null;
     if (pageDescription && metaDesc) {
@@ -94,7 +97,7 @@ export default function PageBySlug() {
       document.head.appendChild(createdMeta);
     }
     return () => {
-      document.title = `${SITE_NAME} | Premium Real Estate & Property Investment`;
+      document.title = `${SITE_NAME} | Mission-Critical Digital Products`;
       if (createdMeta?.parentNode) createdMeta.remove();
     };
   }, [loading, notFound, seoTitle, title, seoDescription]);
@@ -127,7 +130,8 @@ export default function PageBySlug() {
       <JsonLd
         data={webPageSchema({
           name: seoTitle || title,
-          description: seoDescription || `${title} - JESFEM real estate`,
+          description:
+            seoDescription || `${title} — SalTech digital products and engineering`,
           path: `/page/${slug}`,
         })}
       />

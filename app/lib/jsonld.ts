@@ -50,8 +50,9 @@ export function contactPageSchema(path: string) {
   return {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: "Contact JESFEM",
-    description: "Get in touch with JESFEM for property inquiries and consultations.",
+    name: "Contact SalTech",
+    description:
+      "Get in touch with SalTech for product inquiries, partnerships, and project consultations.",
     url: absoluteUrl(path),
     isPartOf: webSiteSchema(path),
     publisher: organizationSchema(),
@@ -96,7 +97,9 @@ export function productSchema(input: {
     "@context": "https://schema.org",
     "@type": "Product",
     name: input.name,
-    description: input.description || `${input.name} - Real estate listing from JESFEM`,
+    description:
+      input.description ||
+      `${input.name} - Digital product offering from SalTech Innovations LLC`,
     image: input.image.startsWith("http") ? input.image : absoluteUrl(input.image),
     url: absoluteUrl(input.path),
     offers: {

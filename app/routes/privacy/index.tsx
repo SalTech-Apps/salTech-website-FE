@@ -10,7 +10,8 @@ import { webPageSchema } from "@/lib/jsonld";
 export function meta({ location }: { location: { pathname: string } }) {
   return buildMetaTags({
     title: "Privacy Policy",
-    description: "JESFEM privacy policy. Learn how we collect, use, and protect your personal information.",
+    description:
+      "SalTech privacy policy. Learn how we collect, use, and protect your personal information.",
     path: location.pathname,
   });
 }
@@ -40,7 +41,8 @@ export default function PrivacyPage() {
       <JsonLd
         data={webPageSchema({
           name: "Privacy Policy",
-          description: "JESFEM privacy policy. Learn how we collect, use, and protect your personal information.",
+          description:
+            "SalTech privacy policy. Learn how we collect, use, and protect your personal information.",
           path: "/privacy",
         })}
       />

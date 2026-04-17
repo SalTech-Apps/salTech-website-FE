@@ -28,14 +28,16 @@ export function meta({
   if (project) {
     return buildMetaTags({
       title: project.title,
-      description: project.description?.slice(0, 160) || `${project.title} - JESFEM project portfolio`,
+      description:
+        project.description?.slice(0, 160) ||
+        `${project.title} — SalTech project portfolio`,
       image: project.image,
       path: location.pathname,
     });
   }
   return buildMetaTags({
     title: "Project",
-    description: "View JESFEM real estate project details.",
+    description: "View SalTech project details and case studies.",
     path: location.pathname,
   });
 }

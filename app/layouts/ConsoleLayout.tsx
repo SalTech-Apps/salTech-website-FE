@@ -64,7 +64,7 @@ function LoginForm() {
     <div className="flex min-h-screen items-center justify-center bg-main-background">
       <div className="w-full max-w-md rounded-xl border border-soft-divider-line bg-secondary-background p-8">
         <h1 className="mb-2 text-center font-heading text-heading-h2 text-main-text-headlines">
-          Jesfem Console
+          Saltech Console
         </h1>
         <p className="mb-8 text-center text-body text-secondary-text-body-paragraphs">
           Sign in to manage your site
@@ -164,7 +164,7 @@ export default function ConsoleLayout() {
             prefetch="intent"
             className="font-heading text-xl text-primary-gold"
           >
-            Jesfem Console
+            SalTech Console
           </Link>
           <button
             className="lg:hidden text-muted-labels"
@@ -218,7 +218,7 @@ export default function ConsoleLayout() {
             <IoMenuOutline size={24} />
           </button>
           <span className="font-heading text-lg text-primary-gold">
-            Jesfem Console
+            SalTech Console
           </span>
         </header>
 

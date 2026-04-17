@@ -11,7 +11,7 @@ export function meta({ location }: { location: { pathname: string } }) {
   return buildMetaTags({
     title: "Terms of Service",
     description:
-      "SALTECH terms of service and legal agreements for using our real estate and property services.",
+      "SalTech terms of service and legal agreements for using our website and digital services.",
     path: location.pathname,
   });
 }
@@ -41,7 +41,8 @@ export default function TermsPage() {
       <JsonLd
         data={webPageSchema({
           name: "Terms of Service",
-          description: "SALTECH terms of service and legal agreements for using our real estate and property services.",
+          description:
+            "SalTech terms of service and legal agreements for using our website and digital services.",
           path: "/terms",
         })}
       />

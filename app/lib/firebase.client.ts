@@ -20,7 +20,7 @@ const firebaseConfig = {
 };
 
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-const databaseId = import.meta.env.VITE_FIREBASE_DATABASE_ID || "Jesfem-db";
+const databaseId = import.meta.env.VITE_FIREBASE_DATABASE_ID;
 // console.log(firebaseConfig,databaseId);
 
 function createFirestore() {
