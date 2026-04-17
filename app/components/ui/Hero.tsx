@@ -48,6 +48,8 @@ export interface HeroProps {
   titleVariant?: "headlines" | "gold" | "white";
   /** Optional CTA(s): buttons or other content below subtitle. */
   actions?: ReactNode;
+  /** Small label above the title (e.g. uppercase gold “OUR PRODUCTS”). */
+  eyebrow?: ReactNode;
   /** Optional custom content (e.g. multiple paragraphs). Rendered below subtitle, above actions. */
   children?: ReactNode;
   /** Max width of content area: "narrow" (max-w-3xl), "default" (max-w-4xl), "wide" (max-w-7xl). */
@@ -198,6 +200,7 @@ function BackgroundYoutubeSegment({ url }: { url: string }) {
 }
 
 export function Hero({
+  eyebrow,
   title,
   subtitle,
   backgroundImage,
@@ -231,6 +234,22 @@ export function Hero({
 
   const contentInner = (
     <>
+      {eyebrow != null && (
+        <motion.div
+          className="mb-4 text-center"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {typeof eyebrow === "string" ? (
+            <p className="text-buttons uppercase tracking-widest text-primary-gold">
+              {eyebrow}
+            </p>
+          ) : (
+            eyebrow
+          )}
+        </motion.div>
+      )}
       {showDivider && dividerPosition === "aboveTitle" && (
         <motion.div
           className={dividerClassName}

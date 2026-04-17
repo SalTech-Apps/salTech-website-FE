@@ -23,13 +23,16 @@ type Pages = {
   "/sw.js": {
     params: {};
   };
-  "/about": {
-    params: {};
-  };
   "/services": {
     params: {};
   };
-  "/landlords": {
+  "/case-studies": {
+    params: {};
+  };
+  "/about": {
+    params: {};
+  };
+  "/contact": {
     params: {};
   };
   "/projects": {
@@ -39,53 +42,6 @@ type Pages = {
     params: {
       "id": string;
     };
-  };
-  "/insights": {
-    params: {};
-  };
-  "/insights/rss.xml": {
-    params: {};
-  };
-  "/insights/:slug": {
-    params: {
-      "slug": string;
-    };
-  };
-  "/contact": {
-    params: {};
-  };
-  "/review": {
-    params: {};
-  };
-  "/faq": {
-    params: {};
-  };
-  "/rentals": {
-    params: {};
-  };
-  "/rentals/:slug": {
-    params: {
-      "slug": string;
-    };
-  };
-  "/properties": {
-    params: {};
-  };
-  "/properties/:slug": {
-    params: {
-      "slug": string;
-    };
-  };
-  "/off-plan": {
-    params: {};
-  };
-  "/off-plan/:id": {
-    params: {
-      "id": string;
-    };
-  };
-  "/intelligence": {
-    params: {};
   };
   "/terms": {
     params: {};
@@ -98,86 +54,7 @@ type Pages = {
       "slug": string;
     };
   };
-  "/survey": {
-    params: {};
-  };
   "/console": {
-    params: {};
-  };
-  "/console/properties": {
-    params: {};
-  };
-  "/console/properties/new": {
-    params: {};
-  };
-  "/console/properties/:id/edit": {
-    params: {
-      "id": string;
-    };
-  };
-  "/console/consultations": {
-    params: {};
-  };
-  "/console/reviews": {
-    params: {};
-  };
-  "/console/insights": {
-    params: {};
-  };
-  "/console/insights/new": {
-    params: {};
-  };
-  "/console/insights/:id/edit": {
-    params: {
-      "id": string;
-    };
-  };
-  "/console/newsletter": {
-    params: {};
-  };
-  "/console/team": {
-    params: {};
-  };
-  "/console/pages": {
-    params: {};
-  };
-  "/console/pages/new": {
-    params: {};
-  };
-  "/console/pages/:id/edit": {
-    params: {
-      "id": string;
-    };
-  };
-  "/console/projects": {
-    params: {};
-  };
-  "/console/projects/new": {
-    params: {};
-  };
-  "/console/projects/:id/edit": {
-    params: {
-      "id": string;
-    };
-  };
-  "/console/off-plan": {
-    params: {};
-  };
-  "/console/off-plan/new": {
-    params: {};
-  };
-  "/console/off-plan/:id/edit": {
-    params: {
-      "id": string;
-    };
-  };
-  "/console/off-plan-wishlist": {
-    params: {};
-  };
-  "/console/config": {
-    params: {};
-  };
-  "/console/experience-study": {
     params: {};
   };
 };
@@ -185,7 +62,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/favicon.ico" | "/sitemap.xml" | "/sw.js" | "/about" | "/services" | "/landlords" | "/projects" | "/projects/:id" | "/insights" | "/insights/rss.xml" | "/insights/:slug" | "/contact" | "/review" | "/faq" | "/rentals" | "/rentals/:slug" | "/properties" | "/properties/:slug" | "/off-plan" | "/off-plan/:id" | "/intelligence" | "/terms" | "/privacy" | "/page/:slug" | "/survey" | "/console" | "/console/properties" | "/console/properties/new" | "/console/properties/:id/edit" | "/console/consultations" | "/console/reviews" | "/console/insights" | "/console/insights/new" | "/console/insights/:id/edit" | "/console/newsletter" | "/console/team" | "/console/pages" | "/console/pages/new" | "/console/pages/:id/edit" | "/console/projects" | "/console/projects/new" | "/console/projects/:id/edit" | "/console/off-plan" | "/console/off-plan/new" | "/console/off-plan/:id/edit" | "/console/off-plan-wishlist" | "/console/config" | "/console/experience-study";
+    page: "/" | "/favicon.ico" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/projects" | "/projects/:id" | "/terms" | "/privacy" | "/page/:slug" | "/console";
   };
   "routes/favicon[.]ico.tsx": {
     id: "routes/favicon[.]ico";
@@ -201,23 +78,27 @@ type RouteFiles = {
   };
   "layouts/MainLayout.tsx": {
     id: "layouts/MainLayout";
-    page: "/" | "/about" | "/services" | "/landlords" | "/projects" | "/projects/:id" | "/insights" | "/insights/rss.xml" | "/insights/:slug" | "/contact" | "/review" | "/faq" | "/rentals" | "/rentals/:slug" | "/properties" | "/properties/:slug" | "/off-plan" | "/off-plan/:id" | "/intelligence" | "/terms" | "/privacy" | "/page/:slug" | "/survey";
+    page: "/" | "/services" | "/case-studies" | "/about" | "/contact" | "/projects" | "/projects/:id" | "/terms" | "/privacy" | "/page/:slug";
   };
   "routes/home/index.tsx": {
     id: "routes/home/index";
     page: "/";
   };
-  "routes/about/index.tsx": {
-    id: "routes/about/index";
-    page: "/about";
-  };
   "routes/services/index.tsx": {
     id: "routes/services/index";
     page: "/services";
   };
-  "routes/landlords/index.tsx": {
-    id: "routes/landlords/index";
-    page: "/landlords";
+  "routes/case-studies/index.tsx": {
+    id: "routes/case-studies/index";
+    page: "/case-studies";
+  };
+  "routes/about/index.tsx": {
+    id: "routes/about/index";
+    page: "/about";
+  };
+  "routes/contact/index.tsx": {
+    id: "routes/contact/index";
+    page: "/contact";
   };
   "routes/projects/index.tsx": {
     id: "routes/projects/index";
@@ -226,58 +107,6 @@ type RouteFiles = {
   "routes/projects/$id.tsx": {
     id: "routes/projects/$id";
     page: "/projects/:id";
-  };
-  "routes/insights/index.tsx": {
-    id: "routes/insights/index";
-    page: "/insights";
-  };
-  "routes/insights/rss[.]xml.tsx": {
-    id: "routes/insights/rss[.]xml";
-    page: "/insights/rss.xml";
-  };
-  "routes/insights/$slug.tsx": {
-    id: "routes/insights/$slug";
-    page: "/insights/:slug";
-  };
-  "routes/contact/index.tsx": {
-    id: "routes/contact/index";
-    page: "/contact";
-  };
-  "routes/review/index.tsx": {
-    id: "routes/review/index";
-    page: "/review";
-  };
-  "routes/faq/index.tsx": {
-    id: "routes/faq/index";
-    page: "/faq";
-  };
-  "routes/rentals/index.tsx": {
-    id: "routes/rentals/index";
-    page: "/rentals";
-  };
-  "routes/rentals/$slug.tsx": {
-    id: "routes/rentals/$slug";
-    page: "/rentals/:slug";
-  };
-  "routes/properties/index.tsx": {
-    id: "routes/properties/index";
-    page: "/properties";
-  };
-  "routes/properties/$slug.tsx": {
-    id: "routes/properties/$slug";
-    page: "/properties/:slug";
-  };
-  "routes/off-plan/index.tsx": {
-    id: "routes/off-plan/index";
-    page: "/off-plan";
-  };
-  "routes/off-plan/$id.tsx": {
-    id: "routes/off-plan/$id";
-    page: "/off-plan/:id";
-  };
-  "routes/intelligence/index.tsx": {
-    id: "routes/intelligence/index";
-    page: "/intelligence";
   };
   "routes/terms/index.tsx": {
     id: "routes/terms/index";
@@ -291,105 +120,9 @@ type RouteFiles = {
     id: "routes/page/$slug";
     page: "/page/:slug";
   };
-  "routes/survey/index.tsx": {
-    id: "routes/survey/index";
-    page: "/survey";
-  };
   "layouts/ConsoleLayout.tsx": {
     id: "layouts/ConsoleLayout";
-    page: "/console" | "/console/properties" | "/console/properties/new" | "/console/properties/:id/edit" | "/console/consultations" | "/console/reviews" | "/console/insights" | "/console/insights/new" | "/console/insights/:id/edit" | "/console/newsletter" | "/console/team" | "/console/pages" | "/console/pages/new" | "/console/pages/:id/edit" | "/console/projects" | "/console/projects/new" | "/console/projects/:id/edit" | "/console/off-plan" | "/console/off-plan/new" | "/console/off-plan/:id/edit" | "/console/off-plan-wishlist" | "/console/config" | "/console/experience-study";
-  };
-  "routes/console/index.tsx": {
-    id: "routes/console/index";
     page: "/console";
-  };
-  "routes/console/properties/index.tsx": {
-    id: "routes/console/properties/index";
-    page: "/console/properties";
-  };
-  "routes/console/properties/new.tsx": {
-    id: "routes/console/properties/new";
-    page: "/console/properties/new";
-  };
-  "routes/console/properties/$id.edit.tsx": {
-    id: "routes/console/properties/$id.edit";
-    page: "/console/properties/:id/edit";
-  };
-  "routes/console/consultations/index.tsx": {
-    id: "routes/console/consultations/index";
-    page: "/console/consultations";
-  };
-  "routes/console/reviews/index.tsx": {
-    id: "routes/console/reviews/index";
-    page: "/console/reviews";
-  };
-  "routes/console/insights/index.tsx": {
-    id: "routes/console/insights/index";
-    page: "/console/insights";
-  };
-  "routes/console/insights/new.tsx": {
-    id: "routes/console/insights/new";
-    page: "/console/insights/new";
-  };
-  "routes/console/insights/$id.edit.tsx": {
-    id: "routes/console/insights/$id.edit";
-    page: "/console/insights/:id/edit";
-  };
-  "routes/console/newsletter/index.tsx": {
-    id: "routes/console/newsletter/index";
-    page: "/console/newsletter";
-  };
-  "routes/console/team/index.tsx": {
-    id: "routes/console/team/index";
-    page: "/console/team";
-  };
-  "routes/console/pages/index.tsx": {
-    id: "routes/console/pages/index";
-    page: "/console/pages";
-  };
-  "routes/console/pages/new.tsx": {
-    id: "routes/console/pages/new";
-    page: "/console/pages/new";
-  };
-  "routes/console/pages/$id.edit.tsx": {
-    id: "routes/console/pages/$id.edit";
-    page: "/console/pages/:id/edit";
-  };
-  "routes/console/projects/index.tsx": {
-    id: "routes/console/projects/index";
-    page: "/console/projects";
-  };
-  "routes/console/projects/new.tsx": {
-    id: "routes/console/projects/new";
-    page: "/console/projects/new";
-  };
-  "routes/console/projects/$id.edit.tsx": {
-    id: "routes/console/projects/$id.edit";
-    page: "/console/projects/:id/edit";
-  };
-  "routes/console/off-plan/index.tsx": {
-    id: "routes/console/off-plan/index";
-    page: "/console/off-plan";
-  };
-  "routes/console/off-plan/new.tsx": {
-    id: "routes/console/off-plan/new";
-    page: "/console/off-plan/new";
-  };
-  "routes/console/off-plan/$id.edit.tsx": {
-    id: "routes/console/off-plan/$id.edit";
-    page: "/console/off-plan/:id/edit";
-  };
-  "routes/console/off-plan-wishlist/index.tsx": {
-    id: "routes/console/off-plan-wishlist/index";
-    page: "/console/off-plan-wishlist";
-  };
-  "routes/console/config.tsx": {
-    id: "routes/console/config";
-    page: "/console/config";
-  };
-  "routes/console/experience-study/index.tsx": {
-    id: "routes/console/experience-study/index";
-    page: "/console/experience-study";
   };
 };
 
@@ -400,50 +133,14 @@ type RouteModules = {
   "routes/sw[.]js": typeof import("./app/routes/sw[.]js.tsx");
   "layouts/MainLayout": typeof import("./app/layouts/MainLayout.tsx");
   "routes/home/index": typeof import("./app/routes/home/index.tsx");
-  "routes/about/index": typeof import("./app/routes/about/index.tsx");
   "routes/services/index": typeof import("./app/routes/services/index.tsx");
-  "routes/landlords/index": typeof import("./app/routes/landlords/index.tsx");
+  "routes/case-studies/index": typeof import("./app/routes/case-studies/index.tsx");
+  "routes/about/index": typeof import("./app/routes/about/index.tsx");
+  "routes/contact/index": typeof import("./app/routes/contact/index.tsx");
   "routes/projects/index": typeof import("./app/routes/projects/index.tsx");
   "routes/projects/$id": typeof import("./app/routes/projects/$id.tsx");
-  "routes/insights/index": typeof import("./app/routes/insights/index.tsx");
-  "routes/insights/rss[.]xml": typeof import("./app/routes/insights/rss[.]xml.tsx");
-  "routes/insights/$slug": typeof import("./app/routes/insights/$slug.tsx");
-  "routes/contact/index": typeof import("./app/routes/contact/index.tsx");
-  "routes/review/index": typeof import("./app/routes/review/index.tsx");
-  "routes/faq/index": typeof import("./app/routes/faq/index.tsx");
-  "routes/rentals/index": typeof import("./app/routes/rentals/index.tsx");
-  "routes/rentals/$slug": typeof import("./app/routes/rentals/$slug.tsx");
-  "routes/properties/index": typeof import("./app/routes/properties/index.tsx");
-  "routes/properties/$slug": typeof import("./app/routes/properties/$slug.tsx");
-  "routes/off-plan/index": typeof import("./app/routes/off-plan/index.tsx");
-  "routes/off-plan/$id": typeof import("./app/routes/off-plan/$id.tsx");
-  "routes/intelligence/index": typeof import("./app/routes/intelligence/index.tsx");
   "routes/terms/index": typeof import("./app/routes/terms/index.tsx");
   "routes/privacy/index": typeof import("./app/routes/privacy/index.tsx");
   "routes/page/$slug": typeof import("./app/routes/page/$slug.tsx");
-  "routes/survey/index": typeof import("./app/routes/survey/index.tsx");
   "layouts/ConsoleLayout": typeof import("./app/layouts/ConsoleLayout.tsx");
-  "routes/console/index": typeof import("./app/routes/console/index.tsx");
-  "routes/console/properties/index": typeof import("./app/routes/console/properties/index.tsx");
-  "routes/console/properties/new": typeof import("./app/routes/console/properties/new.tsx");
-  "routes/console/properties/$id.edit": typeof import("./app/routes/console/properties/$id.edit.tsx");
-  "routes/console/consultations/index": typeof import("./app/routes/console/consultations/index.tsx");
-  "routes/console/reviews/index": typeof import("./app/routes/console/reviews/index.tsx");
-  "routes/console/insights/index": typeof import("./app/routes/console/insights/index.tsx");
-  "routes/console/insights/new": typeof import("./app/routes/console/insights/new.tsx");
-  "routes/console/insights/$id.edit": typeof import("./app/routes/console/insights/$id.edit.tsx");
-  "routes/console/newsletter/index": typeof import("./app/routes/console/newsletter/index.tsx");
-  "routes/console/team/index": typeof import("./app/routes/console/team/index.tsx");
-  "routes/console/pages/index": typeof import("./app/routes/console/pages/index.tsx");
-  "routes/console/pages/new": typeof import("./app/routes/console/pages/new.tsx");
-  "routes/console/pages/$id.edit": typeof import("./app/routes/console/pages/$id.edit.tsx");
-  "routes/console/projects/index": typeof import("./app/routes/console/projects/index.tsx");
-  "routes/console/projects/new": typeof import("./app/routes/console/projects/new.tsx");
-  "routes/console/projects/$id.edit": typeof import("./app/routes/console/projects/$id.edit.tsx");
-  "routes/console/off-plan/index": typeof import("./app/routes/console/off-plan/index.tsx");
-  "routes/console/off-plan/new": typeof import("./app/routes/console/off-plan/new.tsx");
-  "routes/console/off-plan/$id.edit": typeof import("./app/routes/console/off-plan/$id.edit.tsx");
-  "routes/console/off-plan-wishlist/index": typeof import("./app/routes/console/off-plan-wishlist/index.tsx");
-  "routes/console/config": typeof import("./app/routes/console/config.tsx");
-  "routes/console/experience-study/index": typeof import("./app/routes/console/experience-study/index.tsx");
 };

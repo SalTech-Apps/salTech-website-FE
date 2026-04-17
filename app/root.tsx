@@ -19,11 +19,11 @@ import { getBaseUrl } from "@/lib/seo";
 const ORGANIZATION_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "JESFEM",
+  name: "SalTech Innovations LLC",
   url: getBaseUrl(),
   logo: `${getBaseUrl()}/assets/logo/logo-transparent.png`,
   description:
-    "Premium real estate and property investment in Nigeria. Luxury properties, off-plan deals, rentals, and expert investment guidance.",
+    "Mission-critical digital products for startups, enterprises, and governments across Africa and beyond.",
 };
 
 export const links = () => [
@@ -47,7 +47,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#0e0e10" />
-        <title>JESFEM | Premium Real Estate & Property Investment</title>
+        <title>SalTech | Mission-Critical Digital Products</title>
         {/* Non-blocking font loading - media=print defers, onLoad switches to all */}
         <link
           rel="stylesheet"
@@ -65,6 +65,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
             (e.target as HTMLLinkElement).media = "all";
           }}
         />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap"
+          media="print"
+          onLoad={(e) => {
+            (e.target as HTMLLinkElement).media = "all";
+          }}
+        />
         <noscript>
           <link
             rel="stylesheet"
@@ -73,6 +81,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap"
           />
         </noscript>
         <script

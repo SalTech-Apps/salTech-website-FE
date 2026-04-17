@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Hero } from "@/components/ui/Hero";
-import aboutHeroImage from "@/assets/about/banner.png";
+import aboutHeroImage from "@/assets/about/banner.jpg";
 
 export function AboutHeroSection() {
   return (

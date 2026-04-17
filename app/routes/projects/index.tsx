@@ -1,34 +1,35 @@
 import {
-  ProjectsHeroSection,
-  CompletedProjectsSection,
-  OngoingProjectsSection,
-} from "@/components/projects";
+  ProductsCtaSection,
+  ProductsPageHero,
+  ProductsPortfolioSection,
+} from "@/components/saltech/products";
 import { buildMetaTags } from "@/lib/seo";
 import { JsonLd } from "@/components/seo";
 import { webPageSchema } from "@/lib/jsonld";
 
 export function meta({ location }: { location: { pathname: string } }) {
   return buildMetaTags({
-    title: "Projects & Portfolio",
+    title: "Products",
     description:
-      "Explore JESFEM's completed and ongoing real estate projects. View our portfolio of premium developments across Nigeria.",
+      "Explore SalTech-built tools and platforms across fintech, govtech, healthcare, and enterprise SaaS.",
     path: location.pathname,
   });
 }
 
 export default function Projects() {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex w-full flex-col">
       <JsonLd
         data={webPageSchema({
-          name: "Projects & Portfolio",
-          description: "Explore JESFEM's completed and ongoing real estate projects across Nigeria.",
+          name: "Products",
+          description:
+            "A portfolio of proprietary and client products engineered by SalTech.",
           path: "/projects",
         })}
       />
-      <ProjectsHeroSection />
-      <CompletedProjectsSection />
-      <OngoingProjectsSection />
+      <ProductsPageHero />
+      <ProductsPortfolioSection />
+      <ProductsCtaSection />
     </div>
   );
 }

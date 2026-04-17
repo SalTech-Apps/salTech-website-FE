@@ -1,0 +1,9 @@
+export { SalTechHero } from "./SalTechHero";
+export { SalTechShowcase } from "./SalTechShowcase";
+export { SalTechCaseStudies } from "./SalTechCaseStudies";
+export { SalTechEnterprise } from "./SalTechEnterprise";
+export { SalTechCapabilities } from "./SalTechCapabilities";
+export { SalTechProcess } from "./SalTechProcess";
+export { SalTechIndustries } from "./SalTechIndustries";
+export { SalTechTestimonials } from "./SalTechTestimonials";
+export { SalTechBottomCta } from "./SalTechBottomCta";

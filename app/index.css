@@ -34,6 +34,11 @@
   /* Font families */
   --font-heading: "Cormorant Garamond", serif;
   --font-body: "Manrope", var(--font-sans);
+  /* SalTech marketing (Figma home) */
+  --font-saltech-display: "DM Serif Display", "Cormorant Garamond", ui-serif,
+    Georgia, serif;
+  --font-saltech-sans: "DM Sans", "Manrope", ui-sans-serif, system-ui,
+    sans-serif;
 }
 
 /* Semantic aliases for HeroUI / dark mode */

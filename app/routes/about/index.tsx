@@ -1,50 +1,37 @@
 import {
-  AboutHeroSection,
-  OurStorySection,
-  VisionGoalsSection,
-  ByTheNumbersSection,
-  LeadershipTeamSection,
-  ComplianceSection,
-  FloatingChatButton,
-} from "@/components/about";
-import { WhyInvestSection, CtaSection } from "@/components/home";
-import { buildMetaTags } from "@/lib/seo";
+  AboutInterestedSection,
+  AboutMissionSection,
+  AboutPageHero,
+  AboutValuesSection,
+} from "@/components/saltech/about";
 import { JsonLd } from "@/components/seo";
 import { webPageSchema } from "@/lib/jsonld";
+import { buildMetaTags } from "@/lib/seo";
 
 export function meta({ location }: { location: { pathname: string } }) {
   return buildMetaTags({
-    title: "About Us",
+    title: "About",
     description:
-      "Learn about JESFEM's mission, vision, and team. We deliver premium real estate solutions and investment opportunities across Nigeria.",
+      "SalTech builds mission-critical digital products for Africa and beyond — execution, security, and long-term ownership baked in.",
     path: location.pathname,
   });
 }
 
-export default function About() {
+export default function AboutPage() {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex w-full flex-col">
       <JsonLd
         data={webPageSchema({
-          name: "About Us",
-          description: "Learn about JESFEM's mission, vision, and team. We deliver premium real estate solutions across Nigeria.",
+          name: "About SalTech",
+          description:
+            "Our mission, values, and the team behind production-grade software delivery.",
           path: "/about",
         })}
       />
-      <AboutHeroSection />
-      <OurStorySection />
-      <VisionGoalsSection />
-      <ByTheNumbersSection />
-      <LeadershipTeamSection />
-      <WhyInvestSection />
-      <ComplianceSection />
-      <CtaSection
-        heading="Work With a Team That Does It Right"
-        primaryButtonLabel="GET STARTED TODAY"
-        primaryButtonTo="/contact"
-        showSecondaryButton={false}
-      />
-      <FloatingChatButton />
+      <AboutPageHero />
+      <AboutMissionSection />
+      <AboutValuesSection />
+      <AboutInterestedSection />
     </div>
   );
 }

@@ -7,6 +7,7 @@ const BASE = getBaseUrl();
 const STATIC_URLS: Array<{ loc: string; changefreq: string; priority: string }> = [
   { loc: `${BASE}/`, changefreq: "weekly", priority: "1.0" },
   { loc: `${BASE}/about`, changefreq: "monthly", priority: "0.9" },
+  { loc: `${BASE}/case-studies`, changefreq: "monthly", priority: "0.9" },
   { loc: `${BASE}/services`, changefreq: "monthly", priority: "0.9" },
   { loc: `${BASE}/landlords`, changefreq: "monthly", priority: "0.9" },
   { loc: `${BASE}/projects`, changefreq: "weekly", priority: "0.9" },

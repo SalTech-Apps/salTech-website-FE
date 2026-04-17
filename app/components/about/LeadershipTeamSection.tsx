@@ -89,7 +89,10 @@ export function LeadershipTeamSection() {
   }, []);
 
   return (
-    <section className="border-t border-soft-divider-line bg-main-background py-16 sm:py-24">
+    <section
+      id="our-team"
+      className="border-t border-soft-divider-line bg-main-background py-16 sm:py-24"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading title="Leadership Team" level="h2" />
         <motion.div

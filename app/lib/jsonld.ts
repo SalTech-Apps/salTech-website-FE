@@ -9,11 +9,11 @@ export function organizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "JESFEM",
+    name: "SalTech Innovations LLC",
     url: getBaseUrl(),
     logo: `${getBaseUrl()}/assets/logo/logo-transparent.png`,
     description:
-      "Premium real estate and property investment in Nigeria. Luxury properties, off-plan deals, rentals, and expert investment guidance.",
+      "Mission-critical digital products for startups, enterprises, and governments — platform engineering, MVP delivery, and product design.",
   };
 }
 
@@ -21,10 +21,10 @@ export function webSiteSchema(pathname = "/") {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "JESFEM",
+    name: "SalTech",
     url: getBaseUrl(),
     description:
-      "Discover premium real estate and property investment opportunities in Nigeria.",
+      "SalTech builds scalable digital products for regulated industries — from discovery to launch and scale.",
     publisher: organizationSchema(),
     inLanguage: "en",
   };

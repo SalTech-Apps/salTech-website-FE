@@ -2,10 +2,10 @@
  * SEO helpers, defaults, and meta tag builders for Lighthouse and SEO compliance.
  */
 
-export const SITE_NAME = "JESFEM";
-export const DEFAULT_TITLE = "JESFEM | Premium Real Estate & Property Investment";
+export const SITE_NAME = "SalTech";
+export const DEFAULT_TITLE = "SalTech | Mission-Critical Digital Products";
 export const DEFAULT_DESCRIPTION =
-  "Discover premium real estate and property investment opportunities in Nigeria. JESFEM offers luxury properties, off-plan deals, rentals, and expert investment guidance.";
+  "SalTech engineers mission-critical digital products for startups, enterprises, and governments — MVP delivery, platform engineering, and product design.";
 
 const BASE_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_SITE_URL) ||

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@heroui/react";
 import { Hero } from "@/components/ui/Hero";
-import heroImage from "@/assets/home/luxury-property.png";
+import heroImage from "@/assets/home/banner.jpg";
 
 export function HeroSection() {
   return (
