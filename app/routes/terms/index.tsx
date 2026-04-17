@@ -10,7 +10,8 @@ import { webPageSchema } from "@/lib/jsonld";
 export function meta({ location }: { location: { pathname: string } }) {
   return buildMetaTags({
     title: "Terms of Service",
-    description: "JESFEM terms of service and legal agreements for using our real estate and property services.",
+    description:
+      "SALTECH terms of service and legal agreements for using our real estate and property services.",
     path: location.pathname,
   });
 }
@@ -40,7 +41,7 @@ export default function TermsPage() {
       <JsonLd
         data={webPageSchema({
           name: "Terms of Service",
-          description: "JESFEM terms of service and legal agreements for using our real estate and property services.",
+          description: "SALTECH terms of service and legal agreements for using our real estate and property services.",
           path: "/terms",
         })}
       />

@@ -28,6 +28,6 @@ build
 build/*
 
 # Firebase service account (never commit)
-**/jesfem-*-*.json
-**/jesfem.json
+**/saltech-*-*.json
+**/saltech.json
 *-firebase-adminsdk-*.json
