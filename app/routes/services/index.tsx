@@ -3,6 +3,7 @@ import {
   ServicesCoreSection,
   ServicesPageHero,
 } from "@/components/saltech/services";
+import { Reveal } from "@/components/ui/Reveal";
 import { buildMetaTags } from "@/lib/seo";
 import { JsonLd } from "@/components/seo";
 import { webPageSchema } from "@/lib/jsonld";
@@ -28,8 +29,12 @@ export default function ServicesPage() {
         })}
       />
       <ServicesPageHero />
-      <ServicesCoreSection />
-      <ServicesBookCallSection />
+      <Reveal>
+        <ServicesCoreSection />
+      </Reveal>
+      <Reveal>
+        <ServicesBookCallSection />
+      </Reveal>
     </div>
   );
 }

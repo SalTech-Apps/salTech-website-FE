@@ -5,6 +5,7 @@ import { db } from "@/lib/firebase.client";
 import { Spinner } from "@heroui/react";
 import Markdown from "react-markdown";
 import { Hero } from "@/components/ui/Hero";
+import { Reveal } from "@/components/ui/Reveal";
 import { buildMetaTags, SITE_NAME } from "@/lib/seo";
 import { JsonLd } from "@/components/seo";
 import { webPageSchema } from "@/lib/jsonld";
@@ -86,7 +87,7 @@ export default function PageBySlug() {
     document.title = pageTitle
       ? `${pageTitle} | ${SITE_NAME}`
       : `${SITE_NAME} | Mission-Critical Digital Products`;
-    let metaDesc = document.querySelector('meta[name="description"]');
+    const metaDesc = document.querySelector('meta[name="description"]');
     let createdMeta: HTMLMetaElement | null = null;
     if (pageDescription && metaDesc) {
       metaDesc.setAttribute("content", pageDescription);
@@ -113,14 +114,14 @@ export default function PageBySlug() {
   if (notFound) {
     return (
       <div className="min-h-screen bg-main-background pt-20 sm:pt-24 lg:pt-32 pb-12 sm:pb-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center overflow-hidden">
+        <Reveal className="mx-auto max-w-3xl px-4 sm:px-6 text-center overflow-hidden">
           <h1 className="font-heading text-heading-h1 text-main-text-headlines mb-4">
             Page not found
           </h1>
           <p className="text-secondary-text-body-paragraphs">
             This page does not exist or is not published.
           </p>
-        </div>
+        </Reveal>
       </div>
     );
   }
@@ -140,7 +141,6 @@ export default function PageBySlug() {
           title={<>{title}</>}
           subtitle={seoDescription}
           backgroundImage={bannerImageUrl}
-          
           overlay="dark"
           size="compact"
           backgroundBlur
@@ -148,10 +148,12 @@ export default function PageBySlug() {
           titleVariant="headlines"
         />
       )}
-      <div className="mx-auto max-w-3xl mt-8 sm:mt-12 px-4 sm:px-6 overflow-hidden">
-        {!bannerImageUrl && <h1 className="mb-8 sm:mb-10 font-heading text-heading-h1 text-main-text-headlines">
-          {title}
-        </h1>}
+      <Reveal className="mx-auto max-w-3xl mt-8 sm:mt-12 px-4 sm:px-6 overflow-hidden">
+        {!bannerImageUrl && (
+          <h1 className="mb-8 sm:mb-10 font-heading text-heading-h1 text-main-text-headlines">
+            {title}
+          </h1>
+        )}
         {content ? (
           <article className="prose prose-invert max-w-none text-secondary-text-body-paragraphs prose-headings:text-main-text-headlines prose-a:text-primary-gold wrap-break-word">
             <Markdown>{content}</Markdown>
@@ -161,7 +163,7 @@ export default function PageBySlug() {
             Content will be available soon.
           </p>
         )}
-      </div>
+      </Reveal>
     </div>
   );
 }

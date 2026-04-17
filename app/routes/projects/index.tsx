@@ -3,6 +3,7 @@ import {
   ProductsPageHero,
   ProductsPortfolioSection,
 } from "@/components/saltech/products";
+import { Reveal } from "@/components/ui/Reveal";
 import { buildMetaTags } from "@/lib/seo";
 import { JsonLd } from "@/components/seo";
 import { webPageSchema } from "@/lib/jsonld";
@@ -28,8 +29,12 @@ export default function Projects() {
         })}
       />
       <ProductsPageHero />
-      <ProductsPortfolioSection />
-      <ProductsCtaSection />
+      <Reveal>
+        <ProductsPortfolioSection />
+      </Reveal>
+      <Reveal>
+        <ProductsCtaSection />
+      </Reveal>
     </div>
   );
 }

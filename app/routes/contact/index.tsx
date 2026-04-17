@@ -3,6 +3,7 @@ import {
   ContactFaqSection,
   ContactPageHero,
 } from "@/components/saltech/contact";
+import { Reveal } from "@/components/ui/Reveal";
 import { JsonLd } from "@/components/seo";
 import { webPageSchema } from "@/lib/jsonld";
 import { buildMetaTags } from "@/lib/seo";
@@ -28,8 +29,12 @@ export default function ContactPage() {
         })}
       />
       <ContactPageHero />
-      <ContactBriefSection />
-      <ContactFaqSection />
+      <Reveal>
+        <ContactBriefSection />
+      </Reveal>
+      <Reveal>
+        <ContactFaqSection />
+      </Reveal>
     </div>
   );
 }

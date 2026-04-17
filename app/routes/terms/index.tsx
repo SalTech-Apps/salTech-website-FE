@@ -3,6 +3,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase.client";
 import { Spinner } from "@heroui/react";
 import Markdown from "react-markdown";
+import { Reveal } from "@/components/ui/Reveal";
 import { buildMetaTags } from "@/lib/seo";
 import { JsonLd } from "@/components/seo";
 import { webPageSchema } from "@/lib/jsonld";
@@ -47,21 +48,25 @@ export default function TermsPage() {
         })}
       />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 overflow-hidden">
-        <h1 className="mb-8 sm:mb-10 font-heading text-heading-h1 text-main-text-headlines">
-          Terms of Service
-        </h1>
         {loading ? (
           <div className="flex justify-center py-12">
             <Spinner size="lg" color="warning" />
           </div>
-        ) : content ? (
-          <article className="prose prose-invert max-w-none text-secondary-text-body-paragraphs prose-headings:text-main-text-headlines prose-a:text-primary-gold wrap-break-word">
-            <Markdown>{content}</Markdown>
-          </article>
         ) : (
-          <p className="text-secondary-text-body-paragraphs">
-            Terms of service content will be available soon.
-          </p>
+          <Reveal>
+            <h1 className="mb-8 sm:mb-10 font-heading text-heading-h1 text-main-text-headlines">
+              Terms of Service
+            </h1>
+            {content ? (
+              <article className="prose prose-invert max-w-none text-secondary-text-body-paragraphs prose-headings:text-main-text-headlines prose-a:text-primary-gold wrap-break-word">
+                <Markdown>{content}</Markdown>
+              </article>
+            ) : (
+              <p className="text-secondary-text-body-paragraphs">
+                Terms of service content will be available soon.
+              </p>
+            )}
+          </Reveal>
         )}
       </div>
     </div>

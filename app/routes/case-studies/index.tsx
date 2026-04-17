@@ -3,6 +3,7 @@ import {
   CaseStudiesPageHero,
   CaseStudiesProjectsSection,
 } from "@/components/saltech/case-studies";
+import { Reveal } from "@/components/ui/Reveal";
 import { JsonLd } from "@/components/seo";
 import { webPageSchema } from "@/lib/jsonld";
 import { buildMetaTags } from "@/lib/seo";
@@ -28,8 +29,12 @@ export default function CaseStudiesPage() {
         })}
       />
       <CaseStudiesPageHero />
-      <CaseStudiesProjectsSection />
-      <CaseStudiesCtaSection />
+      <Reveal>
+        <CaseStudiesProjectsSection />
+      </Reveal>
+      <Reveal>
+        <CaseStudiesCtaSection />
+      </Reveal>
     </div>
   );
 }

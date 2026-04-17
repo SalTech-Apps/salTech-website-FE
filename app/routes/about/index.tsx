@@ -4,6 +4,7 @@ import {
   AboutPageHero,
   AboutValuesSection,
 } from "@/components/saltech/about";
+import { Reveal } from "@/components/ui/Reveal";
 import { JsonLd } from "@/components/seo";
 import { webPageSchema } from "@/lib/jsonld";
 import { buildMetaTags } from "@/lib/seo";
@@ -29,9 +30,15 @@ export default function AboutPage() {
         })}
       />
       <AboutPageHero />
-      <AboutMissionSection />
-      <AboutValuesSection />
-      <AboutInterestedSection />
+      <Reveal>
+        <AboutMissionSection />
+      </Reveal>
+      <Reveal>
+        <AboutValuesSection />
+      </Reveal>
+      <Reveal>
+        <AboutInterestedSection />
+      </Reveal>
     </div>
   );
 }

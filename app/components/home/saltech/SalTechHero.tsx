@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
+import { FadeIn } from "@/components/ui/Reveal";
 import { homePageAssets } from "@/data/homePageAssets";
 
 /** Home hero — matches marketing hero spec (gold accent, topo background). */
 const GOLD = "#E5C05E";
 const INK = "#1A1C20";
 const MUTED = "#71717A";
-const PAGE_BG = "#F9F9F9";
 
 export function SalTechHero() {
   return (
@@ -17,7 +17,7 @@ export function SalTechHero() {
         aria-hidden
       />
 
-      <div className="relative mx-auto flex max-w-4xl flex-col items-center gap-7 px-4 text-center sm:gap-9">
+      <FadeIn className="relative mx-auto flex max-w-4xl flex-col items-center gap-7 px-4 text-center sm:gap-9">
         <div className="inline-flex items-center rounded-full bg-[#faf3dc] px-4 py-2">
           <span className="font-saltech-display text-[13px] font-semibold tracking-wide text-[#1A1C20]">
             • Enterprise-Grade. Startup-Speed.
@@ -95,7 +95,7 @@ export function SalTechHero() {
             </p>
           </div>
         </div>
-      </div>
+      </FadeIn>
     </section>
   );
 }

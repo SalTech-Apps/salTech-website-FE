@@ -9,6 +9,7 @@ import {
   SalTechTestimonials,
   SalTechBottomCta,
 } from "@/components/home/saltech";
+import { Reveal } from "@/components/ui/Reveal";
 import { buildMetaTags } from "@/lib/seo";
 import { JsonLd } from "@/components/seo";
 import { webSiteSchema } from "@/lib/jsonld";
@@ -27,14 +28,30 @@ export default function Home() {
     <div className="flex w-full flex-col bg-[#F9F9F9] font-saltech-sans text-[#111827] antialiased">
       <JsonLd data={webSiteSchema("/")} />
       <SalTechHero />
-      <SalTechShowcase />
-      <SalTechCaseStudies />
-      <SalTechEnterprise />
-      <SalTechCapabilities />
-      <SalTechProcess />
-      <SalTechIndustries />
-      <SalTechTestimonials />
-      <SalTechBottomCta />
+      <Reveal>
+        <SalTechShowcase />
+      </Reveal>
+      <Reveal>
+        <SalTechCaseStudies />
+      </Reveal>
+      <Reveal>
+        <SalTechEnterprise />
+      </Reveal>
+      <Reveal>
+        <SalTechCapabilities />
+      </Reveal>
+      <Reveal>
+        <SalTechProcess />
+      </Reveal>
+      <Reveal>
+        <SalTechIndustries />
+      </Reveal>
+      <Reveal>
+        <SalTechTestimonials />
+      </Reveal>
+      <Reveal>
+        <SalTechBottomCta />
+      </Reveal>
     </div>
   );
 }
