@@ -7,7 +7,7 @@
 /* @source "../no" */
 @custom-variant dark (&:is(.dark *));
 
-/* ========== Jesfem Figma design system ========== */
+/* ========== SALTECH Figma design system ========== */
 @theme {
   /* Legacy aliases (map to gold palette) */
   --color-primary: #c4a45a;

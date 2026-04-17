@@ -4,4 +4,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://jesfemmultiservice.com/sitemap.xml
+Sitemap: https://saltechapps.com/sitemap.xml
