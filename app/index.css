@@ -1,0 +1,156 @@
+/* Fonts loaded async via root.tsx to avoid render-blocking */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin '../hero.ts';
+/* Note: You may need to change the path to fit your project structure */
+@source '../node_modules/@heroui/theme/dist/**.{js,ts,jsx,tsx}';
+/* @source "../no" */
+@custom-variant dark (&:is(.dark *));
+
+/* ========== Jesfem Figma design system ========== */
+@theme {
+  /* Legacy aliases (map to gold palette) */
+  --color-primary: #c4a45a;
+  --color-secondary: #d8be7a;
+
+  /* Backgrounds */
+  --color-main-background: #0e0e10;
+  --color-secondary-background: #16181c;
+  
+
+  /* Gold palette */
+  --color-primary-gold: #c4a45a;
+  --color-soft-gold-hover-state: #d8be7a;
+  --color-subtle-gold-background: rgba(196, 164, 90, 0.08);
+
+  /* Text */
+  --color-main-text-headlines: #f2f2f2;
+  --color-secondary-text-body-paragraphs: #b5b5b5;
+  --color-muted-labels: #8a8a8a;
+
+  /* UI */
+  --color-soft-divider-line: #24262b;
+
+  /* Font families */
+  --font-heading: "Cormorant Garamond", serif;
+  --font-body: "Manrope", var(--font-sans);
+}
+
+/* Semantic aliases for HeroUI / dark mode */
+@theme {
+  --color-background: var(--color-main-background);
+  --color-foreground: var(--color-main-text-headlines);
+  --color-muted: var(--color-secondary-background);
+  --color-muted-foreground: var(--color-secondary-text-body-paragraphs);
+  --color-border: var(--color-soft-divider-line);
+}
+
+/* Typography – title/heading: Cormorant Garamond; body: Manrope */
+@layer components {
+  /* Hero / H1: Cormorant Garamond SemiBold 64px, line-height 76.8px, center */
+  .text-heading-h1 {
+    font-family: var(--font-heading) !important;
+    font-weight: 600;
+    font-style: normal;
+    font-size: clamp(2rem, 5vw + 1rem, 64px);
+    line-height: 1.2; /* 76.8px at 64px */
+    letter-spacing: 0;
+  }
+  .text-heading-h2 {
+    font-family: var(--font-heading) !important;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 4vw + 0.75rem, 42px);
+    letter-spacing: 0;
+  }
+  .text-heading-h3 {
+    font-family: var(--font-heading) !important;
+    font-weight: 600;
+    font-size: clamp(1.25rem, 2vw + 0.5rem, 28px);
+    letter-spacing: 0;
+  }
+  .text-heading-h4 {
+    font-family: var(--font-heading) !important;
+    font-weight: 600;
+    font-size: clamp(1rem, 1.5vw + 0.25rem, 20px);
+    letter-spacing: 0;
+  }
+  .text-heading-h5 {
+    font-family: var(--font-heading) !important;
+    font-weight: 600;
+    font-size: clamp(0.875rem, 1vw + 0.25rem, 16px);
+    letter-spacing: 0;
+  }
+  .text-body {
+    font-family: var(--font-body) !important;
+    font-weight: 400;
+    font-size: clamp(0.9375rem, 1.5vw + 0.5rem, 18px);
+    letter-spacing: 0;
+  }
+  .text-buttons {
+    font-family: var(--font-body) !important;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.0008em;
+  }
+}
+
+/* Dark mode token overrides (next-themes class strategy) – aligned to Figma */
+.dark {
+  --color-muted: var(--color-secondary-background);
+  --color-muted-foreground: var(--color-secondary-text-body-paragraphs);
+  --color-border: var(--color-soft-divider-line);
+  --color-background: var(--color-main-background);
+  --color-foreground: var(--color-main-text-headlines);
+}
+
+* {
+  font-family: var(--font-body);
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+body {
+  background-color: var(--color-main-background);
+  color: var(--color-main-text-headlines);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Custom scrollbar – design system */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-secondary-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-soft-divider-line);
+  @apply rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-muted-labels);
+}
+
+/* NProgress – matches design system gold */
+#nprogress .bar {
+  background: var(--color-primary-gold) !important;
+  height: 3px !important;
+}
+#nprogress .peg {
+  box-shadow: 0 0 10px var(--color-primary-gold), 0 0 5px var(--color-primary-gold) !important;
+}

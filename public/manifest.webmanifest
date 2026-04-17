@@ -1,0 +1,19 @@
+{
+  "name": "JESFEM",
+  "short_name": "JESFEM",
+  "description": "Premium real estate and property investment in Nigeria. Luxury properties, off-plan deals, rentals, and expert investment guidance.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0e0e10",
+  "theme_color": "#0e0e10",
+  "icons": [
+    {
+      "src": "/assets/logo/logo-transparent.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
+

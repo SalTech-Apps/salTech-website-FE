@@ -1,0 +1,29 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "database": "(default)"
+  },
+  "storage": {
+    "rules": "storage.rules",
+    "bucket": "jesfem-f812b.firebasestorage.app"
+  },
+  "functions": {
+    "source": "functions",
+    "predeploy": [
+      "npm --prefix \"$RESOURCE_DIR\" run build"
+    ]
+  },
+  "apphosting": {
+    "backendId": "jesfem",
+    "rootDir": "/",
+    "ignore": [
+      "node_modules",
+      ".git",
+      "firebase-debug.log",
+      "firebase-debug.*.log",
+      "functions",
+      "content"
+    ],
+    "alwaysDeployFromSource": true
+  }
+}

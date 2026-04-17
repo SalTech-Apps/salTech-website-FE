@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0e0e10" />
+    <title>Offline | JESFEM</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        background: #0e0e10;
+        color: #f3f4f6;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        padding: 24px;
+      }
+      .card {
+        max-width: 560px;
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.04);
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 20px;
+      }
+      p {
+        margin: 0 0 14px;
+        opacity: 0.9;
+        line-height: 1.5;
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      a,
+      button {
+        appearance: none;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.06);
+        color: inherit;
+        padding: 10px 12px;
+        border-radius: 12px;
+        cursor: pointer;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      button:hover,
+      a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .hint {
+        margin-top: 12px;
+        font-size: 13px;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>You’re offline</h1>
+      <p>
+        Some pages and previously-viewed content may still be available. Reconnect to load
+        everything.
+      </p>
+      <div class="actions">
+        <button type="button" onclick="location.reload()">Try again</button>
+        <a href="/">Go to home</a>
+      </div>
+      <div class="hint">
+        Tip: If you already opened a page before, it’s more likely to work offline.
+      </div>
+    </div>
+  </body>
+</html>
+
