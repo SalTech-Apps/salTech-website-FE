@@ -155,9 +155,11 @@ export function AppFooter() {
                 </a>
               </li>
               <li className="leading-snug">
-                11 Stanwix Street, Suite 1200
+                3203 McKnight East Drive, Suite 138
                 <br />
-                Pittsburgh, PA 15222
+                Pittsburgh, PA 15237
+                <br />
+                United States
               </li>
               <li>
                 <Link

@@ -63,8 +63,9 @@ export interface HeroProps {
 }
 
 const overlayClasses: Record<HeroOverlay, string> = {
-  dark: "bg-linear-to-t from-black to-transparent",
-  video: "bg-linear-to-t from-black via-black/50 via-[60%] to-transparent",
+  dark: "bg-linear-to-t from-[#111827] to-transparent",
+  video:
+    "bg-linear-to-t from-[#111827] via-[#111827]/50 via-[60%] to-transparent",
   light:
     "bg-linear-to-t from-main-background via-main-background/20 to-transparent",
   "solid-75": "bg-main-background/75",

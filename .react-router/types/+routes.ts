@@ -38,11 +38,6 @@ type Pages = {
   "/projects": {
     params: {};
   };
-  "/projects/:id": {
-    params: {
-      "id": string;
-    };
-  };
   "/terms": {
     params: {};
   };
@@ -62,7 +57,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/favicon.ico" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/projects" | "/projects/:id" | "/terms" | "/privacy" | "/page/:slug" | "/console";
+    page: "/" | "/favicon.ico" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/projects" | "/terms" | "/privacy" | "/page/:slug" | "/console";
   };
   "routes/favicon[.]ico.tsx": {
     id: "routes/favicon[.]ico";
@@ -78,7 +73,7 @@ type RouteFiles = {
   };
   "layouts/MainLayout.tsx": {
     id: "layouts/MainLayout";
-    page: "/" | "/services" | "/case-studies" | "/about" | "/contact" | "/projects" | "/projects/:id" | "/terms" | "/privacy" | "/page/:slug";
+    page: "/" | "/services" | "/case-studies" | "/about" | "/contact" | "/projects" | "/terms" | "/privacy" | "/page/:slug";
   };
   "routes/home/index.tsx": {
     id: "routes/home/index";
@@ -103,10 +98,6 @@ type RouteFiles = {
   "routes/projects/index.tsx": {
     id: "routes/projects/index";
     page: "/projects";
-  };
-  "routes/projects/$id.tsx": {
-    id: "routes/projects/$id";
-    page: "/projects/:id";
   };
   "routes/terms/index.tsx": {
     id: "routes/terms/index";
@@ -138,7 +129,6 @@ type RouteModules = {
   "routes/about/index": typeof import("./app/routes/about/index.tsx");
   "routes/contact/index": typeof import("./app/routes/contact/index.tsx");
   "routes/projects/index": typeof import("./app/routes/projects/index.tsx");
-  "routes/projects/$id": typeof import("./app/routes/projects/$id.tsx");
   "routes/terms/index": typeof import("./app/routes/terms/index.tsx");
   "routes/privacy/index": typeof import("./app/routes/privacy/index.tsx");
   "routes/page/$slug": typeof import("./app/routes/page/$slug.tsx");

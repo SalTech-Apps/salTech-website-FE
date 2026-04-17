@@ -16,7 +16,6 @@ import {
       route("about", "routes/about/index.tsx"),
       route("contact", "routes/contact/index.tsx"),
       route("projects", "routes/projects/index.tsx"),
-      route("projects/:id", "routes/projects/$id.tsx"),
 
       route("terms", "routes/terms/index.tsx"),
       route("privacy", "routes/privacy/index.tsx"),
