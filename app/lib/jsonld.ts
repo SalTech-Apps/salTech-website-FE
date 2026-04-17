@@ -11,7 +11,7 @@ export function organizationSchema() {
     "@type": "Organization",
     name: "SalTech Innovations LLC",
     url: getBaseUrl(),
-    logo: `${getBaseUrl()}/assets/logo/logo-transparent.png`,
+    logo: `${getBaseUrl()}/assets/logo/logo-transparent.webp`,
     description:
       "Mission-critical digital products for startups, enterprises, and governments — platform engineering, MVP delivery, and product design.",
   };

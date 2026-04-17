@@ -1,5 +1,17 @@
+import {
+  HiCpuChip,
+  HiRocketLaunch,
+  HiServerStack,
+  HiSwatch,
+} from "react-icons/hi2";
 import { Link } from "react-router-dom";
-import { homePageAssets } from "@/data/homePageAssets";
+
+const CAPABILITY_ICONS = [
+  HiRocketLaunch,
+  HiServerStack,
+  HiCpuChip,
+  HiSwatch,
+] as const;
 
 const CAPABILITIES = [
   {
@@ -87,15 +99,15 @@ function CapabilityCard({
   iconIndex: number;
   className?: string;
 }) {
+  const CapabilityIcon = CAPABILITY_ICONS[iconIndex];
   return (
     <div
       className={`flex flex-col gap-4 rounded-[18px] border border-[#e5e7eb] bg-white p-6 shadow-sm ${className}`}
     >
       <div className="flex size-9 items-center justify-center rounded-lg border border-[#edd98a] bg-[#faf7ef] p-px">
-        <img
-          src={homePageAssets.capabilityIcons[iconIndex]}
-          alt=""
-          className="size-4"
+        <CapabilityIcon
+          className="size-4 text-[#b45309]"
+          aria-hidden
         />
       </div>
       <h3 className="text-sm font-semibold text-[#111827]">{title}</h3>

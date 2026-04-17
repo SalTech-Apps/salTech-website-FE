@@ -25,7 +25,7 @@ export const SALTECH_PRODUCTS_PORTFOLIO_SUB =
 export const SALTECH_PRODUCTS: SaltechProductCard[] = [
   {
     id: "dara",
-    imageSrc: saltechAssets.productDara,
+    imageSrc: saltechAssets.dara,
     industryTags: [
       { label: "Health Tech", className: "bg-emerald-500/15 text-emerald-800" },
     ],
@@ -36,7 +36,7 @@ export const SALTECH_PRODUCTS: SaltechProductCard[] = [
   },
   {
     id: "partywitme",
-    imageSrc: saltechAssets.productPartywitme,
+    imageSrc: saltechAssets.partywitme,
     industryTags: [
       { label: "Entertainment", className: "bg-violet-500/15 text-violet-800" },
     ],
@@ -47,7 +47,7 @@ export const SALTECH_PRODUCTS: SaltechProductCard[] = [
   },
   {
     id: "soon-1",
-    imageSrc: saltechAssets.productPlaceholder,
+    imageSrc: saltechAssets.comingSoon,
     industryTags: [
       { label: "Logistics", className: "bg-sky-500/15 text-sky-900" },
     ],
@@ -59,7 +59,7 @@ export const SALTECH_PRODUCTS: SaltechProductCard[] = [
   },
   {
     id: "soon-2",
-    imageSrc: saltechAssets.productPlaceholder,
+    imageSrc: saltechAssets.comingSoon,
     industryTags: [
       { label: "B2B SaaS", className: "bg-amber-500/15 text-amber-900" },
     ],
@@ -71,7 +71,7 @@ export const SALTECH_PRODUCTS: SaltechProductCard[] = [
   },
   {
     id: "soon-3",
-    imageSrc: saltechAssets.productPlaceholder,
+    imageSrc: saltechAssets.comingSoon,
     industryTags: [
       { label: "GovTech", className: "bg-slate-500/15 text-slate-800" },
     ],
@@ -83,7 +83,7 @@ export const SALTECH_PRODUCTS: SaltechProductCard[] = [
   },
   {
     id: "soon-4",
-    imageSrc: saltechAssets.productPlaceholder,
+    imageSrc: saltechAssets.comingSoon,
     industryTags: [
       { label: "Fintech", className: "bg-rose-500/15 text-rose-900" },
     ],
