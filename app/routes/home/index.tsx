@@ -24,7 +24,7 @@ export function meta({ location }: { location: { pathname: string } }) {
 
 export default function Home() {
   return (
-    <div className="flex w-full flex-col bg-[#fafafa] font-saltech-sans text-[#111827] antialiased">
+    <div className="flex w-full flex-col bg-[#F9F9F9] font-saltech-sans text-[#111827] antialiased">
       <JsonLd data={webSiteSchema("/")} />
       <SalTechHero />
       <SalTechShowcase />
