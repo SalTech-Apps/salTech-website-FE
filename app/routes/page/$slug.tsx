@@ -21,7 +21,7 @@ export function meta({
     "Page";
   return buildMetaTags({
     title: titleFromSlug,
-    description: "JESFEM real estate and property investment.",
+    description: "SALTECH real estate and property investment.",
     path: location.pathname,
   });
 }

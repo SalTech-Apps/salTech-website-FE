@@ -22,13 +22,7 @@ export default defineConfig({
     watch: {
       ignored: ["**/content/**"],
     },
-    allowedHosts: [
-      "jesfem--jesfem-f812b.europe-west4.hosted.app",
-      "hosted.app",
-      "europe-west4.hosted.app",
-      "jesfemmultiservice.com",
-      "www.jesfemmultiservice.com",
-    ],
+    allowedHosts: ["hosted.app", "saltechapps.com", "www.saltechapps.com"],
   },
   preview: {
     port: 8080,
