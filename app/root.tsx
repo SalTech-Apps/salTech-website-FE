@@ -21,7 +21,7 @@ const ORGANIZATION_JSON_LD = {
   "@type": "Organization",
   name: "SalTech Innovations LLC",
   url: getBaseUrl(),
-  logo: `${getBaseUrl()}/assets/logo/logo-transparent.png`,
+  logo: `${getBaseUrl()}/assets/logo/logo-transparent.webp`,
   description:
     "Mission-critical digital products for startups, enterprises, and governments across Africa and beyond.",
 };
@@ -30,7 +30,7 @@ export const links = () => [
   {
     rel: "icon",
     type: "image/svg+xml",
-    href: "/assets/logo/logo-transparent.png",
+    href: "/assets/logo/logo-transparent.webp",
   },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -42,7 +42,7 @@ export const links = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

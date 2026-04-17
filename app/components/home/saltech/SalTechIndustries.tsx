@@ -1,9 +1,19 @@
-import { homePageAssets } from "@/data/homePageAssets";
+import type { IconType } from "react-icons";
+import {
+  HiAcademicCap,
+  HiBanknotes,
+  HiBuildingLibrary,
+  HiBuildingOffice2,
+  HiHeart,
+  HiRocketLaunch,
+  HiTruck,
+  HiUserGroup,
+} from "react-icons/hi2";
 
 type Industry = {
   title: string;
   body: string;
-  iconIndex: number;
+  Icon: IconType;
   iconBg: string;
 };
 
@@ -11,49 +21,49 @@ const INDUSTRIES: Industry[] = [
   {
     title: "Fintech",
     body: "Payment systems, lending platforms, and digital wallets built to CBN and PCI-DSS compliance standards.",
-    iconIndex: 0,
+    Icon: HiBanknotes,
     iconBg: "bg-[#eff6ff]",
   },
   {
     title: "Government & Public Sector",
     body: "Citizen portals, case management, and e-governance systems meeting audit, compliance, and accessibility mandates.",
-    iconIndex: 1,
+    Icon: HiBuildingLibrary,
     iconBg: "bg-[#fff7ed]",
   },
   {
     title: "Healthcare",
     body: "Patient management, telehealth infrastructure, and clinical data platforms with HIPAA-equivalent privacy controls.",
-    iconIndex: 2,
+    Icon: HiHeart,
     iconBg: "bg-[#f0fdf4]",
   },
   {
     title: "HR Tech",
     body: "Workforce platforms, payroll engines, and onboarding systems for enterprises managing complex org structures.",
-    iconIndex: 3,
+    Icon: HiUserGroup,
     iconBg: "bg-[#faf7ef] ring-1 ring-[#edd98a]",
   },
   {
     title: "B2B SaaS",
     body: "Multi-tenant platforms, billing engines, and integrations built for growth from 10 clients to 10,000.",
-    iconIndex: 4,
+    Icon: HiBuildingOffice2,
     iconBg: "bg-[#f5f3ff]",
   },
   {
     title: "Logistics & Supply Chain",
     body: "Tracking systems, fleet management, and last-mile delivery platforms optimized for African infrastructure realities.",
-    iconIndex: 5,
+    Icon: HiTruck,
     iconBg: "bg-[#fff1f2]",
   },
   {
     title: "EdTech",
     body: "Learning management systems, assessment platforms, and institutional tools serving universities and training organizations.",
-    iconIndex: 0,
+    Icon: HiAcademicCap,
     iconBg: "bg-[#eff6ff]",
   },
   {
     title: "Startups & Scale-ups",
     body: "Zero-to-one product development for early-stage founders who need to move fast without accumulating technical debt.",
-    iconIndex: 2,
+    Icon: HiRocketLaunch,
     iconBg: "bg-[#f0fdf4]",
   },
 ];
@@ -72,7 +82,9 @@ export function SalTechIndustries() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {INDUSTRIES.map((row) => (
+          {INDUSTRIES.map((row) => {
+            const Icon = row.Icon;
+            return (
             <div
               key={row.title}
               className="flex gap-4 rounded-2xl border border-[#e5e7eb] bg-white p-6"
@@ -80,11 +92,7 @@ export function SalTechIndustries() {
               <div
                 className={`flex size-9 shrink-0 items-center justify-center rounded-lg ${row.iconBg}`}
               >
-                <img
-                  src={homePageAssets.industryIcons[row.iconIndex]}
-                  alt=""
-                  className="size-4"
-                />
+                <Icon className="size-4 text-[#374151]" aria-hidden />
               </div>
               <div className="min-w-0">
                 <h3 className="text-sm font-semibold text-[#111827]">
@@ -95,7 +103,8 @@ export function SalTechIndustries() {
                 </p>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

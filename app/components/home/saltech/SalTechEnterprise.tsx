@@ -1,5 +1,18 @@
+import {
+  HiArrowTrendingUp,
+  HiBolt,
+  HiChartBar,
+  HiDocumentText,
+  HiShieldCheck,
+} from "react-icons/hi2";
 import { FaClock, FaLock, FaUsers } from "react-icons/fa";
-import { homePageAssets } from "@/data/homePageAssets";
+
+const ENTERPRISE_CARD_ICONS = [
+  HiShieldCheck,
+  HiDocumentText,
+  HiBolt,
+  HiArrowTrendingUp,
+] as const;
 
 const PILL_COPY = [
   { icon: "shield" as const, label: "ISO 27001 Aligned" },
@@ -53,17 +66,15 @@ export function SalTechEnterprise() {
         </div>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {CARDS.map((card) => (
+          {CARDS.map((card) => {
+            const CardIcon = ENTERPRISE_CARD_ICONS[card.iconIndex];
+            return (
             <div
               key={card.title}
               className="flex flex-col gap-4 rounded-2xl border border-[#374151] bg-[#1f2937] p-6"
             >
               <div className="flex size-9 items-center justify-center rounded-lg bg-[rgba(226,186,81,0.13)]">
-                <img
-                  src={homePageAssets.enterpriseIcons[card.iconIndex]}
-                  alt=""
-                  className="size-4"
-                />
+                <CardIcon className="size-4 text-[#e2ba51]" aria-hidden />
               </div>
               <h3 className="text-sm font-semibold text-[#f3f4f6]">
                 {card.title}
@@ -72,7 +83,8 @@ export function SalTechEnterprise() {
                 {card.body}
               </p>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -95,15 +107,11 @@ function PillIcon({ type }: { type: (typeof PILL_COPY)[number]["icon"] }) {
   const className = "size-4 text-[#e2ba51]";
   switch (type) {
     case "shield":
-      return (
-        <img src={homePageAssets.badgeRow.shield} alt="" className="size-4" />
-      );
+      return <HiShieldCheck className={className} aria-hidden />;
     case "file":
-      return <img src={homePageAssets.badgeRow.file} alt="" className="size-4" />;
+      return <HiDocumentText className={className} aria-hidden />;
     case "chart":
-      return (
-        <img src={homePageAssets.badgeRow.chart} alt="" className="size-4" />
-      );
+      return <HiChartBar className={className} aria-hidden />;
     case "lock":
       return <FaLock className={className} aria-hidden />;
     case "clock":

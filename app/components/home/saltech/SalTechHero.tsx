@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+import { HiBuildingOffice2, HiHeart, HiMusicalNote } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import { homePageAssets } from "@/data/homePageAssets";
 
@@ -86,21 +88,19 @@ export function SalTechHero() {
           <div className="flex flex-wrap items-center justify-center gap-8 lg:justify-end lg:gap-10">
             <TrustMark
               icon={
-                <img
-                  src={homePageAssets.trustDaraMark}
-                  alt=""
-                  className="h-8 w-6 object-contain"
+                <HiBuildingOffice2
+                  className="h-8 w-8 shrink-0 text-[#555]"
+                  aria-hidden
                 />
               }
               label="DARA"
             />
             <TrustMark
               icon={
-                <div className="flex h-6 w-6 items-center justify-center overflow-hidden rounded bg-white">
-                  <img
-                    src={homePageAssets.trustPartyMark}
-                    alt=""
-                    className="h-7 w-7 object-contain"
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-white">
+                  <HiMusicalNote
+                    className="size-7 text-[#555]"
+                    aria-hidden
                   />
                 </div>
               }
@@ -108,11 +108,7 @@ export function SalTechHero() {
             />
             <TrustMark
               icon={
-                <img
-                  src={homePageAssets.trustLuvIcon}
-                  alt=""
-                  className="size-6 object-contain"
-                />
+                <HiHeart className="size-7 shrink-0 text-[#555]" aria-hidden />
               }
               label="LUV’R"
             />
@@ -135,7 +131,7 @@ function TrustMark({
   icon,
   label,
 }: {
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
 }) {
   return (
