@@ -1,0 +1,339 @@
+{
+  "buildManifest": {
+    "serverBundles": {
+      "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0": {
+        "id": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+        "file": "build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/index.js",
+        "config": {
+          "runtime": "nodejs"
+        }
+      }
+    },
+    "routeIdToServerBundleId": {
+      "root": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/favicon[.]ico": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/sitemap[.]xml": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/sw[.]js": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/home/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/services/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/case-studies/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/about/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/contact/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/health/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/projects/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/terms/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/privacy/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/page/$slug": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "layouts/ConsoleLayout": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
+    },
+    "routes": {
+      "root": {
+        "id": "root",
+        "file": "app/root.tsx",
+        "path": "",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/favicon[.]ico": {
+        "id": "routes/favicon[.]ico",
+        "parentId": "root",
+        "file": "app/routes/favicon[.]ico.tsx",
+        "path": "favicon.ico",
+        "config": {}
+      },
+      "routes/sitemap[.]xml": {
+        "id": "routes/sitemap[.]xml",
+        "parentId": "root",
+        "file": "app/routes/sitemap[.]xml.tsx",
+        "path": "sitemap.xml",
+        "config": {}
+      },
+      "routes/sw[.]js": {
+        "id": "routes/sw[.]js",
+        "parentId": "root",
+        "file": "app/routes/sw[.]js.tsx",
+        "path": "sw.js",
+        "config": {}
+      },
+      "layouts/MainLayout": {
+        "id": "layouts/MainLayout",
+        "parentId": "root",
+        "file": "app/layouts/MainLayout.tsx",
+        "config": {}
+      },
+      "routes/home/index": {
+        "id": "routes/home/index",
+        "parentId": "layouts/MainLayout",
+        "file": "app/routes/home/index.tsx",
+        "index": true,
+        "config": {}
+      },
+      "routes/services/index": {
+        "id": "routes/services/index",
+        "parentId": "layouts/MainLayout",
+        "file": "app/routes/services/index.tsx",
+        "path": "services",
+        "config": {}
+      },
+      "routes/case-studies/index": {
+        "id": "routes/case-studies/index",
+        "parentId": "layouts/MainLayout",
+        "file": "app/routes/case-studies/index.tsx",
+        "path": "case-studies",
+        "config": {}
+      },
+      "routes/about/index": {
+        "id": "routes/about/index",
+        "parentId": "layouts/MainLayout",
+        "file": "app/routes/about/index.tsx",
+        "path": "about",
+        "config": {}
+      },
+      "routes/contact/index": {
+        "id": "routes/contact/index",
+        "parentId": "layouts/MainLayout",
+        "file": "app/routes/contact/index.tsx",
+        "path": "contact",
+        "config": {}
+      },
+      "routes/health/index": {
+        "id": "routes/health/index",
+        "parentId": "layouts/MainLayout",
+        "file": "app/routes/health/index.tsx",
+        "path": "health",
+        "config": {}
+      },
+      "routes/projects/index": {
+        "id": "routes/projects/index",
+        "parentId": "layouts/MainLayout",
+        "file": "app/routes/projects/index.tsx",
+        "path": "projects",
+        "config": {}
+      },
+      "routes/terms/index": {
+        "id": "routes/terms/index",
+        "parentId": "layouts/MainLayout",
+        "file": "app/routes/terms/index.tsx",
+        "path": "terms",
+        "config": {}
+      },
+      "routes/privacy/index": {
+        "id": "routes/privacy/index",
+        "parentId": "layouts/MainLayout",
+        "file": "app/routes/privacy/index.tsx",
+        "path": "privacy",
+        "config": {}
+      },
+      "routes/page/$slug": {
+        "id": "routes/page/$slug",
+        "parentId": "layouts/MainLayout",
+        "file": "app/routes/page/$slug.tsx",
+        "path": "page/:slug",
+        "config": {}
+      },
+      "layouts/ConsoleLayout": {
+        "id": "layouts/ConsoleLayout",
+        "parentId": "root",
+        "file": "app/layouts/ConsoleLayout.tsx",
+        "path": "console",
+        "config": {}
+      }
+    }
+  },
+  "reactRouterConfig": {
+    "appDirectory": "/home/nnanna75/Documents/my-code/saltech/saltech_website/app",
+    "basename": "/",
+    "buildDirectory": "/home/nnanna75/Documents/my-code/saltech/saltech_website/build",
+    "future": {
+      "unstable_optimizeDeps": false,
+      "unstable_passThroughRequests": false,
+      "unstable_subResourceIntegrity": false,
+      "unstable_trailingSlashAwareDataRequests": false,
+      "unstable_previewServerPrerendering": false,
+      "v8_middleware": false,
+      "v8_splitRouteModules": false,
+      "v8_viteEnvironmentApi": false
+    },
+    "routes": {
+      "root": {
+        "id": "root",
+        "file": "root.tsx",
+        "path": ""
+      },
+      "routes/favicon[.]ico": {
+        "id": "routes/favicon[.]ico",
+        "parentId": "root",
+        "file": "routes/favicon[.]ico.tsx",
+        "path": "favicon.ico"
+      },
+      "routes/sitemap[.]xml": {
+        "id": "routes/sitemap[.]xml",
+        "parentId": "root",
+        "file": "routes/sitemap[.]xml.tsx",
+        "path": "sitemap.xml"
+      },
+      "routes/sw[.]js": {
+        "id": "routes/sw[.]js",
+        "parentId": "root",
+        "file": "routes/sw[.]js.tsx",
+        "path": "sw.js"
+      },
+      "layouts/MainLayout": {
+        "id": "layouts/MainLayout",
+        "parentId": "root",
+        "file": "layouts/MainLayout.tsx"
+      },
+      "routes/home/index": {
+        "id": "routes/home/index",
+        "parentId": "layouts/MainLayout",
+        "file": "routes/home/index.tsx",
+        "index": true
+      },
+      "routes/services/index": {
+        "id": "routes/services/index",
+        "parentId": "layouts/MainLayout",
+        "file": "routes/services/index.tsx",
+        "path": "services"
+      },
+      "routes/case-studies/index": {
+        "id": "routes/case-studies/index",
+        "parentId": "layouts/MainLayout",
+        "file": "routes/case-studies/index.tsx",
+        "path": "case-studies"
+      },
+      "routes/about/index": {
+        "id": "routes/about/index",
+        "parentId": "layouts/MainLayout",
+        "file": "routes/about/index.tsx",
+        "path": "about"
+      },
+      "routes/contact/index": {
+        "id": "routes/contact/index",
+        "parentId": "layouts/MainLayout",
+        "file": "routes/contact/index.tsx",
+        "path": "contact"
+      },
+      "routes/health/index": {
+        "id": "routes/health/index",
+        "parentId": "layouts/MainLayout",
+        "file": "routes/health/index.tsx",
+        "path": "health"
+      },
+      "routes/projects/index": {
+        "id": "routes/projects/index",
+        "parentId": "layouts/MainLayout",
+        "file": "routes/projects/index.tsx",
+        "path": "projects"
+      },
+      "routes/terms/index": {
+        "id": "routes/terms/index",
+        "parentId": "layouts/MainLayout",
+        "file": "routes/terms/index.tsx",
+        "path": "terms"
+      },
+      "routes/privacy/index": {
+        "id": "routes/privacy/index",
+        "parentId": "layouts/MainLayout",
+        "file": "routes/privacy/index.tsx",
+        "path": "privacy"
+      },
+      "routes/page/$slug": {
+        "id": "routes/page/$slug",
+        "parentId": "layouts/MainLayout",
+        "file": "routes/page/$slug.tsx",
+        "path": "page/:slug"
+      },
+      "layouts/ConsoleLayout": {
+        "id": "layouts/ConsoleLayout",
+        "parentId": "root",
+        "file": "layouts/ConsoleLayout.tsx",
+        "path": "console"
+      }
+    },
+    "routeDiscovery": {
+      "mode": "lazy",
+      "manifestPath": "/__manifest"
+    },
+    "serverBuildFile": "index.js",
+    "serverModuleFormat": "esm",
+    "ssr": true,
+    "allowedActionOrigins": false,
+    "unstable_routeConfig": [
+      {
+        "id": "root",
+        "path": "",
+        "file": "root.tsx",
+        "children": [
+          {
+            "file": "routes/favicon[.]ico.tsx",
+            "path": "favicon.ico"
+          },
+          {
+            "file": "routes/sitemap[.]xml.tsx",
+            "path": "sitemap.xml"
+          },
+          {
+            "file": "routes/sw[.]js.tsx",
+            "path": "sw.js"
+          },
+          {
+            "file": "layouts/MainLayout.tsx",
+            "children": [
+              {
+                "file": "routes/home/index.tsx",
+                "index": true
+              },
+              {
+                "file": "routes/services/index.tsx",
+                "path": "services"
+              },
+              {
+                "file": "routes/case-studies/index.tsx",
+                "path": "case-studies"
+              },
+              {
+                "file": "routes/about/index.tsx",
+                "path": "about"
+              },
+              {
+                "file": "routes/contact/index.tsx",
+                "path": "contact"
+              },
+              {
+                "file": "routes/health/index.tsx",
+                "path": "health"
+              },
+              {
+                "file": "routes/projects/index.tsx",
+                "path": "projects"
+              },
+              {
+                "file": "routes/terms/index.tsx",
+                "path": "terms"
+              },
+              {
+                "file": "routes/privacy/index.tsx",
+                "path": "privacy"
+              },
+              {
+                "file": "routes/page/$slug.tsx",
+                "path": "page/:slug"
+              }
+            ]
+          },
+          {
+            "file": "layouts/ConsoleLayout.tsx",
+            "children": [],
+            "path": "console"
+          }
+        ]
+      }
+    ]
+  },
+  "viteConfig": {
+    "build": {
+      "assetsDir": "assets"
+    }
+  }
+}
