@@ -17,7 +17,7 @@ export function organizationSchema() {
   };
 }
 
-export function webSiteSchema(pathname = "/") {
+export function webSiteSchema(_pathname = "/") {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",

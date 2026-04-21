@@ -15,6 +15,7 @@ import {
       route("case-studies", "routes/case-studies/index.tsx"),
       route("about", "routes/about/index.tsx"),
       route("contact", "routes/contact/index.tsx"),
+      route("health", "routes/health/index.tsx"),
       route("projects", "routes/projects/index.tsx"),
 
       route("terms", "routes/terms/index.tsx"),

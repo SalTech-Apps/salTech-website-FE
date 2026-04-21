@@ -35,6 +35,9 @@ type Pages = {
   "/contact": {
     params: {};
   };
+  "/health": {
+    params: {};
+  };
   "/projects": {
     params: {};
   };
@@ -57,7 +60,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/favicon.ico" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/projects" | "/terms" | "/privacy" | "/page/:slug" | "/console";
+    page: "/" | "/favicon.ico" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/terms" | "/privacy" | "/page/:slug" | "/console";
   };
   "routes/favicon[.]ico.tsx": {
     id: "routes/favicon[.]ico";
@@ -73,7 +76,7 @@ type RouteFiles = {
   };
   "layouts/MainLayout.tsx": {
     id: "layouts/MainLayout";
-    page: "/" | "/services" | "/case-studies" | "/about" | "/contact" | "/projects" | "/terms" | "/privacy" | "/page/:slug";
+    page: "/" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/terms" | "/privacy" | "/page/:slug";
   };
   "routes/home/index.tsx": {
     id: "routes/home/index";
@@ -94,6 +97,10 @@ type RouteFiles = {
   "routes/contact/index.tsx": {
     id: "routes/contact/index";
     page: "/contact";
+  };
+  "routes/health/index.tsx": {
+    id: "routes/health/index";
+    page: "/health";
   };
   "routes/projects/index.tsx": {
     id: "routes/projects/index";
@@ -128,6 +135,7 @@ type RouteModules = {
   "routes/case-studies/index": typeof import("./app/routes/case-studies/index.tsx");
   "routes/about/index": typeof import("./app/routes/about/index.tsx");
   "routes/contact/index": typeof import("./app/routes/contact/index.tsx");
+  "routes/health/index": typeof import("./app/routes/health/index.tsx");
   "routes/projects/index": typeof import("./app/routes/projects/index.tsx");
   "routes/terms/index": typeof import("./app/routes/terms/index.tsx");
   "routes/privacy/index": typeof import("./app/routes/privacy/index.tsx");
