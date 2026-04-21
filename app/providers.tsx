@@ -3,11 +3,11 @@ import { HeroUIProvider } from "@heroui/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import "./index.css";
 import { Provider as JotaiProvider } from "jotai";
-import { initPwaClient } from "@/lib/pwa.client";
+import { registerPwaClient } from "@/lib/registerPwa";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    initPwaClient();
+    registerPwaClient();
   }, []);
 
   return (

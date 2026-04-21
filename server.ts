@@ -2,6 +2,7 @@ import { createRequestHandler } from "@react-router/express";
 import compression from "compression";
 import express from "express";
 import morgan from "morgan";
+import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -11,7 +12,27 @@ process.env.NODE_ENV ??= "production";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const buildServerPath = path.join(__dirname, "build/server/index.js");
+/** React Router + Vercel preset emits `build/server/<runtime-id>/index.js`; plain builds use `build/server/index.js`. */
+function resolveBuildServerEntry(): string {
+  const flat = path.join(__dirname, "build/server/index.js");
+  if (existsSync(flat)) return flat;
+  const serverDir = path.join(__dirname, "build/server");
+  if (!existsSync(serverDir)) {
+    throw new Error(
+      `[server] Missing build output at ${serverDir}. Run "pnpm run build" first.`,
+    );
+  }
+  for (const name of readdirSync(serverDir, { withFileTypes: true })) {
+    if (!name.isDirectory()) continue;
+    const candidate = path.join(serverDir, name.name, "index.js");
+    if (existsSync(candidate)) return candidate;
+  }
+  throw new Error(
+    `[server] No server bundle found under ${serverDir} (expected index.js).`,
+  );
+}
+
+const buildServerPath = resolveBuildServerEntry();
 const buildModule = await import(pathToFileURL(buildServerPath).href);
 
 const assetsBuildDirectory = path.resolve(
