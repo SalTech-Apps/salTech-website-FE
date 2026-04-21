@@ -9,7 +9,7 @@ import { createApiRouter } from "./express/routes.ts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-/** Serves `/api/*` during `react-router dev` / `vite preview` so `/api/health` is not handled as an app route. */
+/** Serves `/api/*` during `react-router dev` / `vite preview` before RR (Express wins for `/api/health` locally). */
 function saltechApiDevPlugin(): Plugin {
   function mountApi(middlewares: Connect.Server): void {
     const app = express();

@@ -7,6 +7,7 @@ import {
   
   export default [
     route("favicon.ico", "routes/favicon[.]ico.tsx"),
+    route("api/health", "routes/api.health.tsx"),
     route("sitemap.xml", "routes/sitemap[.]xml.tsx"),
     route("sw.js", "routes/sw[.]js.tsx"),
     layout("layouts/MainLayout.tsx", [

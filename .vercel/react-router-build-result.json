@@ -12,6 +12,7 @@
     "routeIdToServerBundleId": {
       "root": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/favicon[.]ico": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.health": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/sitemap[.]xml": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/sw[.]js": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/home/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
@@ -40,6 +41,13 @@
         "parentId": "root",
         "file": "app/routes/favicon[.]ico.tsx",
         "path": "favicon.ico",
+        "config": {}
+      },
+      "routes/api.health": {
+        "id": "routes/api.health",
+        "parentId": "root",
+        "file": "app/routes/api.health.tsx",
+        "path": "api/health",
         "config": {}
       },
       "routes/sitemap[.]xml": {
@@ -167,6 +175,12 @@
         "file": "routes/favicon[.]ico.tsx",
         "path": "favicon.ico"
       },
+      "routes/api.health": {
+        "id": "routes/api.health",
+        "parentId": "root",
+        "file": "routes/api.health.tsx",
+        "path": "api/health"
+      },
       "routes/sitemap[.]xml": {
         "id": "routes/sitemap[.]xml",
         "parentId": "root",
@@ -268,6 +282,10 @@
           {
             "file": "routes/favicon[.]ico.tsx",
             "path": "favicon.ico"
+          },
+          {
+            "file": "routes/api.health.tsx",
+            "path": "api/health"
           },
           {
             "file": "routes/sitemap[.]xml.tsx",

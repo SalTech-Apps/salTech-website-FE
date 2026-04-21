@@ -17,6 +17,9 @@ type Pages = {
   "/favicon.ico": {
     params: {};
   };
+  "/api/health": {
+    params: {};
+  };
   "/sitemap.xml": {
     params: {};
   };
@@ -60,11 +63,15 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/favicon.ico" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/terms" | "/privacy" | "/page/:slug" | "/console";
+    page: "/" | "/favicon.ico" | "/api/health" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/terms" | "/privacy" | "/page/:slug" | "/console";
   };
   "routes/favicon[.]ico.tsx": {
     id: "routes/favicon[.]ico";
     page: "/favicon.ico";
+  };
+  "routes/api.health.tsx": {
+    id: "routes/api.health";
+    page: "/api/health";
   };
   "routes/sitemap[.]xml.tsx": {
     id: "routes/sitemap[.]xml";
@@ -127,6 +134,7 @@ type RouteFiles = {
 type RouteModules = {
   "root": typeof import("./app/root.tsx");
   "routes/favicon[.]ico": typeof import("./app/routes/favicon[.]ico.tsx");
+  "routes/api.health": typeof import("./app/routes/api.health.tsx");
   "routes/sitemap[.]xml": typeof import("./app/routes/sitemap[.]xml.tsx");
   "routes/sw[.]js": typeof import("./app/routes/sw[.]js.tsx");
   "layouts/MainLayout": typeof import("./app/layouts/MainLayout.tsx");

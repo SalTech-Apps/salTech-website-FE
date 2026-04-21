@@ -19,5 +19,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["server.ts", "express/**/*.ts"]
+  "include": ["server.ts", "express/**/*.ts", "app/lib/health.server.ts"]
 }

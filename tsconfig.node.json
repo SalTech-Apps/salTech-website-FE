@@ -23,5 +23,9 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.ts", "express/**/*.ts"]
+  "include": [
+    "vite.config.ts",
+    "express/**/*.ts",
+    "app/lib/health.server.ts"
+  ]
 }
