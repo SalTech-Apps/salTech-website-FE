@@ -1,160 +1,41 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { Button, Input, Spinner } from "@heroui/react";
+import { signOut } from "@/lib/auth";
+import { ConsoleBrand } from "@/components/console/ConsoleShared";
 import {
-	signIn,
-	signOut,
-	onAuthChange,
-	isAdminEmail,
-	type User,
-} from "@/lib/auth";
-import {
-	IoHomeOutline,
-	IoBusinessOutline,
-	IoChatbubblesOutline,
-	IoBookOutline,
-	IoDocumentTextOutline,
-	IoLogOutOutline,
-	IoMenuOutline,
-	IoCloseOutline,
-	IoSettingsOutline,
-	IoMailOutline,
-	IoPeopleOutline,
-	IoConstructOutline,
-	IoHeartOutline,
-	IoHomeSharp,
-	IoStarOutline,
-} from "react-icons/io5";
+	FiBriefcase,
+	FiFileText,
+	FiGrid,
+	FiLogOut,
+	FiSettings,
+	FiUsers,
+	FiX,
+} from "react-icons/fi";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function meta() {
 	return [{ name: "robots", content: "noindex, nofollow" }];
 }
 
 const NAV_ITEMS = [
-	{ to: "/console", label: "Dashboard", icon: IoHomeOutline, exact: true },
-	{ to: "/console/properties", label: "Properties", icon: IoBusinessOutline },
-	{ to: "/console/off-plan", label: "Off-Plan", icon: IoHomeSharp },
-	{
-		to: "/console/off-plan-wishlist",
-		label: "Off-Plan Wishlist",
-		icon: IoHeartOutline,
-	},
-	{ to: "/console/projects", label: "Projects", icon: IoConstructOutline },
-	{
-		to: "/console/consultations",
-		label: "Consultations",
-		icon: IoChatbubblesOutline,
-	},
-	{ to: "/console/reviews", label: "Reviews", icon: IoStarOutline },
-	{ to: "/console/insights", label: "Insights", icon: IoBookOutline },
-	{ to: "/console/pages", label: "Pages", icon: IoDocumentTextOutline },
-	{ to: "/console/newsletter", label: "Newsletter", icon: IoMailOutline },
-	{ to: "/console/team", label: "Team", icon: IoPeopleOutline },
-	{ to: "/console/config", label: "Configuration", icon: IoSettingsOutline },
-	{
-		to: "/console/experience-study",
-		label: "Experience Study",
-		icon: IoDocumentTextOutline,
-	},
+	{ to: "/console", label: "Dashboard", icon: FiGrid, exact: true },
+	{ to: "/console/jobs", label: "Jobs", icon: FiBriefcase },
+	{ to: "/console/drafts", label: "Drafts", icon: FiFileText },
+	{ to: "/console/candidates", label: "Candidates", icon: FiUsers },
+	{ to: "/console/settings", label: "Settings", icon: FiSettings },
 ];
 
-function LoginForm() {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [error, setError] = useState("");
-	const [loading, setLoading] = useState(false);
-
-	async function handleSubmit(e: React.FormEvent) {
-		e.preventDefault();
-		setError("");
-		setLoading(true);
-		try {
-			await signIn(email, password);
-		} catch (err: unknown) {
-			setError(err instanceof Error ? err.message : "Login failed");
-		} finally {
-			setLoading(false);
-		}
-	}
-
-	return (
-		<div className="flex min-h-screen items-center justify-center bg-main-background">
-			<div className="w-full max-w-md rounded-xl border border-soft-divider-line bg-secondary-background p-8">
-				<h1 className="mb-2 text-center font-heading text-heading-h2 text-main-text-headlines">
-					Saltech Console
-				</h1>
-				<p className="mb-8 text-center text-body text-secondary-text-body-paragraphs">
-					Sign in to manage your site
-				</p>
-				<form onSubmit={handleSubmit} className="flex flex-col gap-5">
-					<Input
-						label="Email"
-						type="email"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						classNames={{
-							input: "text-main-text-headlines",
-							inputWrapper:
-								"bg-main-background border border-soft-divider-line",
-						}}
-						required
-					/>
-					<Input
-						label="Password"
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						classNames={{
-							input: "text-main-text-headlines",
-							inputWrapper:
-								"bg-main-background border border-soft-divider-line",
-						}}
-						required
-					/>
-					{error && <p className="text-sm text-red-400">{error}</p>}
-					<Button
-						radius="none"
-						type="submit"
-						isLoading={loading}
-						className="bg-primary-gold text-main-background font-semibold"
-					>
-						Sign In
-					</Button>
-				</form>
-			</div>
-		</div>
-	);
-}
-
 export default function ConsoleLayout() {
-	const [user, setUser] = useState<User | null>(null);
-	const [checking, setChecking] = useState(true);
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const location = useLocation();
 
-	useEffect(() => {
-		const unsub = onAuthChange((u) => {
-			setUser(u && isAdminEmail(u.email) ? u : null);
-			setChecking(false);
-		});
-		return unsub;
-	}, []);
-
-	useEffect(() => {
-		setSidebarOpen(false);
-	}, [location.pathname]);
-
-	if (checking) {
-		return (
-			<div className="flex min-h-screen items-center justify-center bg-main-background">
-				<Spinner size="lg" color="warning" />
-			</div>
-		);
-	}
-
-	if (!user) {
-		return <LoginForm />;
-	}
+	// if (checking) {
+	// 	return (
+	// 		<div className="flex min-h-screen items-center justify-center bg-[#FCFBF8]">
+	// 			<Spinner size="lg" color="warning" />
+	// 		</div>
+	// 	);
+	// }
 
 	function isActive(to: string, exact?: boolean) {
 		if (exact) return location.pathname === to;
@@ -162,46 +43,51 @@ export default function ConsoleLayout() {
 	}
 
 	return (
-		<div className="flex min-h-screen bg-main-background">
-			{sidebarOpen && (
-				<div
-					className="fixed inset-0 z-30 bg-black/50 lg:hidden"
-					onClick={() => setSidebarOpen(false)}
-				/>
-			)}
+		<div className="flex min-h-screen bg-white text-[#1F2534]">
+			<div
+				className={`fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] transition-opacity lg:hidden ${
+					sidebarOpen
+						? "pointer-events-auto opacity-100"
+						: "pointer-events-none opacity-0"
+				}`}
+				aria-hidden={!sidebarOpen}
+				onClick={() => setSidebarOpen(false)}
+			/>
 
 			<aside
-				className={`fixed inset-y-0 left-0 z-40 flex h-dvh max-h-dvh w-64 shrink-0 flex-col border-r border-soft-divider-line bg-secondary-background transition-transform lg:static lg:self-start lg:translate-x-0 ${
+				className={`fixed left-0 top-0 z-50 flex h-full w-[min(18rem,100vw)] shrink-0 flex-col border-r border-[#E7E2D8] bg-white shadow-xl transition-transform duration-200 ease-out lg:h-[calc(100dvh-4rem)] lg:w-64 lg:translate-x-0 lg:shadow-none ${
 					sidebarOpen ? "translate-x-0" : "-translate-x-full"
 				}`}
+				aria-label="Sidebar"
 			>
-				<div className="flex h-16 shrink-0 items-center justify-between border-b border-soft-divider-line px-6">
-					<Link
-						to="/console"
-						prefetch="intent"
-						className="font-heading text-xl text-primary-gold"
-					>
-						SalTech Console
-					</Link>
+				<div className="flex h-16 shrink-0 items-center justify-between border-b border-[#ECE8DF] px-4 lg:hidden">
+					<ConsoleBrand />
 					<button
-						className="lg:hidden text-muted-labels"
+						type="button"
+						className="text-[#7B8090] lg:hidden"
 						onClick={() => setSidebarOpen(false)}
+						aria-label="Close sidebar"
 					>
-						<IoCloseOutline size={24} />
+						<FiX size={22} />
 					</button>
 				</div>
 
-				<nav className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-contain p-4">
+				<div className="hidden h-16 shrink-0 items-center border-b border-[#ECE8DF] px-4 lg:flex">
+					<ConsoleBrand />
+				</div>
+
+				<nav className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden overscroll-contain px-4 py-5">
 					<ul className="flex flex-col gap-1">
 						{NAV_ITEMS.map((item) => (
 							<li key={item.to}>
 								<Link
 									to={item.to}
 									prefetch="intent"
-									className={`flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
+									onClick={() => setSidebarOpen(false)}
+									className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
 										isActive(item.to, item.exact)
-											? "bg-primary-gold/10 text-primary-gold"
-											: "text-secondary-text-body-paragraphs hover:bg-main-background hover:text-main-text-headlines"
+											? "bg-[#F9F3E4] text-[#E2BA51]"
+											: "text-[#646B7D] hover:bg-[#FAF7F0] hover:text-[#1F2534]"
 									}`}
 								>
 									<item.icon size={20} />
@@ -212,34 +98,20 @@ export default function ConsoleLayout() {
 					</ul>
 				</nav>
 
-				<div className="shrink-0 border-t border-soft-divider-line p-4">
-					<p className="mb-2 truncate text-xs text-muted-labels">
-						{user.email}
-					</p>
+				<div className="shrink-0 border-t border-[#ECE8DF] p-5">
 					<button
+						type="button"
 						onClick={() => signOut()}
-						className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-secondary-text-body-paragraphs hover:bg-main-background hover:text-red-400 transition-colors"
+						className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-[#F04337] transition-colors hover:bg-[#FFF5F3]"
 					>
-						<IoLogOutOutline size={18} />
-						Sign Out
+						<FiLogOut size={18} />
+						Logout
 					</button>
 				</div>
 			</aside>
 
 			<div className="flex flex-1 flex-col">
-				<header className="flex h-16 items-center gap-4 border-b border-soft-divider-line px-6 lg:hidden">
-					<button
-						onClick={() => setSidebarOpen(true)}
-						className="text-muted-labels"
-					>
-						<IoMenuOutline size={24} />
-					</button>
-					<span className="font-heading text-lg text-primary-gold">
-						SalTech Console
-					</span>
-				</header>
-
-				<main className="flex-1 max-h-dvh overflow-y-auto p-6 lg:p-8">
+				<main className="flex-1 overflow-y-auto px-4 py-5 sm:px-6 lg:px-0 lg:py-0 lg:ml-66">
 					<Outlet />
 				</main>
 			</div>
