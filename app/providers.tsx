@@ -3,22 +3,27 @@ import { HeroUIProvider } from "@heroui/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import "./index.css";
 import { Provider as JotaiProvider } from "jotai";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { registerPwaClient } from "@/lib/registerPwa";
 
-export function Providers({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    registerPwaClient();
-  }, []);
+const queryClient = new QueryClient();
 
-  return (
-    <JotaiProvider>
-      <StrictMode>
-        <HeroUIProvider>
-          <NextThemesProvider attribute="class" defaultTheme="dark">
-            {children}
-          </NextThemesProvider>
-        </HeroUIProvider>
-      </StrictMode>{" "}
-    </JotaiProvider>
-  );
+export function Providers({ children }: { children: React.ReactNode }) {
+	useEffect(() => {
+		registerPwaClient();
+	}, []);
+
+	return (
+		<JotaiProvider>
+			<StrictMode>
+				<QueryClientProvider client={queryClient}>
+					<HeroUIProvider>
+						<NextThemesProvider attribute="class" defaultTheme="dark">
+							{children}
+						</NextThemesProvider>
+					</HeroUIProvider>
+				</QueryClientProvider>
+			</StrictMode>{" "}
+		</JotaiProvider>
+	);
 }

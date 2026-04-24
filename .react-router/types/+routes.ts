@@ -44,6 +44,19 @@ type Pages = {
   "/projects": {
     params: {};
   };
+  "/career": {
+    params: {};
+  };
+  "/career/:jobId": {
+    params: {
+      "jobId": string;
+    };
+  };
+  "/career/:jobId/success": {
+    params: {
+      "jobId": string;
+    };
+  };
   "/terms": {
     params: {};
   };
@@ -63,7 +76,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/favicon.ico" | "/api/health" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/terms" | "/privacy" | "/page/:slug" | "/console";
+    page: "/" | "/favicon.ico" | "/api/health" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/career" | "/career/:jobId" | "/career/:jobId/success" | "/terms" | "/privacy" | "/page/:slug" | "/console";
   };
   "routes/favicon[.]ico.tsx": {
     id: "routes/favicon[.]ico";
@@ -83,7 +96,7 @@ type RouteFiles = {
   };
   "layouts/MainLayout.tsx": {
     id: "layouts/MainLayout";
-    page: "/" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/terms" | "/privacy" | "/page/:slug";
+    page: "/" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/career" | "/career/:jobId" | "/career/:jobId/success" | "/terms" | "/privacy" | "/page/:slug";
   };
   "routes/home/index.tsx": {
     id: "routes/home/index";
@@ -112,6 +125,18 @@ type RouteFiles = {
   "routes/projects/index.tsx": {
     id: "routes/projects/index";
     page: "/projects";
+  };
+  "routes/career/index.tsx": {
+    id: "routes/career/index";
+    page: "/career";
+  };
+  "routes/career/$jobId.tsx": {
+    id: "routes/career/$jobId";
+    page: "/career/:jobId";
+  };
+  "routes/career/$jobId.success.tsx": {
+    id: "routes/career/$jobId.success";
+    page: "/career/:jobId/success";
   };
   "routes/terms/index.tsx": {
     id: "routes/terms/index";
@@ -145,6 +170,9 @@ type RouteModules = {
   "routes/contact/index": typeof import("./app/routes/contact/index.tsx");
   "routes/health/index": typeof import("./app/routes/health/index.tsx");
   "routes/projects/index": typeof import("./app/routes/projects/index.tsx");
+  "routes/career/index": typeof import("./app/routes/career/index.tsx");
+  "routes/career/$jobId": typeof import("./app/routes/career/$jobId.tsx");
+  "routes/career/$jobId.success": typeof import("./app/routes/career/$jobId.success.tsx");
   "routes/terms/index": typeof import("./app/routes/terms/index.tsx");
   "routes/privacy/index": typeof import("./app/routes/privacy/index.tsx");
   "routes/page/$slug": typeof import("./app/routes/page/$slug.tsx");
