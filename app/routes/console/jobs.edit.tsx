@@ -55,7 +55,7 @@ export default function EditJobPage() {
 				<ConsoleBrand to="/console" />
 				<div>
 					<h1 className="font-heading text-[2.4rem] font-semibold leading-none text-[#1F2534]">
-						Create New Job
+						Edit Job
 					</h1>
 					<p className="mt-2 text-sm text-[#7B8090]">
 						Add a new position to your careers page

@@ -43,7 +43,7 @@ export default function ConsoleCandidatesPage() {
 							className="h-11 rounded-xl bg-[#E2BA51] px-5 font-semibold text-[#1F2534]"
 							startContent={<FiPlus />}
 						>
-							Create Job
+							Add Candidate
 						</Button>
 					}
 				/>

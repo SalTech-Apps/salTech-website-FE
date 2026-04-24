@@ -33,7 +33,7 @@ export default function ConsoleDraftsPage() {
 		<>
 			<div className="mx-auto flex w-full max-w-290 flex-col gap-6 px-0 lg:px-6 lg:py-8">
 				<ConsolePageHeader
-					title="Jobs"
+					title="Drafts"
 					description="Manage job postings and track applications"
 					action={
 						<Button
