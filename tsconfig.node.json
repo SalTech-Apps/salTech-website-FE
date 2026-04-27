@@ -27,6 +27,7 @@
   },
   "include": [
     "vite.config.ts",
+    "express/firebase/admin-db.ts",
     "express/**/*.ts",
     "app/lib/health.server.ts"
   ]

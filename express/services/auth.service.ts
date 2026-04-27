@@ -1,11 +1,8 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { getUserById } from "../models/auth.model.ts";
+import { getAuth, type DecodedIdToken } from "firebase-admin/auth";
+import { getUserById, type LoginDto } from "../models/auth.model.ts";
 import { firebaseAuth } from "../firebase/config.ts";
-
-type LoginDto = {
-	email: string;
-	password: string;
-};
+import { getFirebaseAdminApp } from "../firebase/admin-db.ts";
 
 export const loginUser = async ({ email, password }: LoginDto) => {
 	try {
@@ -16,6 +13,9 @@ export const loginUser = async ({ email, password }: LoginDto) => {
 		);
 
 		const firebaseUser = userCredential.user;
+		const accessToken = await firebaseUser.getIdToken();
+		const idTokenResult = await firebaseUser.getIdTokenResult();
+		const refreshToken = firebaseUser.refreshToken;
 
 		const user = await getUserById(firebaseUser.uid);
 
@@ -24,9 +24,15 @@ export const loginUser = async ({ email, password }: LoginDto) => {
 		}
 
 		return {
-			uid: firebaseUser.uid,
-			email: firebaseUser.email,
-			...user,
+			accessToken,
+			refreshToken,
+			tokenType: "Bearer",
+			expiresAt: idTokenResult.expirationTime,
+			user: {
+				uid: firebaseUser.uid,
+				email: firebaseUser.email,
+				...user,
+			},
 		};
 	} catch (error) {
 		console.error("[auth.service] loginUser error:", error);
@@ -34,3 +40,11 @@ export const loginUser = async ({ email, password }: LoginDto) => {
 		throw new Error(message);
 	}
 };
+
+export async function verifyAccessToken(
+	token: string,
+): Promise<DecodedIdToken> {
+	const auth = getAuth(getFirebaseAdminApp());
+
+	return auth.verifyIdToken(token);
+}

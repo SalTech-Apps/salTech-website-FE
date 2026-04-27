@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
+import type { DecodedIdToken } from "firebase-admin/auth";
 import { loginUser } from "../services/auth.service.ts";
 import {
 	BadRequestResponse,
@@ -8,7 +9,9 @@ import {
 
 export async function login(req: Request, res: Response): Promise<void> {
 	try {
-		const { email, password } = req.body;
+		const body = (req.body ?? {}) as Record<string, unknown>;
+		const email = String(body.email ?? "").trim();
+		const password = String(body.password ?? "");
 
 		if (!email || !password) {
 			BadRequestResponse(res, "Email and password are required", "BadRequest");
@@ -23,4 +26,27 @@ export async function login(req: Request, res: Response): Promise<void> {
 		const message = error instanceof Error ? error.message : "Login failed";
 		UnauthorizedResponse(res, message, "Unauthorized");
 	}
+}
+
+export async function getAuthenticatedUser(
+	_req: Request,
+	res: Response,
+): Promise<void> {
+	const authUser = res.locals.authUser as DecodedIdToken | undefined;
+
+	if (!authUser) {
+		UnauthorizedResponse(res, "Unauthorized", "Unauthorized");
+		return;
+	}
+
+	SuccessResponse(
+		res,
+		{
+			uid: authUser.uid,
+			email: authUser.email ?? null,
+			claims: authUser,
+		},
+		200,
+		"Authenticated user fetched successfully",
+	);
 }

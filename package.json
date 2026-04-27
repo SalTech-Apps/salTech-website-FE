@@ -7,8 +7,6 @@
 		"node": ">=20.9.0"
 	},
 	"scripts": {
-		"seed:admin": "node scripts/seed-default-admin.mjs",
-		"seed:insights": "node scripts/seed-insights.mjs",
 		"dev": "PORT=8080 react-router dev",
 		"build": "react-router build",
 		"start": "pnpm run build && NODE_ENV=production PORT=8080 node --experimental-strip-types ./server.ts",
@@ -17,7 +15,9 @@
 		"lint": "eslint . --ext .js,.jsx,.ts,.tsx",
 		"lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
 		"typecheck": "react-router typegen && tsc -b",
-		"optimize:public-assets": "node scripts/optimize-public-assets.mjs"
+		"optimize:public-assets": "node scripts/optimize-public-assets.mjs",
+		"seed:admin": "node scripts/seed-default-admin.mjs",
+		"seed:insights": "node scripts/seed-insights.mjs"
 	},
 	"dependencies": {
 		"@digicroz/react-floating-whatsapp": "^1.0.2",
