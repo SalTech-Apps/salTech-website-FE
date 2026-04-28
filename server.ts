@@ -41,8 +41,8 @@ const assetsBuildDirectory = path.resolve(
 	buildModule.assetsBuildDirectory,
 );
 const { publicPath } = buildModule;
-
 const app = express();
+
 app.disable("x-powered-by");
 app.use(compression());
 app.use(express.json());

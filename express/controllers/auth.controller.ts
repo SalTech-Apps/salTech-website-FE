@@ -6,8 +6,12 @@ import {
 	SuccessResponse,
 	UnauthorizedResponse,
 } from "../utils/response.ts";
+import type { LoginDto } from "../models/auth.model.ts";
 
-export async function login(req: Request, res: Response): Promise<void> {
+export async function login(
+	req: Request<object, object, LoginDto>,
+	res: Response,
+): Promise<void> {
 	try {
 		const body = (req.body ?? {}) as Record<string, unknown>;
 		const email = String(body.email ?? "").trim();
