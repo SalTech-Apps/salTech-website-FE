@@ -83,8 +83,6 @@ export async function submitApplicant(
 	req: Request,
 	res: Response,
 ): Promise<void> {
-	console.log("BODY:", req.body);
-
 	try {
 		const input = normalizeCreateApplicantInput(
 			req.body as Record<string, unknown>,

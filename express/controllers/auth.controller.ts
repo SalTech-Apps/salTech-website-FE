@@ -1,28 +1,15 @@
 import type { Request, Response } from "express";
 import type { DecodedIdToken } from "firebase-admin/auth";
 import { loginUser } from "../services/auth.service.ts";
-import {
-	BadRequestResponse,
-	SuccessResponse,
-	UnauthorizedResponse,
-} from "../utils/response.ts";
-import type { LoginDto } from "../models/auth.model.ts";
+import { SuccessResponse, UnauthorizedResponse } from "../utils/response.ts";
+import type { LoginDto } from "../schemas/auth.schema.ts";
 
 export async function login(
 	req: Request<object, object, LoginDto>,
 	res: Response,
 ): Promise<void> {
 	try {
-		const body = (req.body ?? {}) as Record<string, unknown>;
-		const email = String(body.email ?? "").trim();
-		const password = String(body.password ?? "");
-
-		if (!email || !password) {
-			BadRequestResponse(res, "Email and password are required", "BadRequest");
-			return;
-		}
-
-		const user = await loginUser({ email, password });
+		const user = await loginUser(req.body);
 
 		SuccessResponse(res, user, 200, "Login successful");
 	} catch (error) {

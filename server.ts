@@ -6,7 +6,9 @@ import morgan from "morgan";
 import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import swaggerUi from "swagger-ui-express";
 
+import { openApiDocument } from "./express/openapi/document.ts";
 import { createApiRouter } from "./express/routes.ts";
 
 process.env.NODE_ENV ??= "production";
@@ -47,6 +49,10 @@ app.disable("x-powered-by");
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.get("/openapi.json", (_req, res) => {
+	res.json(openApiDocument);
+});
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(openApiDocument));
 app.use("/api", createApiRouter());
 
 app.use(

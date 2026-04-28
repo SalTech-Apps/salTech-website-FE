@@ -24,11 +24,13 @@ import {
 	submitApplicant,
 } from "./controllers/applicant.controller.ts";
 import { requireAuth } from "./middleware/auth.middleware.ts";
+import { validateBody } from "./middleware/validate.middleware.ts";
+import { LoginRequestSchema } from "./schemas/auth.schema.ts";
 
 export function createApiRouter(): Router {
 	const api = Router();
 	api.get("/health", getHealth);
-	api.post("/auth/login", login);
+	api.post("/auth/login", validateBody(LoginRequestSchema), login);
 	api.get("/auth/me", requireAuth, getAuthenticatedUser);
 	api.get("/dashboard", requireAuth, getDashboard);
 

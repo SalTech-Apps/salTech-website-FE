@@ -1,10 +1,14 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { getAuth, type DecodedIdToken } from "firebase-admin/auth";
-import { getUserById, type LoginDto } from "../models/auth.model.ts";
+import { getUserById } from "../models/auth.model.ts";
 import { firebaseAuth } from "../firebase/config.ts";
 import { getFirebaseAdminApp } from "../firebase/admin-db.ts";
+import type { LoginDto, LoginResponseData } from "../schemas/auth.schema.ts";
 
-export const loginUser = async ({ email, password }: LoginDto) => {
+export const loginUser = async ({
+	email,
+	password,
+}: LoginDto): Promise<LoginResponseData> => {
 	try {
 		const userCredential = await signInWithEmailAndPassword(
 			firebaseAuth,

@@ -1,4 +1,5 @@
 import { firebaseAdminDb } from "../firebase/admin-db.ts";
+import type { LoginDto } from "../schemas/auth.schema.ts";
 
 export const getUserById = async (uid: string) => {
 	const snapshot = await firebaseAdminDb.collection("users").doc(uid).get();
@@ -8,7 +9,4 @@ export const getUserById = async (uid: string) => {
 	return snapshot.data();
 };
 
-export type LoginDto = {
-	email: string;
-	password: string;
-};
+export type { LoginDto };
