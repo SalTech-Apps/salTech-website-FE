@@ -25,5 +25,14 @@ export default [
 		route("privacy", "routes/privacy/index.tsx"),
 		route("page/:slug", "routes/page/$slug.tsx"),
 	]),
-	route("console", "layouts/ConsoleLayout.tsx", []),
+	route("console", "layouts/ConsoleLayout.tsx", [
+		index("routes/console/index.tsx"),
+		route("jobs", "routes/console/jobs.tsx"),
+		route("jobs/new", "routes/console/jobs.new.tsx"),
+		route("jobs/:jobId/edit", "routes/console/jobs.edit.tsx"),
+		route("drafts", "routes/console/drafts.tsx"),
+		route("candidates", "routes/console/candidates.tsx"),
+		route("settings", "routes/console/settings.tsx"),
+	]),
+	route("login", "routes/login/index.tsx"),
 ] satisfies RouteConfig;

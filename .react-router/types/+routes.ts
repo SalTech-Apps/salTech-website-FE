@@ -71,12 +71,35 @@ type Pages = {
   "/console": {
     params: {};
   };
+  "/console/jobs": {
+    params: {};
+  };
+  "/console/jobs/new": {
+    params: {};
+  };
+  "/console/jobs/:jobId/edit": {
+    params: {
+      "jobId": string;
+    };
+  };
+  "/console/drafts": {
+    params: {};
+  };
+  "/console/candidates": {
+    params: {};
+  };
+  "/console/settings": {
+    params: {};
+  };
+  "/login": {
+    params: {};
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/favicon.ico" | "/api/health" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/career" | "/career/:jobId" | "/career/:jobId/success" | "/terms" | "/privacy" | "/page/:slug" | "/console";
+    page: "/" | "/favicon.ico" | "/api/health" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/career" | "/career/:jobId" | "/career/:jobId/success" | "/terms" | "/privacy" | "/page/:slug" | "/console" | "/console/jobs" | "/console/jobs/new" | "/console/jobs/:jobId/edit" | "/console/drafts" | "/console/candidates" | "/console/settings" | "/login";
   };
   "routes/favicon[.]ico.tsx": {
     id: "routes/favicon[.]ico";
@@ -152,7 +175,39 @@ type RouteFiles = {
   };
   "layouts/ConsoleLayout.tsx": {
     id: "layouts/ConsoleLayout";
+    page: "/console" | "/console/jobs" | "/console/jobs/new" | "/console/jobs/:jobId/edit" | "/console/drafts" | "/console/candidates" | "/console/settings";
+  };
+  "routes/console/index.tsx": {
+    id: "routes/console/index";
     page: "/console";
+  };
+  "routes/console/jobs.tsx": {
+    id: "routes/console/jobs";
+    page: "/console/jobs";
+  };
+  "routes/console/jobs.new.tsx": {
+    id: "routes/console/jobs.new";
+    page: "/console/jobs/new";
+  };
+  "routes/console/jobs.edit.tsx": {
+    id: "routes/console/jobs.edit";
+    page: "/console/jobs/:jobId/edit";
+  };
+  "routes/console/drafts.tsx": {
+    id: "routes/console/drafts";
+    page: "/console/drafts";
+  };
+  "routes/console/candidates.tsx": {
+    id: "routes/console/candidates";
+    page: "/console/candidates";
+  };
+  "routes/console/settings.tsx": {
+    id: "routes/console/settings";
+    page: "/console/settings";
+  };
+  "routes/login/index.tsx": {
+    id: "routes/login/index";
+    page: "/login";
   };
 };
 
@@ -177,4 +232,12 @@ type RouteModules = {
   "routes/privacy/index": typeof import("./app/routes/privacy/index.tsx");
   "routes/page/$slug": typeof import("./app/routes/page/$slug.tsx");
   "layouts/ConsoleLayout": typeof import("./app/layouts/ConsoleLayout.tsx");
+  "routes/console/index": typeof import("./app/routes/console/index.tsx");
+  "routes/console/jobs": typeof import("./app/routes/console/jobs.tsx");
+  "routes/console/jobs.new": typeof import("./app/routes/console/jobs.new.tsx");
+  "routes/console/jobs.edit": typeof import("./app/routes/console/jobs.edit.tsx");
+  "routes/console/drafts": typeof import("./app/routes/console/drafts.tsx");
+  "routes/console/candidates": typeof import("./app/routes/console/candidates.tsx");
+  "routes/console/settings": typeof import("./app/routes/console/settings.tsx");
+  "routes/login/index": typeof import("./app/routes/login/index.tsx");
 };
