@@ -22,6 +22,9 @@
       "routes/contact/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/health/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/projects/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/career/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/career/$jobId": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/career/$jobId.success": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/terms/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/privacy/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/page/$slug": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
@@ -119,6 +122,27 @@
         "path": "projects",
         "config": {}
       },
+      "routes/career/index": {
+        "id": "routes/career/index",
+        "parentId": "layouts/MainLayout",
+        "file": "app/routes/career/index.tsx",
+        "path": "career",
+        "config": {}
+      },
+      "routes/career/$jobId": {
+        "id": "routes/career/$jobId",
+        "parentId": "layouts/MainLayout",
+        "file": "app/routes/career/$jobId.tsx",
+        "path": "career/:jobId",
+        "config": {}
+      },
+      "routes/career/$jobId.success": {
+        "id": "routes/career/$jobId.success",
+        "parentId": "layouts/MainLayout",
+        "file": "app/routes/career/$jobId.success.tsx",
+        "path": "career/:jobId/success",
+        "config": {}
+      },
       "routes/terms/index": {
         "id": "routes/terms/index",
         "parentId": "layouts/MainLayout",
@@ -150,9 +174,9 @@
     }
   },
   "reactRouterConfig": {
-    "appDirectory": "/home/nnanna75/Documents/my-code/saltech/saltech_website/app",
+    "appDirectory": "/Users/chimdie/Documents/saltech/salTech-website-FE/app",
     "basename": "/",
-    "buildDirectory": "/home/nnanna75/Documents/my-code/saltech/saltech_website/build",
+    "buildDirectory": "/Users/chimdie/Documents/saltech/salTech-website-FE/build",
     "future": {
       "unstable_optimizeDeps": false,
       "unstable_passThroughRequests": false,
@@ -240,6 +264,24 @@
         "file": "routes/projects/index.tsx",
         "path": "projects"
       },
+      "routes/career/index": {
+        "id": "routes/career/index",
+        "parentId": "layouts/MainLayout",
+        "file": "routes/career/index.tsx",
+        "path": "career"
+      },
+      "routes/career/$jobId": {
+        "id": "routes/career/$jobId",
+        "parentId": "layouts/MainLayout",
+        "file": "routes/career/$jobId.tsx",
+        "path": "career/:jobId"
+      },
+      "routes/career/$jobId.success": {
+        "id": "routes/career/$jobId.success",
+        "parentId": "layouts/MainLayout",
+        "file": "routes/career/$jobId.success.tsx",
+        "path": "career/:jobId/success"
+      },
       "routes/terms/index": {
         "id": "routes/terms/index",
         "parentId": "layouts/MainLayout",
@@ -325,6 +367,18 @@
               {
                 "file": "routes/projects/index.tsx",
                 "path": "projects"
+              },
+              {
+                "file": "routes/career/index.tsx",
+                "path": "career"
+              },
+              {
+                "file": "routes/career/$jobId.tsx",
+                "path": "career/:jobId"
+              },
+              {
+                "file": "routes/career/$jobId.success.tsx",
+                "path": "career/:jobId/success"
               },
               {
                 "file": "routes/terms/index.tsx",
