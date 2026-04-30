@@ -1,7 +1,11 @@
 import { Router } from "express";
 
 import { getHealth } from "./controllers/healthController.ts";
-import { getAuthenticatedUser, login } from "./controllers/auth.controller.ts";
+import {
+	getAuthenticatedUser,
+	login,
+	logout,
+} from "./controllers/auth.controller.ts";
 import { getDashboard } from "./controllers/dashboard.controller.ts";
 import {
 	editJob,
@@ -32,6 +36,7 @@ export function createApiRouter(): Router {
 	api.get("/health", getHealth);
 	api.post("/auth/login", validateBody(LoginRequestSchema), login);
 	api.get("/auth/me", requireAuth, getAuthenticatedUser);
+	api.post("/auth/logout", requireAuth, logout);
 	api.get("/dashboard", requireAuth, getDashboard);
 
 	api.get("/jobs", listJobs);

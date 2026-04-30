@@ -5,6 +5,7 @@ import {
 	AuthUserSchema,
 	FirestoreTimestampSchema,
 	LoginRequestSchema,
+	LogoutResponseSchema,
 	LoginResponseDataSchema,
 	LoginResponseSchema,
 } from "../schemas/auth.schema.ts";
@@ -14,6 +15,7 @@ openApiRegistry.register("AuthUser", AuthUserSchema);
 openApiRegistry.register("LoginRequest", LoginRequestSchema);
 openApiRegistry.register("LoginResponseData", LoginResponseDataSchema);
 openApiRegistry.register("LoginResponse", LoginResponseSchema);
+openApiRegistry.register("LogoutResponse", LogoutResponseSchema);
 openApiRegistry.register("ApiErrorResponse", ApiErrorResponseSchema);
 openApiRegistry.registerComponent("securitySchemes", "bearerAuth", {
 	type: "http",
@@ -83,6 +85,32 @@ openApiRegistry.registerPath({
 							claims: z.record(z.string(), z.unknown()),
 						}),
 					}),
+				},
+			},
+		},
+		401: {
+			description: "Unauthorized",
+			content: {
+				"application/json": {
+					schema: ApiErrorResponseSchema,
+				},
+			},
+		},
+	},
+});
+
+openApiRegistry.registerPath({
+	method: "post",
+	path: "/api/auth/logout",
+	tags: ["Auth"],
+	summary: "Logout the authenticated user",
+	security: [{ bearerAuth: [] }],
+	responses: {
+		200: {
+			description: "Logout successful",
+			content: {
+				"application/json": {
+					schema: LogoutResponseSchema,
 				},
 			},
 		},

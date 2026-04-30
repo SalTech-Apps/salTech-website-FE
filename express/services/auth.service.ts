@@ -52,3 +52,8 @@ export async function verifyAccessToken(
 
 	return auth.verifyIdToken(token);
 }
+
+export async function logoutUser(uid: string): Promise<void> {
+	const auth = getAuth(getFirebaseAdminApp());
+	await auth.revokeRefreshTokens(uid);
+}

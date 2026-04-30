@@ -56,5 +56,10 @@ export const LoginResponseSchema = ApiSuccessResponseSchema(
 	LoginResponseDataSchema,
 );
 
+export const LogoutResponseSchema = ApiSuccessResponseSchema(
+	z.object({ success: z.literal(true) }),
+);
+
 export type LoginDto = z.infer<typeof LoginRequestSchema>;
 export type LoginResponseData = z.infer<typeof LoginResponseDataSchema>;
+export type LogoutResponseData = z.infer<typeof LogoutResponseSchema>;

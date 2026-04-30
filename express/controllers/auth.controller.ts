@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import type { DecodedIdToken } from "firebase-admin/auth";
-import { loginUser } from "../services/auth.service.ts";
+import { loginUser, logoutUser } from "../services/auth.service.ts";
 import { SuccessResponse, UnauthorizedResponse } from "../utils/response.ts";
 import type { LoginDto } from "../schemas/auth.schema.ts";
 
@@ -40,4 +40,20 @@ export async function getAuthenticatedUser(
 		200,
 		"Authenticated user fetched successfully",
 	);
+}
+
+export async function logout(_req: Request, res: Response): Promise<void> {
+	try {
+		const authUser = res.locals.authUser as DecodedIdToken | undefined;
+		if (!authUser?.uid) {
+			UnauthorizedResponse(res, "Unauthorized", "Unauthorized");
+			return;
+		}
+
+		await logoutUser(authUser.uid);
+		SuccessResponse(res, { success: true }, 200, "Logout successful");
+	} catch (error) {
+		console.error("[auth.controller] logout error:", error);
+		UnauthorizedResponse(res, "Logout failed", "Unauthorized");
+	}
 }

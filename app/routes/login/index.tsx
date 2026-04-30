@@ -2,11 +2,65 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { Button, Input } from "@heroui/react";
 import { FiArrowLeft, FiEye, FiEyeOff, FiLock, FiMail } from "react-icons/fi";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, useWatch } from "react-hook-form";
+
 import { AppFooter } from "@/components/app-footer/AppFooter";
 import { SaltechIcon } from "@/assets/SaltechIcon";
+import { login } from "@/api/admin";
+import type { LoginRequest } from "@/client";
+import { LoginSchema } from "@/schemas/auth.schema";
+import { apiErrorParser } from "@/lib/errorParser";
 
 export default function LoginPage() {
 	const [showPassword, setShowPassword] = useState(false);
+	const navigate = useNavigate();
+
+	const form = useForm<LoginSchema>({
+		mode: "onChange",
+		reValidateMode: "onChange",
+		resolver: zodResolver(LoginSchema),
+		defaultValues: {
+			email: "",
+			password: "",
+		},
+	});
+
+	const emailValue =
+		useWatch({
+			control: form.control,
+			name: "email",
+		}) ?? "";
+	const passwordValue =
+		useWatch({
+			control: form.control,
+			name: "password",
+		}) ?? "";
+
+	const loginMutation = useMutation({
+		mutationFn: login,
+		onSuccess: () => {
+			toast.success("Signed in successfully");
+			navigate("/console", { replace: true });
+		},
+		onError: (err) => {
+			const error = apiErrorParser(err);
+			toast.error(error.message);
+		},
+	});
+
+	const canSubmit =
+		emailValue.trim().length > 0 &&
+		passwordValue.trim().length > 0 &&
+		form.formState.isValid &&
+		!loginMutation.isPending;
+
+	const handleSubmit = (data: LoginRequest) => {
+		loginMutation.mutate(data);
+	};
 
 	return (
 		<>
@@ -38,11 +92,15 @@ export default function LoginPage() {
 								</div>
 							</div>
 
-							<form className="space-y-4">
+							<form
+								className="space-y-4"
+								onSubmit={form.handleSubmit(handleSubmit)}
+							>
 								<Input
 									label="Email Address"
 									labelPlacement="outside"
 									placeholder="admin@saltech.com"
+									{...form.register("email")}
 									startContent={<FiMail className="text-[#A1A7B5]" />}
 									type="email"
 									classNames={{
@@ -52,11 +110,13 @@ export default function LoginPage() {
 											"h-12 rounded-xl border border-[#E7E2D8] bg-white shadow-none",
 									}}
 									required
+									isDisabled={loginMutation.isPending}
 								/>
 								<Input
 									label="Password"
 									labelPlacement="outside"
 									placeholder="••••••••"
+									{...form.register("password")}
 									startContent={<FiLock className="text-[#A1A7B5]" />}
 									endContent={
 										<button
@@ -77,6 +137,7 @@ export default function LoginPage() {
 											"h-12 rounded-xl border border-[#E7E2D8] bg-white shadow-none",
 									}}
 									required
+									isDisabled={loginMutation.isPending}
 								/>
 								<div className="pt-1 flex justify-end">
 									<Button
@@ -84,6 +145,7 @@ export default function LoginPage() {
 										variant="light"
 										size="sm"
 										className="h-auto min-w-0 px-0 text-[#d0ad4f] hover:text-[#ba9335]"
+										isDisabled={loginMutation.isPending}
 									>
 										Forgot password?
 									</Button>
@@ -91,7 +153,9 @@ export default function LoginPage() {
 
 								<Button
 									type="submit"
-									className="mt-1 w-full rounded-lg bg-[#e6e9ef]"
+									isLoading={loginMutation.isPending}
+									className="mt-1 w-full rounded-lg bg-[#E2BA51]"
+									isDisabled={!canSubmit}
 								>
 									Sign In
 								</Button>
