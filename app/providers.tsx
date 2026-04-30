@@ -5,10 +5,13 @@ import "./index.css";
 import { Provider as JotaiProvider } from "jotai";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { registerPwaClient } from "@/lib/registerPwa";
+import { useApiClientConfig } from "@/hooks/useApiClientConfig";
 
 const queryClient = new QueryClient();
 
 export function Providers({ children }: { children: React.ReactNode }) {
+	useApiClientConfig();
+
 	useEffect(() => {
 		registerPwaClient();
 	}, []);
