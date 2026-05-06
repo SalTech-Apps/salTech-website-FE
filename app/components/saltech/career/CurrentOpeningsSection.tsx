@@ -1,9 +1,42 @@
+import { useMemo } from "react";
 import { useNavigate } from "react-router";
-import { JOB_OPENINGS } from "@/data/saltechCareers";
+import { useQuery } from "@tanstack/react-query";
+import { getApiJobs } from "@/client";
 import { Button, Chip } from "@heroui/react";
+
+type CareerOpening = {
+	id: string;
+	title: string;
+	location: string;
+	type: string;
+	department: string;
+	status: string;
+};
 
 export function CurrentOpeningsSection() {
 	const navigate = useNavigate();
+
+	const jobsQuery = useQuery({
+		queryKey: ["career-open-jobs"],
+		queryFn: async () => {
+			const { data } = await getApiJobs({ throwOnError: true });
+			return data.data;
+		},
+	});
+
+	const openings = useMemo<CareerOpening[]>(() => {
+		const apiJobs = jobsQuery.data ?? [];
+		return apiJobs
+			.filter((job) => job.status === "OPEN")
+			.map((job) => ({
+				id: job.id,
+				title: job.title,
+				location: job.location,
+				type: job.jobType.replaceAll("_", " "),
+				department: job.department,
+				status: "hiring_now",
+			}));
+	}, [jobsQuery.data]);
 
 	const getStatusColor = (status: string) => {
 		switch (status) {
@@ -44,7 +77,19 @@ export function CurrentOpeningsSection() {
 				</div>
 
 				<div className="space-y-4">
-					{JOB_OPENINGS.map((job) => (
+					{jobsQuery.isLoading &&
+						Array.from({ length: 3 }).map((_, index) => (
+							<div
+								key={`skeleton-${index}`}
+								className="rounded-2xl border border-[#e5e7eb] p-6 md:p-8"
+							>
+								<div className="h-5 w-1/2 animate-pulse rounded bg-[#EFE8D8]" />
+								<div className="mt-4 h-4 w-3/4 animate-pulse rounded bg-[#F4EEE0]" />
+								<div className="mt-2 h-4 w-2/3 animate-pulse rounded bg-[#F4EEE0]" />
+							</div>
+						))}
+
+					{openings.map((job) => (
 						<div
 							key={job.id}
 							className="group rounded-2xl border border-[#e5e7eb] p-6 md:p-8 transition-all duration-300 cursor-pointer"
@@ -101,6 +146,18 @@ export function CurrentOpeningsSection() {
 							</div>
 						</div>
 					))}
+					{jobsQuery.isError && (
+						<div className="rounded-2xl border border-[#F9CACA] bg-[#FFF5F5] p-6 text-sm text-[#B42318]">
+							Unable to load jobs right now. Please try again shortly.
+						</div>
+					)}
+					{!jobsQuery.isLoading &&
+						!jobsQuery.isError &&
+						openings.length === 0 && (
+							<div className="rounded-2xl border border-[#e5e7eb] p-6 text-sm text-[#6b7280]">
+								No open positions are available at the moment.
+							</div>
+						)}
 				</div>
 
 				<div className="mt-12 rounded-2xl border border-[#C99E2E] bg-[#E2BA511A] p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -114,24 +171,22 @@ export function CurrentOpeningsSection() {
 						</p>
 					</div>
 					<Button
-						className="inline-flex items-center px-6 py-3 bg-[#E2BA51] text-[#111827] font-semibold rounded-lg hover:bg-[#d4a84a] transition-all duration-300"
-						endContent={
-							<svg
-								className="w-4 h-4 ml-2"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M13 7l5 5m0 0l-5 5m5-5H6"
-								/>
-							</svg>
-						}
+						className="inline-flex items-center rounded-xl bg-[#E2BA51] px-6 py-3 font-semibold text-[#111827] transition-all duration-300 hover:bg-[#d4a84a]"
 					>
 						Send an Open Application
+						<svg
+							className="w-4 h-4 ml-2"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M13 7l5 5m0 0l-5 5m5-5H6"
+							/>
+						</svg>
 					</Button>
 				</div>
 			</div>

@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Button } from "@heroui/react";
-import { FaArrowRight } from "react-icons/fa";
 
 export function ServicesBookCallSection() {
 	return (
@@ -13,17 +12,14 @@ export function ServicesBookCallSection() {
 					Tell us the problem. We&apos;ll match the right capability to it — no
 					upsell, no bloat.
 				</p>
-				<Button
-					as={Link}
-					to="/contact"
-					prefetch="intent"
-					radius="lg"
-					size="lg"
-					className="bg-[#E2BA51] font-body font-bold text-[#111827] h-12 rounded-xl"
-					endContent={<FaArrowRight className="text-sm" aria-hidden />}
-				>
-					Book a Free Scoping Call
-				</Button>
+				<Link to="/contact" prefetch="intent">
+					<Button
+						size="lg"
+						className="h-12 rounded-xl bg-[#E2BA51] font-body font-bold text-[#111827]"
+					>
+						Book a Free Scoping Call
+					</Button>
+				</Link>
 			</div>
 		</section>
 	);

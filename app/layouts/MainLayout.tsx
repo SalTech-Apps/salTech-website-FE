@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import { AppHeader } from "@/components/app-header/AppHeader";
 import { AppFooter } from "@/components/app-footer/AppFooter";
 import { FloatingWhatsAppWidget } from "@/components/common";

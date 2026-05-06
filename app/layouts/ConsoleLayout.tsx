@@ -1,6 +1,12 @@
 import { useState } from "react";
-import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { Button, Modal, ModalBody, ModalContent } from "@heroui/react";
+import { Outlet, Link, useLocation, useNavigate } from "react-router";
+import {
+	Button,
+	Modal,
+	ModalBackdrop,
+	ModalContainer,
+	ModalDialog,
+} from "@heroui/react";
 import { ConsoleBrand } from "@/components/console/ConsoleShared";
 import { logoutWithRevoke } from "@/api/auth";
 import {
@@ -9,6 +15,7 @@ import {
 	FiGrid,
 	FiLogOut,
 	FiSettings,
+	FiUserCheck,
 	FiUsers,
 	FiX,
 } from "react-icons/fi";
@@ -21,6 +28,7 @@ export function meta() {
 const NAV_ITEMS = [
 	{ to: "/console", label: "Dashboard", icon: FiGrid, exact: true },
 	{ to: "/console/jobs", label: "Jobs", icon: FiBriefcase },
+	{ to: "/console/team", label: "Team", icon: FiUserCheck },
 	{ to: "/console/drafts", label: "Drafts", icon: FiFileText },
 	{ to: "/console/candidates", label: "Candidates", icon: FiUsers },
 	{ to: "/console/settings", label: "Settings", icon: FiSettings },
@@ -116,7 +124,7 @@ export default function ConsoleLayout() {
 				<div className="shrink-0 border-t border-[#ECE8DF] p-5">
 					<button
 						type="button"
-						onClick={() => setLogoutModalOpen(true)}
+						onPress={() => setLogoutModalOpen(true)}
 						className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-[#F04337] transition-colors hover:bg-[#FFF5F3]"
 					>
 						<FiLogOut size={18} />
@@ -125,42 +133,44 @@ export default function ConsoleLayout() {
 				</div>
 			</aside>
 
-			<Modal
-				isOpen={logoutModalOpen}
-				onOpenChange={setLogoutModalOpen}
-				size="sm"
-				backdrop="blur"
-				classNames={{ base: "rounded-[20px] bg-white", closeButton: "hidden" }}
-			>
-				<ModalContent>
-					{(onClose) => (
-						<ModalBody className="px-6 py-6">
-							<h3 className="font-heading text-[1.6rem] font-semibold text-[#1F2534]">
-								Confirm Logout
-							</h3>
-							<p className="mt-2 text-sm text-[#707788]">
-								Are you sure you want to log out of your admin session?
-							</p>
-							<div className="mt-6 grid grid-cols-2 gap-3">
-								<Button
-									variant="bordered"
-									className="h-11 rounded-xl border-[#E5E1D8] bg-white font-semibold text-[#434959]"
-									onPress={onClose}
-									isDisabled={isLoggingOut}
-								>
-									Cancel
-								</Button>
-								<Button
-									className="h-11 rounded-xl bg-[#E62A25] font-semibold text-white"
-									onPress={handleConfirmLogout}
-									isLoading={isLoggingOut}
-								>
-									Logout
-								</Button>
-							</div>
-						</ModalBody>
-					)}
-				</ModalContent>
+			<Modal>
+				<ModalBackdrop
+					isOpen={logoutModalOpen}
+					onOpenChange={setLogoutModalOpen}
+					variant="blur"
+				>
+					<ModalContainer size="sm" className="rounded-[20px] bg-white">
+						<ModalDialog>
+							{({ close }) => (
+								<div className="px-6 py-6">
+									<h3 className="font-heading text-[1.6rem] font-semibold text-[#1F2534]">
+										Confirm Logout
+									</h3>
+									<p className="mt-2 text-sm text-[#707788]">
+										Are you sure you want to log out of your admin session?
+									</p>
+									<div className="mt-6 grid grid-cols-2 gap-3">
+										<Button
+											variant="secondary"
+											className="h-11 rounded-xl border-[#E5E1D8] bg-white font-semibold text-[#434959]"
+											onPress={close}
+											isDisabled={isLoggingOut}
+										>
+											Cancel
+										</Button>
+										<Button
+											className="h-11 rounded-xl bg-[#E62A25] font-semibold text-white"
+											onPress={handleConfirmLogout}
+											isPending={isLoggingOut}
+										>
+											Logout
+										</Button>
+									</div>
+								</div>
+							)}
+						</ModalDialog>
+					</ModalContainer>
+				</ModalBackdrop>
 			</Modal>
 
 			<div className="flex flex-1 flex-col">

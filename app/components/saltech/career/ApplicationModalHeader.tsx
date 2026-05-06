@@ -1,4 +1,4 @@
-import { ModalHeader } from "@heroui/react";
+
 
 interface ApplicationModalHeaderProps {
 	jobTitle: string;
@@ -22,14 +22,14 @@ export function ApplicationModalHeader({
 				</button>
 			</div>
 
-			<ModalHeader className="flex flex-col items-center gap-2 px-0 pb-0 text-center">
+			<div className="flex flex-col items-center gap-2 px-0 pb-0 text-center">
 				<h2 className="font-saltech-display text-5xl leading-none text-[#111827]">
 					Apply for this Position
 				</h2>
 				<p className="text-base text-[#6b7280] md:text-[18px]">
 					{jobTitle} · SalTech
 				</p>
-			</ModalHeader>
+			</div>
 		</>
 	);
 }

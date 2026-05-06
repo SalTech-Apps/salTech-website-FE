@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
 import { homePageAssets } from "@/data/homePageAssets";
-import { Button, Image } from "@heroui/react";
+import { Link } from "react-router";
 
 type Stat = { value: string; label: string };
 
@@ -93,7 +92,7 @@ export function SalTechCaseStudies() {
 								style={{ background: c.gradient }}
 							>
 								<div className="relaative flex h-full items-center justify-center overflow-hidden p-2">
-									<Image
+									<img
 										src={c.image}
 										alt=""
 										className={`max-h-[140%] w-auto max-w-[115%] object-contain ${c.imageOpacity ? "opacity-40" : " left-8"} rotate-8`}
@@ -130,14 +129,13 @@ export function SalTechCaseStudies() {
 				</div>
 
 				<div className="mt-10 flex justify-center">
-					<Button
-						as={Link}
+					<Link
 						to="/case-studies"
 						prefetch="intent"
-						className="inline-flex h-13 items-center justify-center rounded-[10px] border border-[#e5e7eb] px-7 text-[15px] font-semibold text-[#111827] transition-colors"
+						className="inline-flex h-13 items-center justify-center rounded-[10px] border border-[#e5e7eb] px-7 text-[15px] font-semibold text-[#111827] transition-colors hover:opacity-50"
 					>
 						View All Case Studies →
-					</Button>
+					</Link>
 				</div>
 			</div>
 		</section>

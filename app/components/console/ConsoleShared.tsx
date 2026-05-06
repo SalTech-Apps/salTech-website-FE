@@ -1,9 +1,24 @@
 import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
-import { Card, CardBody, Chip } from "@heroui/react";
+import { Link } from "react-router";
+import { Card, CardContent, Chip } from "@heroui/react";
 import type { IconType } from "react-icons";
 import { SaltechIcon } from "@/assets/SaltechIcon";
-import type { CandidateStage, ConsoleJobStatus } from "@/data/consoleDashboard";
+
+type CandidateStatus =
+	| "New"
+	| "Under Review"
+	| "Interview Scheduled"
+	| "Accepted"
+	| "Rejected";
+
+type ApiApplicantStatus =
+	| "NEW"
+	| "UNDER_REVIEW"
+	| "INTERVIEW_SCHEDULED"
+	| "ACCEPTED"
+	| "REJECTED";
+
+type ApiJobStatus = "DRAFT" | "OPEN" | "CLOSED";
 
 export function ConsoleBrand({ to = "/console" }: { to?: string }) {
 	return (
@@ -55,7 +70,7 @@ export function ConsolePanel({
 		<Card
 			className={`rounded-[22px] border border-[#E6E2D9] bg-white shadow-none ${className}`}
 		>
-			<CardBody className="p-0">{children}</CardBody>
+			<CardContent className="p-0">{children}</CardContent>
 		</Card>
 	);
 }
@@ -98,45 +113,76 @@ export function ConsoleStatCard({
 	);
 }
 
-export function JobStatusChip({ status }: { status: ConsoleJobStatus }) {
+function toJobStatusLabel(status: ApiJobStatus | string): {
+	label: string;
+	base: string;
+	content: string;
+} {
+	if (status === "OPEN" || status === "active") {
+		return {
+			label: "Active",
+			base: "border-[#2FA55E] bg-[#E9F9EF]",
+			content: "text-[#197844] text-xs font-medium",
+		};
+	}
+
+	if (status === "DRAFT" || status === "draft") {
+		return {
+			label: "Draft",
+			base: "border-[#B4BACA] bg-[#F7F8FB]",
+			content: "text-[#6F7687] text-xs font-medium",
+		};
+	}
+
+	return {
+		label: "Closed",
+		base: "border-[#E5E1D8] bg-[#FAF7F0]",
+		content: "text-[#7C8192] text-xs font-medium",
+	};
+}
+
+export function JobStatusChip({ status }: { status: ApiJobStatus | string }) {
+	const chip = toJobStatusLabel(status);
+
 	return (
-		<Chip
-			variant="bordered"
-			radius="full"
-			classNames={{
-				base:
-					status === "active"
-						? "border-[#2FA55E] bg-[#E9F9EF]"
-						: "border-[#B4BACA] bg-[#F7F8FB]",
-				content:
-					status === "active"
-						? "text-[#197844] text-xs font-medium"
-						: "text-[#6F7687] text-xs font-medium",
-			}}
-		>
-			{status === "active" ? "Active" : "Draft"}
+		<Chip variant="secondary" className={`rounded-full ${chip.base}`}>
+			<span className={chip.content}>{chip.label}</span>
 		</Chip>
 	);
 }
 
-export function CandidateStageChip({ stage }: { stage: CandidateStage }) {
-	const styles: Record<CandidateStage, string> = {
+function normalizeCandidateStatus(
+	stage: CandidateStatus | ApiApplicantStatus | string,
+): CandidateStatus {
+	if (stage === "NEW" || stage === "New") return "New";
+	if (stage === "UNDER_REVIEW" || stage === "Under Review") {
+		return "Under Review";
+	}
+	if (stage === "INTERVIEW_SCHEDULED" || stage === "Interview Scheduled") {
+		return "Interview Scheduled";
+	}
+	if (stage === "ACCEPTED" || stage === "Accepted") return "Accepted";
+	if (stage === "REJECTED" || stage === "Rejected") return "Rejected";
+	return "New";
+}
+
+export function CandidateStageChip({
+	stage,
+}: {
+	stage: CandidateStatus | ApiApplicantStatus | string;
+}) {
+	const normalized = normalizeCandidateStatus(stage);
+	const styles: Record<CandidateStatus, string> = {
 		"Under Review": "border-[#FFB22C] bg-[#FFF7E8] text-[#D98900]",
 		"Interview Scheduled": "border-[#46B56F] bg-[#E8F8EC] text-[#1B8A45]",
 		New: "border-[#4C86FF] bg-[#EEF4FF] text-[#2B67E6]",
+		Accepted: "border-[#29A468] bg-[#EAF9F1] text-[#177A4B]",
 		Rejected: "border-[#FF5A5A] bg-[#FFF0F0] text-[#DA2E2E]",
 	};
 
 	return (
-		<Chip
-			variant="bordered"
-			radius="full"
-			classNames={{
-				base: styles[stage],
-				content: "text-xs font-medium",
-			}}
-		>
-			{stage}
+		<Chip variant="secondary" className={`rounded-full ${styles[normalized]}`}>
+			<span className="text-xs font-medium">{normalized}</span>
 		</Chip>
 	);
 }

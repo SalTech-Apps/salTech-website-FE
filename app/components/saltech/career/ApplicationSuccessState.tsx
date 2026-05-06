@@ -21,10 +21,10 @@ export function ApplicationSuccessState({
 				</p>
 			</div>
 			<div className="flex gap-3">
-				<Button className="bg-[#c99e2e] text-[#111827]" onPress={onDone}>
+				<Button className="rounded-xl bg-[#c99e2e] text-[#111827]" onPress={onDone}>
 					Done
 				</Button>
-				<Button variant="bordered" onPress={onReset}>
+				<Button className="rounded-xl" variant="secondary" onPress={onReset}>
 					Start New Application
 				</Button>
 			</div>

@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Button } from "@heroui/react";
-import { FaArrowRight } from "react-icons/fa";
 
 export function ProductsCtaSection() {
 	return (
@@ -14,26 +13,19 @@ export function ProductsCtaSection() {
 					something entirely new for your use case.
 				</p>
 				<div className="mt-10 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
-					<Button
-						radius="lg"
-						as={Link}
-						to="/contact"
-						prefetch="intent"
-						className="bg-[#E2BA51] font-body font-bold text-[#111827] h-12 rounded-xl"
-						endContent={<FaArrowRight className="text-sm" aria-hidden />}
-					>
-						Start the Conversation
-					</Button>
-					<Button
-						radius="lg"
-						as={Link}
-						to="/services"
-						prefetch="intent"
-						variant="bordered"
-						className="border-gray-300 border font-body font-bold text-[#111827] bg-transparent h-12 rounded-xl"
-					>
-						See Our Services
-					</Button>
+					<Link to="/contact" prefetch="intent">
+						<Button className="h-12 rounded-xl bg-[#E2BA51] font-body font-bold text-[#111827]">
+							Start the Conversation
+						</Button>
+					</Link>
+					<Link to="/services" prefetch="intent">
+						<Button
+							variant="secondary"
+							className="h-12 rounded-xl border border-gray-300 bg-transparent font-body font-bold text-[#111827]"
+						>
+							See Our Services
+						</Button>
+					</Link>
 				</div>
 			</div>
 		</section>

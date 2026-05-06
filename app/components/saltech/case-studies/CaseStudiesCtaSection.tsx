@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Button } from "@heroui/react";
-import { FaArrowRight } from "react-icons/fa";
 
 export function CaseStudiesCtaSection() {
 	return (
@@ -13,17 +12,14 @@ export function CaseStudiesCtaSection() {
 					Most of our best projects started with a founder who just wanted to
 					talk through the problem.
 				</p>
-				<Button
-					as={Link}
-					to="/contact"
-					prefetch="intent"
-					radius="lg"
-					size="lg"
-					className="bg-[#E2BA51] rounded-2xl font-body font-bold text-[#111827] hover:bg-soft-gold-hover-state"
-					endContent={<FaArrowRight className="text-sm" aria-hidden />}
-				>
-					Book a 20-Min Call
-				</Button>
+				<Link to="/contact" prefetch="intent">
+					<Button
+						size="lg"
+						className="rounded-xl bg-[#E2BA51] font-body font-bold text-[#111827] hover:bg-soft-gold-hover-state"
+					>
+						Book a 20-Min Call
+					</Button>
+				</Link>
 			</div>
 		</section>
 	);

@@ -1,17 +1,19 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useMemo, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Button, Modal, ModalBody, ModalContent } from "@heroui/react";
+import { Button, Modal, ModalBackdrop, ModalContainer, ModalDialog } from "@heroui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import toast from "react-hot-toast";
+import { postApiApplicants } from "@/client";
 import {
 	careerApplicationDraftAtom,
 	careerApplicationStepAtom,
 } from "@/atoms/careerApplication.atom";
+import { apiErrorParser } from "@/lib/errorParser";
 import { ApplicationModalHeader } from "./ApplicationModalHeader";
 import { ApplicationStepper } from "./ApplicationStepper";
 import {
@@ -88,6 +90,7 @@ export function MultiStepApplicationForm({
 }: MultiStepFormProps) {
 	const [currentStep, setCurrentStep] = useAtom(careerApplicationStepAtom);
 	const [draft, setDraft] = useAtom(careerApplicationDraftAtom);
+	const [isUploadingResume, setIsUploadingResume] = useState(false);
 
 	const form = useForm<ApplicationFormSchema>({
 		resolver: zodResolver(formSchema),
@@ -107,28 +110,107 @@ export function MultiStepApplicationForm({
 		register,
 		handleSubmit,
 		watch,
+		getValues,
 		formState: { errors },
 		trigger,
 		setError,
+		clearErrors,
 		reset,
 	} = form;
 
+	const uploadResume = async (file: File): Promise<string> => {
+		setIsUploadingResume(true);
+		try {
+			const formData = new FormData();
+			formData.append("resume", file);
+
+			const response = await fetch("/api/uploads/resume", {
+				method: "POST",
+				body: formData,
+				credentials: "include",
+			});
+
+			const payload = (await response.json()) as {
+				message?: string;
+				data?: { url?: string; fileName?: string };
+			};
+
+			if (!response.ok || !payload.data?.url) {
+				throw new Error(payload.message || "Failed to upload resume");
+			}
+
+			const uploadedUrl = payload.data.url;
+			const uploadedFileName = payload.data.fileName || file.name;
+
+			setDraft((previous) => ({
+				...previous,
+				cvName: uploadedFileName,
+				resumeUrl: uploadedUrl,
+			}));
+			clearErrors("cv");
+			return uploadedUrl;
+		} catch (error) {
+			const parsedError = apiErrorParser(error);
+			setDraft((previous) => ({
+				...previous,
+				resumeUrl: "",
+			}));
+			setError("cv", { type: "manual", message: parsedError.message });
+			throw error;
+		} finally {
+			setIsUploadingResume(false);
+		}
+	};
+
 	const submitMutation = useMutation({
 		mutationFn: async (values: ApplicationFormSchema) => {
-			console.log("Submitting application", { jobId, ...values });
-			await new Promise((resolve) => setTimeout(resolve, 1200));
-			return values;
+			let resumeUrl = draft.resumeUrl;
+			const selectedFile = values.cv?.[0];
+			if (!resumeUrl && selectedFile) {
+				resumeUrl = await uploadResume(selectedFile);
+			}
+
+			if (!resumeUrl) {
+				throw new Error("Upload your resume before submitting");
+			}
+
+			const response = await postApiApplicants({
+				body: {
+					jobId,
+					fullName: values.fullName,
+					email: values.email,
+					phone: values.phone,
+					resumeUrl,
+					portfolioUrl: values.portfolioUrl || undefined,
+					linkedinUrl: values.linkedinUrl || undefined,
+					coverLetter: values.coverLetter,
+					earliestStartDate: values.startDate,
+					status: "NEW",
+				},
+				throwOnError: true,
+			});
+
+			return response.data.data;
 		},
 		onSuccess: () => {
 			toast.success("Application submitted successfully");
 			setCurrentStep("SUCCESS");
+			setDraft((previous) => ({
+				...previous,
+				cvName: "",
+				resumeUrl: "",
+			}));
 		},
-		onError: () => {
-			toast.error("Failed to submit application. Please try again.");
+		onError: (error) => {
+			const parsedError = apiErrorParser(error);
+			toast.error(parsedError.message);
 		},
 	});
 
-	const watchedValues = watch();
+	const watchedValues =
+		useWatch({
+			control: form.control,
+		}) ?? {};
 
 	useEffect(() => {
 		setDraft((previous) => ({
@@ -141,6 +223,7 @@ export function MultiStepApplicationForm({
 			coverLetter: watchedValues.coverLetter ?? previous.coverLetter,
 			startDate: watchedValues.startDate ?? previous.startDate,
 			cvName: watchedValues.cv?.[0]?.name ?? previous.cvName,
+			resumeUrl: previous.resumeUrl,
 		}));
 	}, [
 		watchedValues.fullName,
@@ -184,9 +267,23 @@ export function MultiStepApplicationForm({
 
 		if (currentStep === "DOCUMENTS") {
 			const valid = await trigger(["portfolioUrl", "linkedinUrl"]);
-			const hasFile = Boolean(watch("cv")?.[0]) || Boolean(draft.cvName);
+			const hasFile = Boolean(getValues("cv")?.[0]) || Boolean(draft.cvName);
 			if (!hasFile) {
 				setError("cv", { type: "manual", message: "Upload your CV/Resume" });
+				return;
+			}
+			if (isUploadingResume) {
+				setError("cv", {
+					type: "manual",
+					message: "Please wait for resume upload to complete",
+				});
+				return;
+			}
+			if (!draft.resumeUrl) {
+				setError("cv", {
+					type: "manual",
+					message: "Resume upload is required",
+				});
 				return;
 			}
 			if (valid) setCurrentStep("FINAL");
@@ -209,6 +306,7 @@ export function MultiStepApplicationForm({
 			coverLetter: "",
 			startDate: "",
 			cvName: "",
+			resumeUrl: "",
 		});
 		reset({
 			fullName: "",
@@ -229,14 +327,13 @@ export function MultiStepApplicationForm({
 		submitMutation.mutate(values);
 	};
 
+	console.log("LOG", form.formState.errors);
+
 	return (
-		<Modal
-			size="5xl"
-			isOpen={isOpen}
-			onOpenChange={onOpenChange}
-			className="min-h-170"
-		>
-			<ModalContent className="border bg-white p-4 md:p-6">
+		<Modal>
+			<ModalBackdrop isOpen={isOpen} onOpenChange={onOpenChange}>
+			<ModalContainer size="5xl" className="min-h-170 border bg-white p-4 md:p-6">
+				<ModalDialog>
 				{() => (
 					<div className="mx-auto flex h-full w-full max-w-4xl flex-col">
 						<ApplicationModalHeader
@@ -250,7 +347,7 @@ export function MultiStepApplicationForm({
 							stepIndex={stepIndex}
 						/>
 
-						<ModalBody className="mx-auto w-full max-w-3xl px-0 pb-2 pt-10">
+						<div className="mx-auto w-full max-w-3xl px-0 pb-2 pt-10">
 							{currentStep === "SUCCESS" ? (
 								<ApplicationSuccessState
 									onDone={closeAndKeepProgress}
@@ -268,6 +365,9 @@ export function MultiStepApplicationForm({
 											errors={errors}
 											watch={watch}
 											draftCvName={draft.cvName}
+											draftResumeUrl={draft.resumeUrl}
+											isUploadingResume={isUploadingResume}
+											onResumeSelected={uploadResume}
 										/>
 									)}
 
@@ -277,7 +377,8 @@ export function MultiStepApplicationForm({
 
 									<div className="grid grid-cols-2 gap-3 border-t border-[#e5e7eb] pt-6">
 										<Button
-											variant="bordered"
+											variant="secondary"
+											className="rounded-xl"
 											onPress={goToPreviousStep}
 											isDisabled={currentStep === "PERSONAL"}
 										>
@@ -285,30 +386,36 @@ export function MultiStepApplicationForm({
 										</Button>
 										{currentStep !== "FINAL" ? (
 											<Button
-												className="bg-[#c99e2e] text-[#111827]"
+												className="rounded-xl bg-[#c99e2e] text-[#111827]"
 												onPress={goToNextStep}
+												isDisabled={isUploadingResume}
 											>
 												Continue
 											</Button>
 										) : (
 											<Button
 												type="submit"
-												className="bg-[#c99e2e] text-[#111827]"
-												isLoading={submitMutation.isPending}
+												className="rounded-xl bg-[#c99e2e] text-[#111827]"
+												isPending={
+													submitMutation.isPending || isUploadingResume
+												}
+												isDisabled={isUploadingResume}
 											>
 												Submit Application
 											</Button>
 										)}
-										<Button variant="light" onPress={closeAndKeepProgress}>
+										<Button className="rounded-xl" variant="ghost" onPress={closeAndKeepProgress}>
 											Close
 										</Button>
 									</div>
 								</form>
 							)}
-						</ModalBody>
+						</div>
 					</div>
 				)}
-			</ModalContent>
+				</ModalDialog>
+			</ModalContainer>
+			</ModalBackdrop>
 		</Modal>
 	);
 }

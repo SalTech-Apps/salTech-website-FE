@@ -20,6 +20,9 @@ type Pages = {
   "/api/health": {
     params: {};
   };
+  "/api/uploads/resume": {
+    params: {};
+  };
   "/sitemap.xml": {
     params: {};
   };
@@ -57,6 +60,9 @@ type Pages = {
       "jobId": string;
     };
   };
+  "/team": {
+    params: {};
+  };
   "/terms": {
     params: {};
   };
@@ -72,6 +78,9 @@ type Pages = {
     params: {};
   };
   "/console/jobs": {
+    params: {};
+  };
+  "/console/team": {
     params: {};
   };
   "/console/jobs/new": {
@@ -99,7 +108,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/favicon.ico" | "/api/health" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/career" | "/career/:jobId" | "/career/:jobId/success" | "/terms" | "/privacy" | "/page/:slug" | "/console" | "/console/jobs" | "/console/jobs/new" | "/console/jobs/:jobId/edit" | "/console/drafts" | "/console/candidates" | "/console/settings" | "/login";
+    page: "/" | "/favicon.ico" | "/api/health" | "/api/uploads/resume" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/career" | "/career/:jobId" | "/career/:jobId/success" | "/team" | "/terms" | "/privacy" | "/page/:slug" | "/console" | "/console/jobs" | "/console/team" | "/console/jobs/new" | "/console/jobs/:jobId/edit" | "/console/drafts" | "/console/candidates" | "/console/settings" | "/login";
   };
   "routes/favicon[.]ico.tsx": {
     id: "routes/favicon[.]ico";
@@ -108,6 +117,10 @@ type RouteFiles = {
   "routes/api.health.tsx": {
     id: "routes/api.health";
     page: "/api/health";
+  };
+  "routes/api.uploads.resume.tsx": {
+    id: "routes/api.uploads.resume";
+    page: "/api/uploads/resume";
   };
   "routes/sitemap[.]xml.tsx": {
     id: "routes/sitemap[.]xml";
@@ -119,7 +132,7 @@ type RouteFiles = {
   };
   "layouts/MainLayout.tsx": {
     id: "layouts/MainLayout";
-    page: "/" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/career" | "/career/:jobId" | "/career/:jobId/success" | "/terms" | "/privacy" | "/page/:slug";
+    page: "/" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/career" | "/career/:jobId" | "/career/:jobId/success" | "/team" | "/terms" | "/privacy" | "/page/:slug";
   };
   "routes/home/index.tsx": {
     id: "routes/home/index";
@@ -161,6 +174,10 @@ type RouteFiles = {
     id: "routes/career/$jobId.success";
     page: "/career/:jobId/success";
   };
+  "routes/team/index.tsx": {
+    id: "routes/team/index";
+    page: "/team";
+  };
   "routes/terms/index.tsx": {
     id: "routes/terms/index";
     page: "/terms";
@@ -175,7 +192,7 @@ type RouteFiles = {
   };
   "layouts/ConsoleLayout.tsx": {
     id: "layouts/ConsoleLayout";
-    page: "/console" | "/console/jobs" | "/console/jobs/new" | "/console/jobs/:jobId/edit" | "/console/drafts" | "/console/candidates" | "/console/settings";
+    page: "/console" | "/console/jobs" | "/console/team" | "/console/jobs/new" | "/console/jobs/:jobId/edit" | "/console/drafts" | "/console/candidates" | "/console/settings";
   };
   "routes/console/index.tsx": {
     id: "routes/console/index";
@@ -184,6 +201,10 @@ type RouteFiles = {
   "routes/console/jobs.tsx": {
     id: "routes/console/jobs";
     page: "/console/jobs";
+  };
+  "routes/console/team.tsx": {
+    id: "routes/console/team";
+    page: "/console/team";
   };
   "routes/console/jobs.new.tsx": {
     id: "routes/console/jobs.new";
@@ -215,6 +236,7 @@ type RouteModules = {
   "root": typeof import("./app/root.tsx");
   "routes/favicon[.]ico": typeof import("./app/routes/favicon[.]ico.tsx");
   "routes/api.health": typeof import("./app/routes/api.health.tsx");
+  "routes/api.uploads.resume": typeof import("./app/routes/api.uploads.resume.tsx");
   "routes/sitemap[.]xml": typeof import("./app/routes/sitemap[.]xml.tsx");
   "routes/sw[.]js": typeof import("./app/routes/sw[.]js.tsx");
   "layouts/MainLayout": typeof import("./app/layouts/MainLayout.tsx");
@@ -228,12 +250,14 @@ type RouteModules = {
   "routes/career/index": typeof import("./app/routes/career/index.tsx");
   "routes/career/$jobId": typeof import("./app/routes/career/$jobId.tsx");
   "routes/career/$jobId.success": typeof import("./app/routes/career/$jobId.success.tsx");
+  "routes/team/index": typeof import("./app/routes/team/index.tsx");
   "routes/terms/index": typeof import("./app/routes/terms/index.tsx");
   "routes/privacy/index": typeof import("./app/routes/privacy/index.tsx");
   "routes/page/$slug": typeof import("./app/routes/page/$slug.tsx");
   "layouts/ConsoleLayout": typeof import("./app/layouts/ConsoleLayout.tsx");
   "routes/console/index": typeof import("./app/routes/console/index.tsx");
   "routes/console/jobs": typeof import("./app/routes/console/jobs.tsx");
+  "routes/console/team": typeof import("./app/routes/console/team.tsx");
   "routes/console/jobs.new": typeof import("./app/routes/console/jobs.new.tsx");
   "routes/console/jobs.edit": typeof import("./app/routes/console/jobs.edit.tsx");
   "routes/console/drafts": typeof import("./app/routes/console/drafts.tsx");

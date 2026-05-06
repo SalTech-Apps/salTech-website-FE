@@ -1,5 +1,4 @@
 import { StrictMode, useEffect } from "react";
-import { HeroUIProvider } from "@heroui/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import "./index.css";
 import { Provider as JotaiProvider } from "jotai";
@@ -20,13 +19,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
 		<JotaiProvider>
 			<StrictMode>
 				<QueryClientProvider client={queryClient}>
-					<HeroUIProvider>
-						<NextThemesProvider attribute="class" defaultTheme="dark">
-							{children}
-						</NextThemesProvider>
-					</HeroUIProvider>
+					<NextThemesProvider attribute="class" defaultTheme="dark">
+						{children}
+					</NextThemesProvider>
 				</QueryClientProvider>
-			</StrictMode>{" "}
+			</StrictMode>
 		</JotaiProvider>
 	);
 }
