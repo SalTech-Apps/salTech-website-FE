@@ -1,4 +1,5 @@
-import type { Request, Response } from "express";
+import multer from "multer";
+import type { NextFunction, Request, Response } from "express";
 import {
 	BadRequestResponse,
 	ErrorResponse,
@@ -21,7 +22,34 @@ import {
 	updateApplicant,
 	validateCreateApplicantInput,
 } from "../services/applicant.service.ts";
+import { uploadResume } from "../services/file.service.ts";
 import { getParamId } from "../utils/fns.ts";
+
+const upload = multer({
+	storage: multer.memoryStorage(),
+	limits: {
+		fileSize: 10 * 1024 * 1024,
+	},
+});
+
+const applicantResumeUpload = upload.single("resume");
+
+export function applicantResumeUploadMiddleware(
+	req: Request,
+	res: Response,
+	next: NextFunction,
+): void {
+	applicantResumeUpload(req, res, (error) => {
+		if (!error) {
+			next();
+			return;
+		}
+
+		const message =
+			error instanceof Error ? error.message : "Resume upload failed";
+		BadRequestResponse(res, message, "BadRequest");
+	});
+}
 
 export async function listApplicants(
 	_req: Request,
@@ -84,9 +112,22 @@ export async function submitApplicant(
 	res: Response,
 ): Promise<void> {
 	try {
-		const input = normalizeCreateApplicantInput(
-			req.body as Record<string, unknown>,
-		);
+		const body =
+			req.body && typeof req.body === "object"
+				? (req.body as Record<string, unknown>)
+				: {};
+		const input = normalizeCreateApplicantInput(body);
+
+		if (req.file) {
+			const uploaded = await uploadResume({
+				buffer: req.file.buffer,
+				originalName: req.file.originalname,
+				mimeType: req.file.mimetype,
+				name: input.fullName,
+			});
+			input.resumeUrl = uploaded.url;
+		}
+
 		const validationError = validateCreateApplicantInput(input);
 
 		if (validationError) {
@@ -195,19 +236,19 @@ export async function scheduleInterviewAction(
 ): Promise<void> {
 	try {
 		const id = getParamId(req.params.id);
-		const { interviewDate } = req.body as Record<string, unknown>;
+		const { interviewScheduledAt } = req.body as Record<string, unknown>;
 
 		if (!id) {
 			BadRequestResponse(res, "Applicant ID is required", "BadRequest");
 			return;
 		}
 
-		if (!interviewDate || typeof interviewDate !== "string") {
-			BadRequestResponse(res, "interviewDate is required", "BadRequest");
+		if (!interviewScheduledAt || typeof interviewScheduledAt !== "string") {
+			BadRequestResponse(res, "interviewScheduledAt is required", "BadRequest");
 			return;
 		}
 
-		const updated = await scheduleInterview(id, interviewDate);
+		const updated = await scheduleInterview(id, interviewScheduledAt);
 
 		if (!updated) {
 			NotFoundResponse(res, "Applicant not found", "NotFound");
@@ -230,19 +271,19 @@ export async function assignRecruiterAction(
 ): Promise<void> {
 	try {
 		const id = getParamId(req.params.id);
-		const { recruiterName } = req.body as Record<string, unknown>;
+		const { assignedRecruiter } = req.body as Record<string, unknown>;
 
 		if (!id) {
 			BadRequestResponse(res, "Applicant ID is required", "BadRequest");
 			return;
 		}
 
-		if (!recruiterName || typeof recruiterName !== "string") {
-			BadRequestResponse(res, "recruiterName is required", "BadRequest");
+		if (!assignedRecruiter || typeof assignedRecruiter !== "string") {
+			BadRequestResponse(res, "assignedRecruiter is required", "BadRequest");
 			return;
 		}
 
-		const updated = await assignRecruiter(id, recruiterName);
+		const updated = await assignRecruiter(id, assignedRecruiter);
 
 		if (!updated) {
 			NotFoundResponse(res, "Applicant not found", "NotFound");
@@ -262,19 +303,19 @@ export async function assignInterviewerAction(
 ): Promise<void> {
 	try {
 		const id = getParamId(req.params.id);
-		const { interviewerName } = req.body as Record<string, unknown>;
+		const { assignedInterviewer } = req.body as Record<string, unknown>;
 
 		if (!id) {
 			BadRequestResponse(res, "Applicant ID is required", "BadRequest");
 			return;
 		}
 
-		if (!interviewerName || typeof interviewerName !== "string") {
-			BadRequestResponse(res, "interviewerName is required", "BadRequest");
+		if (!assignedInterviewer || typeof assignedInterviewer !== "string") {
+			BadRequestResponse(res, "assignedInterviewer is required", "BadRequest");
 			return;
 		}
 
-		const updated = await assignInterviewer(id, interviewerName);
+		const updated = await assignInterviewer(id, assignedInterviewer);
 
 		if (!updated) {
 			NotFoundResponse(res, "Applicant not found", "NotFound");

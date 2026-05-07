@@ -1,22 +1,13 @@
 import { useParams } from "react-router";
 import { JobDetail } from "@/components/saltech/career";
-import { JOB_OPENINGS } from "@/data/saltechCareers";
 import { buildMetaTags } from "@/lib/seo";
 
-export function meta({
-	params,
-	location,
-}: {
-	params: { jobId: string };
-	location: { pathname: string };
-}) {
-	const job = JOB_OPENINGS.find((j) => j.id === params.jobId);
-
+// eslint-disable-next-line react-refresh/only-export-components
+export function meta({ location }: { location: { pathname: string } }) {
 	return buildMetaTags({
-		title: job ? `${job.title} · Careers` : "Job Not Found",
-		description: job
-			? job.description
-			: "The job you're looking for doesn't exist.",
+		title: "Career Opportunity · Careers",
+		description:
+			"Explore this role at SalTech and apply to join our team building digital infrastructure for Africa.",
 		path: location.pathname,
 	});
 }

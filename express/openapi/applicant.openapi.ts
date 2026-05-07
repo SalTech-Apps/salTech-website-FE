@@ -16,6 +16,28 @@ import {
 const ApplicantIdParamSchema = z.object({ id: z.string().min(1) });
 const JobIdParamSchema = z.object({ jobId: z.string().min(1) });
 
+const CreateApplicantMultipartSchema = z.object({
+	jobId: z.string().min(1),
+	fullName: z.string().min(1),
+	email: z.string().email(),
+	phone: z.string().min(1),
+	resume: z.string().openapi({ format: "binary" }).optional(),
+	resumeUrl: z.string().url().optional(),
+	portfolioUrl: z.string().url().optional(),
+	linkedinUrl: z.string().url().optional(),
+	coverLetter: z.string().min(1),
+	earliestStartDate: z.string().optional(),
+	status: z
+		.enum([
+			"NEW",
+			"UNDER_REVIEW",
+			"INTERVIEW_SCHEDULED",
+			"ACCEPTED",
+			"REJECTED",
+		])
+		.optional(),
+});
+
 openApiRegistry.register(
 	"CreateApplicantRequest",
 	CreateApplicantRequestSchema,
@@ -114,11 +136,14 @@ openApiRegistry.registerPath({
 	method: "post",
 	path: "/api/applicants",
 	tags: ["Applicants"],
-	summary: "Submit a job application",
+	summary: "Submit a job application (supports direct resume upload)",
 	request: {
 		body: {
 			required: true,
-			content: { "application/json": { schema: CreateApplicantRequestSchema } },
+			content: {
+				"application/json": { schema: CreateApplicantRequestSchema },
+				"multipart/form-data": { schema: CreateApplicantMultipartSchema },
+			},
 		},
 	},
 	responses: {

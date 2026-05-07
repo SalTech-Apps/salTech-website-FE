@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
 import { Button } from "@heroui/react";
-import { FaArrowRight } from "react-icons/fa";
 import { saltechAssets } from "@/data/saltechAssets";
 import { ABOUT_MISSION_STATS } from "@/data/saltechAbout";
+import { Link } from "react-router";
 
 export function AboutMissionSection() {
 	return (
@@ -35,26 +34,23 @@ export function AboutMissionSection() {
 							</p>
 						</div>
 						<div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-							<Button
-								as={Link}
-								to="/about#our-team"
-								prefetch="intent"
-								radius="full"
-								className="bg-primary-gold font-body font-bold text-[#111827] hover:bg-soft-gold-hover-state"
-								endContent={<FaArrowRight className="text-xs" aria-hidden />}
-							>
-								Meet the Team
-							</Button>
-							<Button
-								as={Link}
-								to="/contact"
-								prefetch="intent"
-								radius="full"
-								variant="bordered"
-								className="border-[#111827] font-body font-semibold text-[#111827]"
-							>
-								Start a Project
-							</Button>
+							<Link to="/team">
+								<Button
+									size="lg"
+									className="rounded-xl bg-primary-gold font-body font-bold text-[#111827] hover:bg-soft-gold-hover-state"
+								>
+									Meet the Team
+								</Button>
+							</Link>
+							<Link to="/contact">
+								<Button
+									size="lg"
+									variant="outline"
+									className="rounded-xl border-[#E5E7EB] bg-transparent font-body font-semibold text-[#111827]"
+								>
+									Start a Project
+								</Button>
+							</Link>
 						</div>
 					</div>
 

@@ -1,6 +1,10 @@
 import { atomWithStorage } from "jotai/utils";
 
-export type CareerApplicationStep = "PERSONAL" | "DOCUMENTS" | "FINAL" | "SUCCESS";
+export type CareerApplicationStep =
+	| "PERSONAL"
+	| "DOCUMENTS"
+	| "FINAL"
+	| "SUCCESS";
 
 export type CareerApplicationDraft = {
 	fullName: string;
@@ -11,6 +15,7 @@ export type CareerApplicationDraft = {
 	coverLetter: string;
 	startDate: string;
 	cvName: string;
+	resumeUrl: string;
 };
 
 export const careerApplicationStepAtom = atomWithStorage<CareerApplicationStep>(
@@ -18,9 +23,8 @@ export const careerApplicationStepAtom = atomWithStorage<CareerApplicationStep>(
 	"PERSONAL",
 );
 
-export const careerApplicationDraftAtom = atomWithStorage<CareerApplicationDraft>(
-	"career-application-draft",
-	{
+export const careerApplicationDraftAtom =
+	atomWithStorage<CareerApplicationDraft>("career-application-draft", {
 		fullName: "",
 		email: "",
 		phone: "",
@@ -29,5 +33,5 @@ export const careerApplicationDraftAtom = atomWithStorage<CareerApplicationDraft
 		coverLetter: "",
 		startDate: "",
 		cvName: "",
-	},
-);
+		resumeUrl: "",
+	});

@@ -1,7 +1,15 @@
-import type { ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { z, flattenError } from "zod";
-import { Button, Input, Select, SelectItem, Textarea } from "@heroui/react";
+import {
+	Button,
+	FieldError,
+	Input,
+	InputGroup,
+	Label,
+	ListBox,
+	Select,
+	TextField,
+} from "@heroui/react";
 import {
 	FaArrowRight,
 	FaClock,
@@ -34,23 +42,47 @@ const briefSchema = z.object({
 
 type BriefFormValues = z.infer<typeof briefSchema>;
 
-const inputSurfaceClassNames = {
-	input: "text-[#111827] placeholder:text-gray-400 text-sm",
-	inputWrapper:
-		"bg-[#f9fafb] border border-[#e5e7eb] shadow-none hover:border-[#d1d5db] data-[hover=true]:border-[#d1d5db] h-10 min-h-10 rounded-lg",
-};
+const inputClassName =
+	"rounded-lg border border-[#e5e7eb] bg-[#f9fafb] px-3 py-2 text-sm text-[#111827] placeholder:text-gray-400";
+const selectTriggerClassName =
+	"h-10 rounded-lg border border-[#e5e7eb] bg-[#f9fafb] px-3 text-sm text-[#111827]";
 
-const selectSurfaceClassNames = {
-	trigger:
-		"bg-[#f9fafb] border border-[#e5e7eb] shadow-none hover:border-[#d1d5db] data-[hover=true]:border-[#d1d5db] h-10 min-h-10 rounded-lg",
-	value: "text-[#111827] text-sm",
-};
-
-function labelClass(id: string, children: ReactNode) {
+function SelectField({
+	label,
+	value,
+	placeholder,
+	options,
+	error,
+	onChange,
+}: {
+	label: string;
+	value: string;
+	placeholder?: string;
+	options: Array<{ value: string; label: string }>;
+	error?: string;
+	onChange: (next: string) => void;
+}) {
 	return (
-		<label htmlFor={id} className="text-xs font-medium text-[#374151]">
-			{children}
-		</label>
+		<TextField isInvalid={!!error}>
+			<Label className="text-xs font-medium text-[#374151]">{label}</Label>
+			<Select selectedKey={value || undefined} onSelectionChange={(key) => onChange(String(key ?? ""))}>
+				<Select.Trigger className={selectTriggerClassName}>
+					<Select.Value>{placeholder}</Select.Value>
+					<Select.Indicator />
+				</Select.Trigger>
+				<Select.Popover>
+					<ListBox>
+						{options.map((opt) => (
+							<ListBox.Item key={opt.value} id={opt.value} textValue={opt.label}>
+								{opt.label}
+								<ListBox.ItemIndicator />
+							</ListBox.Item>
+						))}
+					</ListBox>
+				</Select.Popover>
+			</Select>
+			<FieldError>{error}</FieldError>
+		</TextField>
 	);
 }
 
@@ -77,10 +109,10 @@ export function ContactBriefSection() {
 		},
 	});
 
-	const role = watch("role");
-	const build = watch("build");
-	const timeline = watch("timeline");
-	const budget = watch("budget");
+	const role = watch("role") || "";
+	const build = watch("build") || "";
+	const timeline = watch("timeline") || "asap";
+	const budget = watch("budget") || "unspecified";
 
 	async function onSubmit(data: BriefFormValues) {
 		const parsed = briefSchema.safeParse(data);
@@ -246,161 +278,94 @@ export function ContactBriefSection() {
 							noValidate
 						>
 							<div className="grid gap-4 sm:grid-cols-2">
-								<div className="flex flex-col gap-1.5">
-									{labelClass("brief-fullName", "Full Name")}
+								<TextField isInvalid={!!errors.fullName}>
+									<Label className="text-xs font-medium text-[#374151]">Full Name</Label>
 									<Input
-										id="brief-fullName"
 										placeholder="Your name"
 										{...register("fullName")}
-										isInvalid={!!errors.fullName}
-										errorMessage={errors.fullName?.message}
-										classNames={inputSurfaceClassNames}
+										className={inputClassName}
 									/>
-								</div>
-								<div className="flex flex-col gap-1.5">
-									{labelClass("brief-email", "Email Address")}
+									<FieldError>{errors.fullName?.message}</FieldError>
+								</TextField>
+								<TextField isInvalid={!!errors.email}>
+									<Label className="text-xs font-medium text-[#374151]">Email Address</Label>
 									<Input
-										id="brief-email"
 										type="email"
 										placeholder="you@company.com"
 										{...register("email")}
-										isInvalid={!!errors.email}
-										errorMessage={errors.email?.message}
-										classNames={inputSurfaceClassNames}
+										className={inputClassName}
 									/>
-								</div>
+									<FieldError>{errors.email?.message}</FieldError>
+								</TextField>
 							</div>
 
 							<div className="grid gap-4 sm:grid-cols-2">
-								<div className="flex flex-col gap-1.5">
-									{labelClass("brief-company", "Company / Project Name")}
+								<TextField isInvalid={!!errors.company}>
+									<Label className="text-xs font-medium text-[#374151]">Company / Project Name</Label>
 									<Input
-										id="brief-company"
 										placeholder="Acme Inc."
 										{...register("company")}
-										isInvalid={!!errors.company}
-										errorMessage={errors.company?.message}
-										classNames={inputSurfaceClassNames}
+										className={inputClassName}
 									/>
-								</div>
-								<div className="flex flex-col gap-1.5">
-									{labelClass("brief-role", "Your Role")}
-									<Select
-										id="brief-role"
-										placeholder="Select role"
-										selectedKeys={role ? [role] : []}
-										onSelectionChange={(keys) => {
-											const v = Array.from(keys)[0] as string;
-											setValue("role", v ?? "", { shouldValidate: true });
-										}}
-										isInvalid={!!errors.role}
-										errorMessage={errors.role?.message}
-										classNames={selectSurfaceClassNames}
-									>
-										{ROLE_OPTIONS.map((opt) => (
-											<SelectItem key={opt.value} textValue={opt.label}>
-												{opt.label}
-											</SelectItem>
-										))}
-									</Select>
-								</div>
-							</div>
-
-							<div className="flex flex-col gap-1.5">
-								{labelClass("brief-build", "What are you looking to build?")}
-								<Select
-									id="brief-build"
-									placeholder="Select an option"
-									selectedKeys={build ? [build] : []}
-									onSelectionChange={(keys) => {
-										const v = Array.from(keys)[0] as string;
-										setValue("build", v ?? "", { shouldValidate: true });
-									}}
-									isInvalid={!!errors.build}
-									errorMessage={errors.build?.message}
-									classNames={selectSurfaceClassNames}
-								>
-									{BUILD_OPTIONS.map((opt) => (
-										<SelectItem key={opt.value} textValue={opt.label}>
-											{opt.label}
-										</SelectItem>
-									))}
-								</Select>
-							</div>
-
-							<div className="grid gap-4 sm:grid-cols-2">
-								<div className="flex flex-col gap-1.5">
-									{labelClass("brief-timeline", "Timeline")}
-									<Select
-										id="brief-timeline"
-										placeholder="Timeline"
-										selectedKeys={timeline ? [timeline] : []}
-										onSelectionChange={(keys) => {
-											const v = Array.from(keys)[0] as string;
-											setValue("timeline", v ?? "", { shouldValidate: true });
-										}}
-										isInvalid={!!errors.timeline}
-										errorMessage={errors.timeline?.message}
-										classNames={selectSurfaceClassNames}
-									>
-										{TIMELINE_OPTIONS.map((opt) => (
-											<SelectItem key={opt.value} textValue={opt.label}>
-												{opt.label}
-											</SelectItem>
-										))}
-									</Select>
-								</div>
-								<div className="flex flex-col gap-1.5">
-									{labelClass("brief-budget", "Budget (Optional)")}
-									<Select
-										id="brief-budget"
-										placeholder="Prefer not to say"
-										selectedKeys={budget ? [budget] : []}
-										onSelectionChange={(keys) => {
-											const v = Array.from(keys)[0] as string;
-											setValue("budget", v ?? "", { shouldValidate: true });
-										}}
-										isInvalid={!!errors.budget}
-										errorMessage={errors.budget?.message}
-										classNames={selectSurfaceClassNames}
-									>
-										{BUDGET_OPTIONS.map((opt) => (
-											<SelectItem key={opt.value} textValue={opt.label}>
-												{opt.label}
-											</SelectItem>
-										))}
-									</Select>
-								</div>
-							</div>
-
-							<div className="flex flex-col gap-1.5">
-								{labelClass("brief-message", "Tell us about your project")}
-								<Textarea
-									id="brief-message"
-									minRows={4}
-									placeholder={`E.g. We're building a logistics platform for SMEs in West Africa and need an MVP in 10 weeks.`}
-									{...register("message")}
-									isInvalid={!!errors.message}
-									errorMessage={errors.message?.message}
-									classNames={{
-										input:
-											"text-[#111827] placeholder:text-gray-400 text-sm min-h-[80px]",
-										inputWrapper:
-											"bg-[#f9fafb] border border-[#e5e7eb] shadow-none hover:border-[#d1d5db] rounded-lg",
-									}}
+									<FieldError>{errors.company?.message}</FieldError>
+								</TextField>
+								<SelectField
+									label="Your Role"
+									value={role}
+									placeholder="Select role"
+									error={errors.role?.message}
+									onChange={(next) => setValue("role", next, { shouldValidate: true })}
+									options={ROLE_OPTIONS}
 								/>
 							</div>
+
+							<SelectField
+								label="What are you looking to build?"
+								value={build}
+								placeholder="Select an option"
+								error={errors.build?.message}
+								onChange={(next) => setValue("build", next, { shouldValidate: true })}
+								options={BUILD_OPTIONS}
+							/>
+
+							<div className="grid gap-4 sm:grid-cols-2">
+								<SelectField
+									label="Timeline"
+									value={timeline}
+									error={errors.timeline?.message}
+									onChange={(next) => setValue("timeline", next, { shouldValidate: true })}
+									options={TIMELINE_OPTIONS}
+								/>
+								<SelectField
+									label="Budget (Optional)"
+									value={budget}
+									error={errors.budget?.message}
+									onChange={(next) => setValue("budget", next, { shouldValidate: true })}
+									options={BUDGET_OPTIONS}
+								/>
+							</div>
+
+							<TextField isInvalid={!!errors.message}>
+								<Label className="text-xs font-medium text-[#374151]">Tell us about your project</Label>
+								<InputGroup>
+									<InputGroup.TextArea
+										rows={4}
+										placeholder={`E.g. We're building a logistics platform for SMEs in West Africa and need an MVP in 10 weeks.`}
+										{...register("message")}
+										className={inputClassName}
+									/>
+								</InputGroup>
+								<FieldError>{errors.message?.message}</FieldError>
+							</TextField>
 
 							<div className="pt-1">
 								<Button
 									type="submit"
-									radius="md"
-									size="lg"
-									isLoading={isSubmitting}
-									className="w-full bg-primary-gold font-body font-semibold text-[#111827] hover:bg-soft-gold-hover-state"
-									endContent={<FaArrowRight className="text-sm" aria-hidden />}
+									className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary-gold font-body font-semibold text-[#111827] hover:bg-soft-gold-hover-state"
+									isPending={isSubmitting}
 								>
 									Send My Brief
+									<FaArrowRight className="text-sm" aria-hidden />
 								</Button>
 								<p className="mt-3 text-center text-xs text-[#9ca3af]">
 									No commitment. No spam. Just a real conversation.

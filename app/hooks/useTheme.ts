@@ -1,4 +1,4 @@
-import { useTheme as useHeroUITheme } from "@heroui/use-theme";
+import { useTheme as useHeroUITheme } from "@heroui/react";
 
 export const useTheme = () => {
   return useHeroUITheme();

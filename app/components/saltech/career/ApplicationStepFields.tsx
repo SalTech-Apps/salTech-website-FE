@@ -1,4 +1,4 @@
-import { Input, Textarea } from "@heroui/react";
+import { FieldError, Input, InputGroup, Label, TextField } from "@heroui/react";
 import type {
 	FieldErrors,
 	UseFormRegister,
@@ -11,34 +11,46 @@ interface CommonStepProps {
 	errors: FieldErrors<ApplicationFormSchema>;
 }
 
+const inputClassName =
+	"rounded-lg border px-4 py-2 text-[#111827] placeholder:text-gray-400";
+
 export function PersonalInfoFields({ register, errors }: CommonStepProps) {
 	return (
 		<div className="space-y-5">
-			<Input
-				label="Full Name"
-				labelPlacement="outside"
-				placeholder="John Doe"
-				{...register("fullName")}
-				isInvalid={!!errors.fullName}
-				errorMessage={errors.fullName?.message}
-			/>
-			<Input
-				label="Email Address"
-				labelPlacement="outside"
-				type="email"
-				placeholder="john@example.com"
-				{...register("email")}
-				isInvalid={!!errors.email}
-				errorMessage={errors.email?.message}
-			/>
-			<Input
-				label="Phone Number"
-				labelPlacement="outside"
-				placeholder="+1 (555) 123-4567"
-				{...register("phone")}
-				isInvalid={!!errors.phone}
-				errorMessage={errors.phone?.message}
-			/>
+			<TextField isInvalid={!!errors.fullName}>
+				<Label className="text-sm font-medium text-[#111827]">Full Name</Label>
+				<Input
+					type="text"
+					placeholder="John Doe"
+					{...register("fullName")}
+					className={inputClassName}
+				/>
+				<FieldError>{errors.fullName?.message}</FieldError>
+			</TextField>
+			<TextField isInvalid={!!errors.email}>
+				<Label className="text-sm font-medium text-[#111827]">
+					Email Address
+				</Label>
+				<Input
+					type="email"
+					placeholder="john@example.com"
+					{...register("email")}
+					className={inputClassName}
+				/>
+				<FieldError>{errors.email?.message}</FieldError>
+			</TextField>
+			<TextField isInvalid={!!errors.phone}>
+				<Label className="text-sm font-medium text-[#111827]">
+					Phone Number
+				</Label>
+				<Input
+					type="tel"
+					placeholder="+1 (555) 123-4567"
+					{...register("phone")}
+					className={inputClassName}
+				/>
+				<FieldError>{errors.phone?.message}</FieldError>
+			</TextField>
 		</div>
 	);
 }
@@ -54,6 +66,8 @@ export function DocumentFields({
 	watch,
 	draftCvName,
 }: DocumentStepProps) {
+	const registerCv = register("cv");
+
 	return (
 		<div className="space-y-5">
 			<div>
@@ -71,7 +85,7 @@ export function DocumentFields({
 						type="file"
 						accept=".pdf,.doc,.docx"
 						className="hidden"
-						{...register("cv")}
+						{...registerCv}
 					/>
 				</label>
 				{(watch("cv")?.[0]?.name || draftCvName) && (
@@ -83,22 +97,30 @@ export function DocumentFields({
 					<p className="mt-2 text-sm text-[#dc2626]">{errors.cv.message}</p>
 				)}
 			</div>
-			<Input
-				label="Portfolio Link"
-				labelPlacement="outside"
-				placeholder="https://yourportfolio.com"
-				{...register("portfolioUrl")}
-				isInvalid={!!errors.portfolioUrl}
-				errorMessage={errors.portfolioUrl?.message}
-			/>
-			<Input
-				label="LinkedIn Profile"
-				labelPlacement="outside"
-				placeholder="https://linkedin.com/in/yourprofile"
-				{...register("linkedinUrl")}
-				isInvalid={!!errors.linkedinUrl}
-				errorMessage={errors.linkedinUrl?.message}
-			/>
+			<TextField isInvalid={!!errors.portfolioUrl}>
+				<Label className="text-sm font-medium text-[#111827]">
+					Portfolio Link
+				</Label>
+				<Input
+					type="url"
+					placeholder="https://yourportfolio.com"
+					{...register("portfolioUrl")}
+					className={inputClassName}
+				/>
+				<FieldError>{errors.portfolioUrl?.message}</FieldError>
+			</TextField>
+			<TextField isInvalid={!!errors.linkedinUrl}>
+				<Label className="text-sm font-medium text-[#111827]">
+					LinkedIn Profile
+				</Label>
+				<Input
+					type="url"
+					placeholder="https://linkedin.com/in/yourprofile"
+					{...register("linkedinUrl")}
+					className={inputClassName}
+				/>
+				<FieldError>{errors.linkedinUrl?.message}</FieldError>
+			</TextField>
 		</div>
 	);
 }
@@ -106,23 +128,31 @@ export function DocumentFields({
 export function FinalDetailsFields({ register, errors }: CommonStepProps) {
 	return (
 		<div className="space-y-5">
-			<Textarea
-				label="Cover Letter / Message"
-				labelPlacement="outside"
-				placeholder="Tell us why you are a great fit for this role..."
-				minRows={6}
-				{...register("coverLetter")}
-				isInvalid={!!errors.coverLetter}
-				errorMessage={errors.coverLetter?.message}
-			/>
-			<Input
-				label="Earliest Start Date"
-				labelPlacement="outside"
-				type="date"
-				{...register("startDate")}
-				isInvalid={!!errors.startDate}
-				errorMessage={errors.startDate?.message}
-			/>
+			<TextField isInvalid={!!errors.coverLetter}>
+				<Label className="text-sm font-medium text-[#111827]">
+					Cover Letter / Message
+				</Label>
+				<InputGroup>
+					<InputGroup.TextArea
+						placeholder="Tell us why you are a great fit for this role..."
+						{...register("coverLetter")}
+						rows={6}
+						className={inputClassName}
+					/>
+				</InputGroup>
+				<FieldError>{errors.coverLetter?.message}</FieldError>
+			</TextField>
+			<TextField isInvalid={!!errors.startDate}>
+				<Label className="text-sm font-medium text-[#111827]">
+					Earliest Start Date
+				</Label>
+				<Input
+					type="date"
+					{...register("startDate")}
+					className={inputClassName}
+				/>
+				<FieldError>{errors.startDate?.message}</FieldError>
+			</TextField>
 		</div>
 	);
 }

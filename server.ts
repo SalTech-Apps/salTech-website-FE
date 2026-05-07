@@ -14,6 +14,13 @@ import { createApiRouter } from "./express/routes.ts";
 process.env.NODE_ENV ??= "production";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const DEV_CORS_ORIGIN = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i;
+
+function resolveDevCorsOrigin(origin: string | undefined): string | null {
+	if (!origin) return null;
+	if (DEV_CORS_ORIGIN.test(origin)) return origin;
+	return null;
+}
 
 /** React Router + Vercel preset emits `build/server/<runtime-id>/index.js`; plain builds use `build/server/index.js`. */
 function resolveBuildServerEntry(): string {
@@ -47,6 +54,47 @@ const app = express();
 
 app.disable("x-powered-by");
 app.use(compression());
+
+app.use((req, res, next) => {
+	if (process.env.NODE_ENV !== "development") {
+		return next();
+	}
+
+	const requestOrigin =
+		typeof req.headers.origin === "string" ? req.headers.origin : undefined;
+	const allowedOrigin = resolveDevCorsOrigin(requestOrigin);
+
+	if (allowedOrigin) {
+		res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+		res.append("Vary", "Origin");
+		res.setHeader("Access-Control-Allow-Credentials", "true");
+		res.setHeader(
+			"Access-Control-Allow-Methods",
+			"GET,POST,PUT,PATCH,DELETE,OPTIONS",
+		);
+
+		const requestHeaders = req.headers["access-control-request-headers"];
+		if (typeof requestHeaders === "string" && requestHeaders.length > 0) {
+			res.setHeader("Access-Control-Allow-Headers", requestHeaders);
+			res.append("Vary", "Access-Control-Request-Headers");
+		} else {
+			res.setHeader(
+				"Access-Control-Allow-Headers",
+				"Content-Type, Authorization",
+			);
+		}
+	}
+
+	if (req.method === "OPTIONS") {
+		if (allowedOrigin) {
+			return res.sendStatus(204);
+		}
+		return res.sendStatus(403);
+	}
+
+	return next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.get("/openapi.json", (_req, res) => {

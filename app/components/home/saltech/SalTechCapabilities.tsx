@@ -4,7 +4,7 @@ import {
 	HiServerStack,
 	HiSwatch,
 } from "react-icons/hi2";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const CAPABILITY_ICONS = [
 	HiRocketLaunch,
@@ -76,7 +76,7 @@ export function SalTechCapabilities() {
 					<Link
 						to="/services"
 						prefetch="intent"
-						className="inline-flex h-13 items-center justify-center rounded-[10px] border border-[#e5e7eb] px-7 text-[15px] font-semibold text-[#111827] transition-colors hover:bg-[#fafafa]"
+						className="inline-flex h-13 items-center justify-center rounded-[10px] border border-[#e5e7eb] px-7 text-[15px] font-semibold text-[#111827] transition-colors hover:opacity-50"
 					>
 						See All Services →
 					</Link>

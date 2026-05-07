@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { SaltechIcon } from "@/assets/SaltechIcon";
 
 const COMPANY = [
@@ -46,33 +46,33 @@ export function AppFooter() {
 							enterprises, and governments across Africa and beyond.
 						</p>
 						<div className="mt-6 flex gap-3">
-							<a
-								href="https://x.com"
+							<Link
+								to="https://x.com"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 text-sm text-white/60 transition-colors hover:border-primary-gold/50 hover:text-primary-gold"
 								aria-label="SalTech on X"
 							>
 								X
-							</a>
-							<a
-								href="https://www.linkedin.com"
+							</Link>
+							<Link
+								to="https://www.linkedin.com"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 text-sm text-white/60 transition-colors hover:border-primary-gold/50 hover:text-primary-gold"
 								aria-label="SalTech on LinkedIn"
 							>
 								in
-							</a>
-							<a
-								href="https://www.instagram.com"
+							</Link>
+							<Link
+								to="https://www.instagram.com"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 text-sm text-white/60 transition-colors hover:border-primary-gold/50 hover:text-primary-gold"
 								aria-label="SalTech on Instagram"
 							>
 								ig
-							</a>
+							</Link>
 						</div>
 					</div>
 
@@ -139,20 +139,20 @@ export function AppFooter() {
 						</h2>
 						<ul className="mt-4 space-y-3 text-sm text-white/70">
 							<li>
-								<a
-									href="mailto:support@saltechapps.com"
+								<Link
+									to="mailto:support@saltechapps.com"
 									className="transition-colors hover:text-primary-gold"
 								>
 									support@saltechapps.com
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a
-									href="tel:+18448771078"
+								<Link
+									to="tel:+18448771078"
 									className="transition-colors hover:text-primary-gold"
 								>
 									+1 (844) 877-1078
-								</a>
+								</Link>
 							</li>
 							<li className="leading-snug">
 								3203 McKnight East Drive, Suite 138

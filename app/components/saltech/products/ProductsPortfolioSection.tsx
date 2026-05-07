@@ -4,7 +4,6 @@ import {
 	SALTECH_PRODUCTS_PORTFOLIO_HEADING,
 	SALTECH_PRODUCTS_PORTFOLIO_SUB,
 } from "@/data/saltechProducts";
-import { Image } from "@heroui/react";
 
 export function ProductsPortfolioSection() {
 	return (
@@ -29,7 +28,7 @@ export function ProductsPortfolioSection() {
 							className="flex flex-col overflow-hidden rounded-xl border border-[#e5e7eb] bg-white transition-shadow"
 						>
 							<div className="relative aspect-16/10 overflow-hidden bg-[#f3f4f6]">
-								<Image
+								<img
 									src={product.imageSrc}
 									alt=""
 									className={`h-full w-full object-cover rotate-8 ${product.comingSoon ? "grayscale" : ""}`}

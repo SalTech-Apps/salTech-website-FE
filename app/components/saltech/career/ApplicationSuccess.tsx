@@ -78,15 +78,15 @@ export function ApplicationSuccess({ jobTitle }: ApplicationSuccessProps) {
 				{/* Buttons */}
 				<div className="flex flex-col sm:flex-row gap-4 justify-center">
 					<Button
-						onClick={() => navigate("/career")}
-						className="bg-[#c99e2e] text-[#111827] hover:bg-[#d4a84a] font-semibold px-8 py-3 h-auto"
+						onPress={() => navigate("/career")}
+						className="h-auto rounded-xl bg-[#c99e2e] px-8 py-3 font-semibold text-[#111827] hover:bg-[#d4a84a]"
 					>
 						Back to Careers
 					</Button>
 					<Button
-						onClick={() => navigate("/")}
-						className="border border-[#e5e7eb] text-[#111827] hover:bg-[#f9fafb] font-semibold px-8 py-3 h-auto"
-						variant="bordered"
+						onPress={() => navigate("/")}
+						className="h-auto rounded-xl border border-[#e5e7eb] bg-transparent px-8 py-3 font-semibold text-[#111827] hover:bg-[#f9fafb]"
+						variant="secondary"
 					>
 						Back to Home
 					</Button>

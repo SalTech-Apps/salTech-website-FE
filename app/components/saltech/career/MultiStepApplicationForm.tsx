@@ -1,10 +1,16 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useMemo, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Button, Modal, ModalBody, ModalContent } from "@heroui/react";
+import {
+	Button,
+	Modal,
+	ModalBackdrop,
+	ModalContainer,
+	ModalDialog,
+} from "@heroui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import toast from "react-hot-toast";
@@ -12,6 +18,7 @@ import {
 	careerApplicationDraftAtom,
 	careerApplicationStepAtom,
 } from "@/atoms/careerApplication.atom";
+import { apiErrorParser } from "@/lib/errorParser";
 import { ApplicationModalHeader } from "./ApplicationModalHeader";
 import { ApplicationStepper } from "./ApplicationStepper";
 import {
@@ -107,28 +114,76 @@ export function MultiStepApplicationForm({
 		register,
 		handleSubmit,
 		watch,
+		getValues,
 		formState: { errors },
 		trigger,
 		setError,
+		clearErrors,
 		reset,
 	} = form;
 
 	const submitMutation = useMutation({
 		mutationFn: async (values: ApplicationFormSchema) => {
-			console.log("Submitting application", { jobId, ...values });
-			await new Promise((resolve) => setTimeout(resolve, 1200));
-			return values;
+			const selectedFile = values.cv?.[0];
+			if (!selectedFile) {
+				throw new Error("Upload your resume before submitting");
+			}
+
+			const body = new FormData();
+			body.append("jobId", jobId);
+			body.append("fullName", values.fullName);
+			body.append("email", values.email);
+			body.append("phone", values.phone);
+			body.append("resume", selectedFile);
+			body.append("coverLetter", values.coverLetter);
+			body.append("status", "NEW");
+
+			if (values.portfolioUrl?.trim()) {
+				body.append("portfolioUrl", values.portfolioUrl.trim());
+			}
+			if (values.linkedinUrl?.trim()) {
+				body.append("linkedinUrl", values.linkedinUrl.trim());
+			}
+			if (values.startDate?.trim()) {
+				body.append("earliestStartDate", values.startDate.trim());
+			}
+
+			const response = await fetch("/api/applicants", {
+				method: "POST",
+				body,
+				credentials: "include",
+			});
+
+			const payload = (await response.json()) as {
+				message?: string;
+				data?: Record<string, unknown>;
+			};
+
+			if (!response.ok || !payload.data) {
+				throw new Error(payload.message || "Failed to submit application");
+			}
+
+			return payload.data;
 		},
 		onSuccess: () => {
 			toast.success("Application submitted successfully");
 			setCurrentStep("SUCCESS");
+			setDraft((previous) => ({
+				...previous,
+				cvName: "",
+				resumeUrl: "",
+			}));
 		},
-		onError: () => {
-			toast.error("Failed to submit application. Please try again.");
+		onError: (error) => {
+			const parsedError = apiErrorParser(error);
+			toast.error(parsedError.message);
 		},
 	});
 
-	const watchedValues = watch();
+	const watchedValues =
+		useWatch({
+			control: form.control,
+		}) ?? {};
 
 	useEffect(() => {
 		setDraft((previous) => ({
@@ -140,7 +195,8 @@ export function MultiStepApplicationForm({
 			linkedinUrl: watchedValues.linkedinUrl ?? previous.linkedinUrl,
 			coverLetter: watchedValues.coverLetter ?? previous.coverLetter,
 			startDate: watchedValues.startDate ?? previous.startDate,
-			cvName: watchedValues.cv?.[0]?.name ?? previous.cvName,
+			cvName: watchedValues.cv?.[0]?.name ?? "",
+			resumeUrl: "",
 		}));
 	}, [
 		watchedValues.fullName,
@@ -184,7 +240,7 @@ export function MultiStepApplicationForm({
 
 		if (currentStep === "DOCUMENTS") {
 			const valid = await trigger(["portfolioUrl", "linkedinUrl"]);
-			const hasFile = Boolean(watch("cv")?.[0]) || Boolean(draft.cvName);
+			const hasFile = Boolean(getValues("cv")?.[0]);
 			if (!hasFile) {
 				setError("cv", { type: "manual", message: "Upload your CV/Resume" });
 				return;
@@ -209,6 +265,7 @@ export function MultiStepApplicationForm({
 			coverLetter: "",
 			startDate: "",
 			cvName: "",
+			resumeUrl: "",
 		});
 		reset({
 			fullName: "",
@@ -229,86 +286,104 @@ export function MultiStepApplicationForm({
 		submitMutation.mutate(values);
 	};
 
+	console.log("LOG", form.formState.errors);
+
 	return (
-		<Modal
-			size="5xl"
-			isOpen={isOpen}
-			onOpenChange={onOpenChange}
-			className="min-h-170"
-		>
-			<ModalContent className="border bg-white p-4 md:p-6">
-				{() => (
-					<div className="mx-auto flex h-full w-full max-w-4xl flex-col">
-						<ApplicationModalHeader
-							jobTitle={jobTitle}
-							onBack={closeAndKeepProgress}
-						/>
-
-						<ApplicationStepper
-							steps={STEPS}
-							currentStep={currentStep}
-							stepIndex={stepIndex}
-						/>
-
-						<ModalBody className="mx-auto w-full max-w-3xl px-0 pb-2 pt-10">
-							{currentStep === "SUCCESS" ? (
-								<ApplicationSuccessState
-									onDone={closeAndKeepProgress}
-									onReset={resetApplication}
+		<Modal>
+			<ModalBackdrop isOpen={isOpen} onOpenChange={onOpenChange}>
+				<ModalContainer
+					size="5xl"
+					className="min-h-170 border bg-white p-4 md:p-6"
+				>
+					<ModalDialog>
+						{() => (
+							<div className="mx-auto flex h-full w-full max-w-4xl flex-col">
+								<ApplicationModalHeader
+									jobTitle={jobTitle}
+									onBack={closeAndKeepProgress}
 								/>
-							) : (
-								<form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-									{currentStep === "PERSONAL" && (
-										<PersonalInfoFields register={register} errors={errors} />
-									)}
 
-									{currentStep === "DOCUMENTS" && (
-										<DocumentFields
-											register={register}
-											errors={errors}
-											watch={watch}
-											draftCvName={draft.cvName}
+								<ApplicationStepper
+									steps={STEPS}
+									currentStep={currentStep}
+									stepIndex={stepIndex}
+								/>
+
+								<div className="mx-auto w-full max-w-3xl px-0 pb-2 pt-10">
+									{currentStep === "SUCCESS" ? (
+										<ApplicationSuccessState
+											onDone={closeAndKeepProgress}
+											onReset={resetApplication}
 										/>
-									)}
-
-									{currentStep === "FINAL" && (
-										<FinalDetailsFields register={register} errors={errors} />
-									)}
-
-									<div className="grid grid-cols-2 gap-3 border-t border-[#e5e7eb] pt-6">
-										<Button
-											variant="bordered"
-											onPress={goToPreviousStep}
-											isDisabled={currentStep === "PERSONAL"}
+									) : (
+										<form
+											onSubmit={handleSubmit(onSubmit)}
+											className="space-y-6"
 										>
-											Back
-										</Button>
-										{currentStep !== "FINAL" ? (
-											<Button
-												className="bg-[#c99e2e] text-[#111827]"
-												onPress={goToNextStep}
-											>
-												Continue
-											</Button>
-										) : (
-											<Button
-												type="submit"
-												className="bg-[#c99e2e] text-[#111827]"
-												isLoading={submitMutation.isPending}
-											>
-												Submit Application
-											</Button>
-										)}
-										<Button variant="light" onPress={closeAndKeepProgress}>
-											Close
-										</Button>
-									</div>
-								</form>
-							)}
-						</ModalBody>
-					</div>
-				)}
-			</ModalContent>
+											{currentStep === "PERSONAL" && (
+												<PersonalInfoFields
+													register={register}
+													errors={errors}
+												/>
+											)}
+
+											{currentStep === "DOCUMENTS" && (
+												<DocumentFields
+													register={register}
+													errors={errors}
+													watch={watch}
+													draftCvName={draft.cvName}
+												/>
+											)}
+
+											{currentStep === "FINAL" && (
+												<FinalDetailsFields
+													register={register}
+													errors={errors}
+												/>
+											)}
+
+											<div className="grid grid-cols-2 gap-3 border-t border-[#e5e7eb] pt-6">
+												<Button
+													variant="secondary"
+													className="rounded-xl"
+													onPress={goToPreviousStep}
+													isDisabled={currentStep === "PERSONAL"}
+												>
+													Back
+												</Button>
+												{currentStep !== "FINAL" ? (
+													<Button
+														className="rounded-xl bg-[#c99e2e] text-[#111827]"
+														onPress={goToNextStep}
+													>
+														Continue
+													</Button>
+												) : (
+													<Button
+														type="submit"
+														className="rounded-xl bg-[#c99e2e] text-[#111827]"
+														isPending={submitMutation.isPending}
+													>
+														Submit Application
+													</Button>
+												)}
+												<Button
+													className="rounded-xl"
+													variant="ghost"
+													onPress={closeAndKeepProgress}
+												>
+													Close
+												</Button>
+											</div>
+										</form>
+									)}
+								</div>
+							</div>
+						)}
+					</ModalDialog>
+				</ModalContainer>
+			</ModalBackdrop>
 		</Modal>
 	);
 }

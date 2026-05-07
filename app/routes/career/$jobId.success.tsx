@@ -4,18 +4,18 @@ import { JOB_OPENINGS } from "@/data/saltechCareers";
 import { buildMetaTags } from "@/lib/seo";
 
 export function meta({
-	params,
 	location,
 }: {
-	params: { jobId: string };
 	location: { pathname: string };
 }) {
-	return buildMetaTags({
+	return [
+		...buildMetaTags({
 		title: "Application Submitted · Careers",
 		description: "Thank you for submitting your application to SalTech.",
 		path: location.pathname,
-		noindex: true,
-	});
+		}),
+		{ name: "robots", content: "noindex, nofollow" },
+	];
 }
 
 export default function ApplicationSuccessPage() {

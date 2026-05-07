@@ -13,6 +13,7 @@
       "root": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/favicon[.]ico": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/api.health": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.uploads.resume": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/sitemap[.]xml": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/sw[.]js": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/home/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
@@ -28,7 +29,14 @@
       "routes/terms/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/privacy/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/page/$slug": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "layouts/ConsoleLayout": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
+      "routes/console/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/console/jobs": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/console/jobs.new": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/console/jobs.edit": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/console/drafts": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/console/candidates": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/console/settings": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/login/index": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
     },
     "routes": {
       "root": {
@@ -51,6 +59,13 @@
         "parentId": "root",
         "file": "app/routes/api.health.tsx",
         "path": "api/health",
+        "config": {}
+      },
+      "routes/api.uploads.resume": {
+        "id": "routes/api.uploads.resume",
+        "parentId": "root",
+        "file": "app/routes/api.uploads.resume.tsx",
+        "path": "api/uploads/resume",
         "config": {}
       },
       "routes/sitemap[.]xml": {
@@ -170,13 +185,69 @@
         "file": "app/layouts/ConsoleLayout.tsx",
         "path": "console",
         "config": {}
+      },
+      "routes/console/index": {
+        "id": "routes/console/index",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "app/routes/console/index.tsx",
+        "index": true,
+        "config": {}
+      },
+      "routes/console/jobs": {
+        "id": "routes/console/jobs",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "app/routes/console/jobs.tsx",
+        "path": "jobs",
+        "config": {}
+      },
+      "routes/console/jobs.new": {
+        "id": "routes/console/jobs.new",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "app/routes/console/jobs.new.tsx",
+        "path": "jobs/new",
+        "config": {}
+      },
+      "routes/console/jobs.edit": {
+        "id": "routes/console/jobs.edit",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "app/routes/console/jobs.edit.tsx",
+        "path": "jobs/:jobId/edit",
+        "config": {}
+      },
+      "routes/console/drafts": {
+        "id": "routes/console/drafts",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "app/routes/console/drafts.tsx",
+        "path": "drafts",
+        "config": {}
+      },
+      "routes/console/candidates": {
+        "id": "routes/console/candidates",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "app/routes/console/candidates.tsx",
+        "path": "candidates",
+        "config": {}
+      },
+      "routes/console/settings": {
+        "id": "routes/console/settings",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "app/routes/console/settings.tsx",
+        "path": "settings",
+        "config": {}
+      },
+      "routes/login/index": {
+        "id": "routes/login/index",
+        "parentId": "root",
+        "file": "app/routes/login/index.tsx",
+        "path": "login",
+        "config": {}
       }
     }
   },
   "reactRouterConfig": {
-    "appDirectory": "/Users/chimdie/Documents/saltech/salTech-website-FE/app",
+    "appDirectory": "/Users/chimdie/Documents/saltech/sapp/app",
     "basename": "/",
-    "buildDirectory": "/Users/chimdie/Documents/saltech/salTech-website-FE/build",
+    "buildDirectory": "/Users/chimdie/Documents/saltech/sapp/build",
     "future": {
       "unstable_optimizeDeps": false,
       "unstable_passThroughRequests": false,
@@ -204,6 +275,12 @@
         "parentId": "root",
         "file": "routes/api.health.tsx",
         "path": "api/health"
+      },
+      "routes/api.uploads.resume": {
+        "id": "routes/api.uploads.resume",
+        "parentId": "root",
+        "file": "routes/api.uploads.resume.tsx",
+        "path": "api/uploads/resume"
       },
       "routes/sitemap[.]xml": {
         "id": "routes/sitemap[.]xml",
@@ -305,6 +382,54 @@
         "parentId": "root",
         "file": "layouts/ConsoleLayout.tsx",
         "path": "console"
+      },
+      "routes/console/index": {
+        "id": "routes/console/index",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "routes/console/index.tsx",
+        "index": true
+      },
+      "routes/console/jobs": {
+        "id": "routes/console/jobs",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "routes/console/jobs.tsx",
+        "path": "jobs"
+      },
+      "routes/console/jobs.new": {
+        "id": "routes/console/jobs.new",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "routes/console/jobs.new.tsx",
+        "path": "jobs/new"
+      },
+      "routes/console/jobs.edit": {
+        "id": "routes/console/jobs.edit",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "routes/console/jobs.edit.tsx",
+        "path": "jobs/:jobId/edit"
+      },
+      "routes/console/drafts": {
+        "id": "routes/console/drafts",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "routes/console/drafts.tsx",
+        "path": "drafts"
+      },
+      "routes/console/candidates": {
+        "id": "routes/console/candidates",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "routes/console/candidates.tsx",
+        "path": "candidates"
+      },
+      "routes/console/settings": {
+        "id": "routes/console/settings",
+        "parentId": "layouts/ConsoleLayout",
+        "file": "routes/console/settings.tsx",
+        "path": "settings"
+      },
+      "routes/login/index": {
+        "id": "routes/login/index",
+        "parentId": "root",
+        "file": "routes/login/index.tsx",
+        "path": "login"
       }
     },
     "routeDiscovery": {
@@ -328,6 +453,10 @@
           {
             "file": "routes/api.health.tsx",
             "path": "api/health"
+          },
+          {
+            "file": "routes/api.uploads.resume.tsx",
+            "path": "api/uploads/resume"
           },
           {
             "file": "routes/sitemap[.]xml.tsx",
@@ -396,8 +525,41 @@
           },
           {
             "file": "layouts/ConsoleLayout.tsx",
-            "children": [],
+            "children": [
+              {
+                "file": "routes/console/index.tsx",
+                "index": true
+              },
+              {
+                "file": "routes/console/jobs.tsx",
+                "path": "jobs"
+              },
+              {
+                "file": "routes/console/jobs.new.tsx",
+                "path": "jobs/new"
+              },
+              {
+                "file": "routes/console/jobs.edit.tsx",
+                "path": "jobs/:jobId/edit"
+              },
+              {
+                "file": "routes/console/drafts.tsx",
+                "path": "drafts"
+              },
+              {
+                "file": "routes/console/candidates.tsx",
+                "path": "candidates"
+              },
+              {
+                "file": "routes/console/settings.tsx",
+                "path": "settings"
+              }
+            ],
             "path": "console"
+          },
+          {
+            "file": "routes/login/index.tsx",
+            "path": "login"
           }
         ]
       }

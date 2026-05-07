@@ -1,12 +1,73 @@
 import { useState } from "react";
-import { Link } from "react-router";
-import { Button, Input } from "@heroui/react";
+import { Link, useNavigate } from "react-router";
+import {
+	Button,
+	FieldError,
+	InputGroup,
+	Label,
+	TextField,
+} from "@heroui/react";
 import { FiArrowLeft, FiEye, FiEyeOff, FiLock, FiMail } from "react-icons/fi";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, useWatch } from "react-hook-form";
+
 import { AppFooter } from "@/components/app-footer/AppFooter";
 import { SaltechIcon } from "@/assets/SaltechIcon";
+import { login } from "@/api/admin";
+import type { LoginRequest } from "@/client";
+import { LoginSchema } from "@/schemas/auth.schema";
+import { apiErrorParser } from "@/lib/errorParser";
 
 export default function LoginPage() {
 	const [showPassword, setShowPassword] = useState(false);
+	const navigate = useNavigate();
+
+	const form = useForm<LoginSchema>({
+		mode: "onChange",
+		reValidateMode: "onChange",
+		resolver: zodResolver(LoginSchema),
+		defaultValues: {
+			email: "",
+			password: "",
+		},
+	});
+
+	const emailValue =
+		useWatch({
+			control: form.control,
+			name: "email",
+		}) ?? "";
+	const passwordValue =
+		useWatch({
+			control: form.control,
+			name: "password",
+		}) ?? "";
+
+	const loginMutation = useMutation({
+		mutationFn: login,
+		onSuccess: () => {
+			toast.success("Signed in successfully");
+			navigate("/console", { replace: true });
+		},
+		onError: (err) => {
+			const error = apiErrorParser(err);
+			console.log(err);
+
+			toast.error(error.message);
+		},
+	});
+
+	const canSubmit =
+		emailValue.trim().length > 0 &&
+		passwordValue.trim().length > 0 &&
+		form.formState.isValid &&
+		!loginMutation.isPending;
+
+	const handleSubmit = (data: LoginRequest) => {
+		loginMutation.mutate(data);
+	};
 
 	return (
 		<>
@@ -38,52 +99,77 @@ export default function LoginPage() {
 								</div>
 							</div>
 
-							<form className="space-y-4">
-								<Input
-									label="Email Address"
-									labelPlacement="outside"
-									placeholder="admin@saltech.com"
-									startContent={<FiMail className="text-[#A1A7B5]" />}
-									type="email"
-									classNames={{
-										label: "text-sm font-medium text-[#1F2534]",
-										input: "text-[#1F2534] placeholder:text-[#ADB2BF]",
-										inputWrapper:
-											"h-12 rounded-xl border border-[#E7E2D8] bg-white shadow-none",
-									}}
-									required
-								/>
-								<Input
-									label="Password"
-									labelPlacement="outside"
-									placeholder="••••••••"
-									startContent={<FiLock className="text-[#A1A7B5]" />}
-									endContent={
-										<button
-											type="button"
-											onClick={() => setShowPassword((value) => !value)}
-											className="text-[#A1A7B5]"
-											aria-label={
-												showPassword ? "Hide password" : "Show password"
-											}
-										>
-											{showPassword ? <FiEyeOff /> : <FiEye />}
-										</button>
-									}
-									type={showPassword ? "text" : "password"}
-									classNames={{
-										input: "text-[#1F2534] placeholder:text-[#ADB2BF]",
-										inputWrapper:
-											"h-12 rounded-xl border border-[#E7E2D8] bg-white shadow-none",
-									}}
-									required
-								/>
+							<form
+								className="space-y-4"
+								onSubmit={form.handleSubmit(handleSubmit)}
+							>
+								<TextField
+									fullWidth
+									className="w-full"
+									name="email"
+									isInvalid={!!form.formState.errors.email}
+									isDisabled={loginMutation.isPending}
+								>
+									<Label className="text-sm font-medium text-[#1F2534]">
+										Email address
+									</Label>
+									<InputGroup className="rounded-xl border border-[#E7E2D8] bg-white">
+										<InputGroup.Prefix>
+											<FiMail className="size-4 text-[#A1A7B5]" />
+										</InputGroup.Prefix>
+										<InputGroup.Input
+											type="email"
+											className="h-10 bg-transparent px-0 text-[#1F2534] placeholder:text-[#ADB2BF]"
+											placeholder="name@email.com"
+											{...form.register("email")}
+										/>
+									</InputGroup>
+									<FieldError>
+										{form.formState.errors.email?.message}
+									</FieldError>
+								</TextField>
+
+								<TextField isInvalid={!!form.formState.errors.password}>
+									<Label className="text-sm font-medium text-[#1F2534]">
+										Password
+									</Label>
+									<InputGroup className="rounded-xl border border-[#E7E2D8] bg-white">
+										<InputGroup.Prefix>
+											<FiLock className="size-4 text-[#A1A7B5]" />
+										</InputGroup.Prefix>
+										<InputGroup.Input
+											type={showPassword ? "text" : "password"}
+											placeholder="••••••••"
+											{...form.register("password")}
+											disabled={loginMutation.isPending}
+											className="h-10 border-0 bg-transparent px-0 text-[#1F2534] placeholder:text-[#ADB2BF]"
+										/>
+										<InputGroup.Suffix className="pr-3">
+											<Button
+												type="button"
+												isIconOnly
+												onPress={() => setShowPassword((value) => !value)}
+												className="text-[#A1A7B5] hover:bg-transparent"
+												variant="ghost"
+												aria-label={
+													showPassword ? "Hide password" : "Show password"
+												}
+											>
+												{showPassword ? <FiEyeOff /> : <FiEye />}
+											</Button>
+										</InputGroup.Suffix>
+									</InputGroup>
+									<FieldError>
+										{form.formState.errors.password?.message}
+									</FieldError>
+								</TextField>
 								<div className="pt-1 flex justify-end">
 									<Button
 										type="button"
-										variant="light"
+										variant="ghost"
 										size="sm"
-										className="h-auto min-w-0 px-0 text-[#d0ad4f] hover:text-[#ba9335]"
+										className="h-auto min-w-0 rounded-xl px-0 text-[#d0ad4f] hover:text-[#ba9335]"
+										isDisabled={loginMutation.isPending}
 									>
 										Forgot password?
 									</Button>
@@ -91,7 +177,10 @@ export default function LoginPage() {
 
 								<Button
 									type="submit"
-									className="mt-1 w-full rounded-lg bg-[#e6e9ef]"
+									isPending={loginMutation.isPending}
+									isDisabled={!canSubmit}
+									size="lg"
+									className="mt-1 w-full rounded-xl bg-[#E2BA51] h-12"
 								>
 									Sign In
 								</Button>
@@ -99,15 +188,15 @@ export default function LoginPage() {
 
 							<div className="my-6 border-t border-[#e7e9ef]" />
 
-							<Button
-								as={Link}
-								to="/"
-								variant="light"
-								startContent={<FiArrowLeft size={13} />}
-								className="h-auto min-w-0 px-0 text-[0.82rem] text-slate-500 transition hover:text-slate-700"
-							>
-								Back to Website
-							</Button>
+							<Link to="/" prefetch="intent">
+								<Button
+									variant="ghost"
+									className="flex h-auto min-w-0 items-center gap-2 rounded-xl px-0 text-[0.82rem] text-slate-500 transition hover:text-slate-700"
+								>
+									<FiArrowLeft size={13} />
+									Back to Website
+								</Button>
+							</Link>
 						</div>
 					</div>
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { Spinner } from "@heroui/react";
 import Markdown from "react-markdown";
 import { Hero } from "@/components/ui/Hero";

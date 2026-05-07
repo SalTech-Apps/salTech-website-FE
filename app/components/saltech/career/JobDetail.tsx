@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import { formatDistanceToNow } from "date-fns";
 import { JOB_OPENINGS, type JobOpening } from "@/data/saltechCareers";
+import { getApiJobsById } from "@/client";
 import { MultiStepApplicationForm } from "./MultiStepApplicationForm";
-import { Button, Chip, Divider } from "@heroui/react";
+import { Button, Chip, Separator } from "@heroui/react";
 import {
 	FiBookmark,
 	FiBriefcase,
@@ -17,13 +20,129 @@ interface JobDetailProps {
 	jobId: string;
 }
 
+type JobDetailView = {
+	id: string;
+	title: string;
+	department: string;
+	location: string;
+	type: string;
+	status: string;
+	posted: string;
+	aboutRole: string;
+	whatYouWillDo: string[];
+	whatWeAreLookingFor: string[];
+	niceToHave: string[];
+	benefits: Array<{ title: string; description: string }>;
+};
+
+const DEFAULT_BENEFITS: JobDetailView["benefits"] = [
+	{
+		title: "Competitive Salary",
+		description: "Market-rate compensation aligned with role scope.",
+	},
+	{
+		title: "Remote-First",
+		description:
+			"Flexible location with collaboration across distributed teams.",
+	},
+	{
+		title: "Learning Budget",
+		description:
+			"Support for courses, conferences, and professional development.",
+	},
+];
+
+function formatEnumLabel(value: string): string {
+	return value
+		.toLowerCase()
+		.split("_")
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+		.join(" ");
+}
+
+function toPostedDate(value: string): string {
+	const parsed = new Date(value);
+	if (Number.isNaN(parsed.getTime())) return "Recently posted";
+	return formatDistanceToNow(parsed, { addSuffix: true });
+}
+
 export function JobDetail({ jobId }: JobDetailProps) {
 	const navigate = useNavigate();
 	const [showApplicationForm, setShowApplicationForm] = useState(false);
-
-	const job = JOB_OPENINGS.find((j) => j.id === jobId) as
+	const staticJob = JOB_OPENINGS.find((j) => j.id === jobId) as
 		| JobOpening
 		| undefined;
+
+	const apiJobQuery = useQuery({
+		queryKey: ["career-job", jobId],
+		queryFn: async () => {
+			const response = await getApiJobsById({
+				path: { id: jobId },
+				throwOnError: true,
+			});
+			return response.data.data;
+		},
+		enabled: !staticJob,
+	});
+
+	const job: JobDetailView | null = (() => {
+		if (apiJobQuery.data) {
+			const apiJob = apiJobQuery.data;
+			return {
+				id: apiJob.id,
+				title: apiJob.title,
+				department: formatEnumLabel(apiJob.department),
+				location: apiJob.location,
+				type: formatEnumLabel(apiJob.jobType),
+				status: formatEnumLabel(apiJob.status),
+				posted: toPostedDate(apiJob.createdAt),
+				aboutRole: apiJob.description,
+				whatYouWillDo:
+					apiJob.responsibilities.length > 0
+						? apiJob.responsibilities
+						: [apiJob.description],
+				whatWeAreLookingFor:
+					apiJob.requirements.length > 0
+						? apiJob.requirements
+						: ["Experience delivering quality outcomes in similar roles."],
+				niceToHave:
+					apiJob.niceToHave.length > 0
+						? apiJob.niceToHave
+						: ["Strong communication and collaboration skills."],
+				benefits: DEFAULT_BENEFITS,
+			};
+		}
+
+		if (staticJob) {
+			return {
+				id: staticJob.id,
+				title: staticJob.title,
+				department: staticJob.department,
+				location: staticJob.location,
+				type: staticJob.type,
+				status: formatEnumLabel(staticJob.status),
+				posted: staticJob.posted,
+				aboutRole: staticJob.aboutRole,
+				whatYouWillDo: [...staticJob.whatYouWillDo],
+				whatWeAreLookingFor: [...staticJob.whatWeAreLookingFor],
+				niceToHave: [...staticJob.niceToHave],
+				benefits: staticJob.benefits.map((benefit) => ({
+					title: benefit.title,
+					description: benefit.description,
+				})),
+			};
+		}
+
+		return null;
+	})();
+
+	if (apiJobQuery.isLoading && !job) {
+		return (
+			<div className="flex min-h-screen items-center justify-center px-4">
+				<p className="text-sm text-[#6b7280]">Loading job details...</p>
+			</div>
+		);
+	}
 
 	if (!job) {
 		return (
@@ -36,8 +155,8 @@ export function JobDetail({ jobId }: JobDetailProps) {
 						Sorry, the job you're looking for doesn't exist.
 					</p>
 					<Button
-						onClick={() => navigate("/career")}
-						className="bg-[#c99e2e] text-[#111827] hover:bg-[#d4a84a]"
+						onPress={() => navigate("/career")}
+						className="rounded-xl bg-[#c99e2e] text-[#111827] hover:bg-[#d4a84a]"
 					>
 						Back to Careers
 					</Button>
@@ -45,13 +164,6 @@ export function JobDetail({ jobId }: JobDetailProps) {
 			</div>
 		);
 	}
-
-	const formatStatus = (status: string) => {
-		return status
-			.split("_")
-			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-			.join(" ");
-	};
 
 	return (
 		<div className="min-h-screen bg-white">
@@ -78,7 +190,7 @@ export function JobDetail({ jobId }: JobDetailProps) {
 							{job.department}
 						</Chip>
 						<Chip className="px-3 py-1 bg-[#166534] text-[#4ADE80] text-xs font-medium">
-							{formatStatus(job.status)}
+							{job.status}
 						</Chip>
 					</div>
 
@@ -91,7 +203,7 @@ export function JobDetail({ jobId }: JobDetailProps) {
 						</div>
 						<div className="flex items-center gap-1.5">
 							<FiBriefcase className="text-[#E2BA51]" />
-							<span className="text-[#9CA3AF]">{job.location}</span>
+							<span className="text-[#9CA3AF]">{job.type}</span>
 						</div>
 						<div className="flex items-center gap-1.5">
 							<FiClock className="text-[#E2BA51]" />
@@ -172,19 +284,17 @@ export function JobDetail({ jobId }: JobDetailProps) {
 								</Button>
 								<div className="grid grid-cols-2 gap-3">
 									<Button
-										className="border border-[#E5E7EB] rounded-xl text-[#374151]"
-										startContent={<FiBookmark />}
+										className="rounded-xl border border-[#E5E7EB] bg-transparent text-[#374151]"
 									>
-										Save
+										<FiBookmark /> Save
 									</Button>
 									<Button
-										className="border border-[#E5E7EB] rounded-xl text-[#374151]"
-										startContent={<FiShare2 />}
+										className="rounded-xl border border-[#E5E7EB] bg-transparent text-[#374151]"
 									>
-										Share
+										<FiShare2 /> Share
 									</Button>
 								</div>
-								<Divider />
+								<Separator />
 								<h3 className="text-lg font-bold text-[#111827]">
 									Job Summary
 								</h3>

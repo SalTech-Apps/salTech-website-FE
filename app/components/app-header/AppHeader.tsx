@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router";
 import { Button } from "@heroui/react";
 import { FaArrowRight, FaBars, FaTimes } from "react-icons/fa";
 import { SaltechIcon } from "@/assets/SaltechIcon";
@@ -11,9 +11,9 @@ const PILL_IDLE =
 	"rounded-md px-3 py-1.5 text-sm font-medium text-[#667085] transition-colors hover:text-[#333333]";
 
 function AboutNavLinks() {
-	const { pathname, hash } = useLocation();
+	const { pathname } = useLocation();
 	const onAbout = pathname === "/about";
-	const teamActive = onAbout && hash === "#our-team";
+	const teamActive = pathname === "/team";
 	const aboutActive = onAbout && !teamActive;
 
 	return (
@@ -26,7 +26,7 @@ function AboutNavLinks() {
 				About
 			</Link>
 			<Link
-				to="/about#our-team"
+				to="/team"
 				prefetch="intent"
 				className={teamActive ? PILL_ACTIVE : PILL_IDLE}
 			>
@@ -97,16 +97,14 @@ export function AppHeader() {
 				</nav>
 
 				<div className="flex items-center justify-end gap-3">
-					<Button
-						radius="lg"
-						as={Link}
-						to="/contact"
-						prefetch="intent"
-						className="hidden sm:flex rounded-lg bg-[#E5B751] font-body text-sm font-bold text-[#333333] hover:bg-[#d9a843]"
-						endContent={<FaArrowRight className="text-xs" aria-hidden />}
-					>
-						Start a Project
-					</Button>
+					<Link to="/contact" prefetch="intent">
+						<Button className="hidden rounded-xl bg-[#E5B751] font-body text-sm font-bold text-[#333333] hover:bg-[#d9a843] sm:flex">
+							<span className="inline-flex items-center gap-2">
+								Start a Project
+								<FaArrowRight />
+							</span>
+						</Button>
+					</Link>
 					<button
 						type="button"
 						className="lg:hidden p-2 text-[#667085] hover:text-[#333333]"
@@ -206,7 +204,7 @@ export function AppHeader() {
 						</li>
 						<li>
 							<Link
-								to="/about#our-team"
+								to="/team"
 								prefetch="intent"
 								className={`block rounded-md px-3 py-2.5 text-sm font-medium ${
 									teamActive
@@ -235,17 +233,14 @@ export function AppHeader() {
 							</NavLink>
 						</li>
 						<li className="pt-2">
-							<Button
-								radius="lg"
-								as={Link}
-								to="/contact"
-								prefetch="intent"
-								className="w-full bg-[#E5B751] font-body font-bold text-[#333333]"
-								endContent={<FaArrowRight className="text-xs" aria-hidden />}
-								onPress={() => setMobileMenuOpen(false)}
-							>
-								Start a Project
-							</Button>
+							<Link to="/contact" prefetch="intent">
+								<Button
+									className="w-full rounded-xl bg-[#E5B751] font-body font-bold text-[#333333]"
+									onPress={() => setMobileMenuOpen(false)}
+								>
+									Start a Project
+								</Button>
+							</Link>
 						</li>
 					</ul>
 				</nav>
