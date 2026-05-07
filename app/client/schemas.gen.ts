@@ -1079,24 +1079,90 @@ export const DashboardResponseSchema = {
   required: ["message", "data"],
 } as const;
 
-export const FileUploadRequestSchema = {
+export const CreateTeamMemberRequestSchema = {
   type: "object",
   properties: {
-    file: {
-      type: "string",
-      format: "binary",
-    },
     name: {
       type: "string",
     },
-    folder: {
+    position: {
       type: "string",
     },
+    group: {
+      type: "string",
+      enum: ["leadership", "engineering-design", "product-operations"],
+    },
+    shortDescription: {
+      type: "string",
+    },
+    detailedDescription: {
+      type: "string",
+    },
+    profileImageUrl: {
+      type: "string",
+      format: "uri",
+    },
+    email: {
+      type: "string",
+      format: "email",
+    },
+    phone: {
+      type: "string",
+    },
+    linkedinUrl: {
+      type: "string",
+      format: "uri",
+    },
+    twitterUrl: {
+      type: "string",
+      format: "uri",
+    },
   },
-  required: ["file"],
+  required: ["name", "position"],
 } as const;
 
-export const FileUploadResponseSchema = {
+export const UpdateTeamMemberRequestSchema = {
+  type: "object",
+  properties: {
+    name: {
+      type: "string",
+    },
+    position: {
+      type: "string",
+    },
+    group: {
+      type: "string",
+      enum: ["leadership", "engineering-design", "product-operations"],
+    },
+    shortDescription: {
+      type: "string",
+    },
+    detailedDescription: {
+      type: "string",
+    },
+    profileImageUrl: {
+      type: "string",
+      format: "uri",
+    },
+    email: {
+      type: "string",
+      format: "email",
+    },
+    phone: {
+      type: "string",
+    },
+    linkedinUrl: {
+      type: "string",
+      format: "uri",
+    },
+    twitterUrl: {
+      type: "string",
+      format: "uri",
+    },
+  },
+} as const;
+
+export const TeamMemberResponseSchema = {
   type: "object",
   properties: {
     message: {
@@ -1105,47 +1171,121 @@ export const FileUploadResponseSchema = {
     data: {
       type: "object",
       properties: {
-        fileName: {
+        id: {
           type: "string",
         },
-        url: {
+        name: {
+          type: "string",
+        },
+        position: {
+          type: "string",
+        },
+        group: {
+          type: "string",
+          enum: ["leadership", "engineering-design", "product-operations"],
+        },
+        shortDescription: {
+          type: "string",
+        },
+        detailedDescription: {
+          type: "string",
+        },
+        profileImageUrl: {
           type: "string",
           format: "uri",
         },
-        publicId: {
+        email: {
+          type: "string",
+          format: "email",
+        },
+        phone: {
           type: "string",
         },
-        size: {
-          type: "number",
+        linkedinUrl: {
+          type: "string",
+          format: "uri",
         },
-        mimeType: {
+        twitterUrl: {
+          type: "string",
+          format: "uri",
+        },
+        createdAt: {
+          type: "string",
+        },
+        updatedAt: {
           type: "string",
         },
       },
-      required: ["fileName", "url", "publicId", "size", "mimeType"],
+      required: ["id", "name", "position", "createdAt", "updatedAt"],
     },
   },
   required: ["message", "data"],
 } as const;
 
-export const ResumeUploadRequestSchema = {
+export const TeamMembersListResponseSchema = {
   type: "object",
   properties: {
-    resume: {
-      type: "string",
-      format: "binary",
-    },
-    name: {
+    message: {
       type: "string",
     },
-    folder: {
-      type: "string",
+    data: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          id: {
+            type: "string",
+          },
+          name: {
+            type: "string",
+          },
+          position: {
+            type: "string",
+          },
+          group: {
+            type: "string",
+            enum: ["leadership", "engineering-design", "product-operations"],
+          },
+          shortDescription: {
+            type: "string",
+          },
+          detailedDescription: {
+            type: "string",
+          },
+          profileImageUrl: {
+            type: "string",
+            format: "uri",
+          },
+          email: {
+            type: "string",
+            format: "email",
+          },
+          phone: {
+            type: "string",
+          },
+          linkedinUrl: {
+            type: "string",
+            format: "uri",
+          },
+          twitterUrl: {
+            type: "string",
+            format: "uri",
+          },
+          createdAt: {
+            type: "string",
+          },
+          updatedAt: {
+            type: "string",
+          },
+        },
+        required: ["id", "name", "position", "createdAt", "updatedAt"],
+      },
     },
   },
-  required: ["resume"],
+  required: ["message", "data"],
 } as const;
 
-export const ResumeUploadResponseSchema = {
+export const TeamMemberDeleteResponseSchema = {
   type: "object",
   properties: {
     message: {
@@ -1154,24 +1294,11 @@ export const ResumeUploadResponseSchema = {
     data: {
       type: "object",
       properties: {
-        fileName: {
-          type: "string",
-        },
-        url: {
-          type: "string",
-          format: "uri",
-        },
-        publicId: {
-          type: "string",
-        },
-        size: {
-          type: "number",
-        },
-        mimeType: {
+        id: {
           type: "string",
         },
       },
-      required: ["fileName", "url", "publicId", "size", "mimeType"],
+      required: ["id"],
     },
   },
   required: ["message", "data"],

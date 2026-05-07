@@ -24,6 +24,7 @@
 	},
 	"dependencies": {
 		"@asteasolutions/zod-to-openapi": "^8.5.0",
+		"@azure/storage-blob": "^12.31.0",
 		"@digicroz/react-floating-whatsapp": "^1.0.2",
 		"@fingerprintjs/fingerprintjs": "^5.1.0",
 		"@heroui/react": "^3.0.3",

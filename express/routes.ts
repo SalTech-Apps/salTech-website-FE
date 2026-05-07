@@ -15,6 +15,15 @@ import {
 	removeJob,
 } from "./controllers/job.controller.ts";
 import {
+	editTeamMember,
+	getTeamMember,
+	listTeamMembers,
+	postTeamMember,
+	removeTeamMember,
+	teamMemberImageUploadMiddleware,
+} from "./controllers/team.controller.ts";
+import {
+	applicantResumeUploadMiddleware,
 	assignInterviewerAction,
 	assignRecruiterAction,
 	editApplicant,
@@ -45,10 +54,26 @@ export function createApiRouter(): Router {
 	api.patch("/jobs/:id", requireAuth, editJob);
 	api.delete("/jobs/:id", requireAuth, removeJob);
 
+	api.get("/team-members", requireAuth, listTeamMembers);
+	api.get("/team-members/:id", requireAuth, getTeamMember);
+	api.post(
+		"/team-members",
+		requireAuth,
+		teamMemberImageUploadMiddleware,
+		postTeamMember,
+	);
+	api.patch(
+		"/team-members/:id",
+		requireAuth,
+		teamMemberImageUploadMiddleware,
+		editTeamMember,
+	);
+	api.delete("/team-members/:id", requireAuth, removeTeamMember);
+
 	api.get("/applicants", requireAuth, listApplicants);
 	api.get("/applicants/:id", requireAuth, getApplicant);
 	api.get("/jobs/:jobId/applicants", requireAuth, getApplicantsByJob);
-	api.post("/applicants", submitApplicant);
+	api.post("/applicants", applicantResumeUploadMiddleware, submitApplicant);
 	api.patch("/applicants/:id", requireAuth, editApplicant);
 	api.delete("/applicants/:id", requireAuth, removeApplicant);
 

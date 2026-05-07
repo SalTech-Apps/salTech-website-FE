@@ -14,6 +14,9 @@ import type {
   DeleteApiJobsByIdData,
   DeleteApiJobsByIdErrors,
   DeleteApiJobsByIdResponses,
+  DeleteApiTeamMembersByIdData,
+  DeleteApiTeamMembersByIdErrors,
+  DeleteApiTeamMembersByIdResponses,
   GetApiApplicantsByIdData,
   GetApiApplicantsByIdErrors,
   GetApiApplicantsByIdResponses,
@@ -37,12 +40,21 @@ import type {
   GetApiJobsData,
   GetApiJobsErrors,
   GetApiJobsResponses,
+  GetApiTeamMembersByIdData,
+  GetApiTeamMembersByIdErrors,
+  GetApiTeamMembersByIdResponses,
+  GetApiTeamMembersData,
+  GetApiTeamMembersErrors,
+  GetApiTeamMembersResponses,
   PatchApiApplicantsByIdData,
   PatchApiApplicantsByIdErrors,
   PatchApiApplicantsByIdResponses,
   PatchApiJobsByIdData,
   PatchApiJobsByIdErrors,
   PatchApiJobsByIdResponses,
+  PatchApiTeamMembersByIdData,
+  PatchApiTeamMembersByIdErrors,
+  PatchApiTeamMembersByIdResponses,
   PostApiApplicantsByIdAssignInterviewerData,
   PostApiApplicantsByIdAssignInterviewerErrors,
   PostApiApplicantsByIdAssignInterviewerResponses,
@@ -70,12 +82,9 @@ import type {
   PostApiJobsData,
   PostApiJobsErrors,
   PostApiJobsResponses,
-  PostApiUploadsFileData,
-  PostApiUploadsFileErrors,
-  PostApiUploadsFileResponses,
-  PostApiUploadsResumeData,
-  PostApiUploadsResumeErrors,
-  PostApiUploadsResumeResponses,
+  PostApiTeamMembersData,
+  PostApiTeamMembersErrors,
+  PostApiTeamMembersResponses,
 } from "./types.gen";
 
 export type Options<
@@ -259,7 +268,7 @@ export const getApiApplicants = <ThrowOnError extends boolean = false>(
   });
 
 /**
- * Submit a job application
+ * Submit a job application (supports direct resume upload)
  */
 export const postApiApplicants = <ThrowOnError extends boolean = false>(
   options: Options<PostApiApplicantsData, ThrowOnError>,
@@ -495,19 +504,37 @@ export const getApiDashboard = <ThrowOnError extends boolean = false>(
   });
 
 /**
- * Upload any file to Cloudinary
+ * List all team members
  */
-export const postApiUploadsFile = <ThrowOnError extends boolean = false>(
-  options: Options<PostApiUploadsFileData, ThrowOnError>,
+export const getApiTeamMembers = <ThrowOnError extends boolean = false>(
+  options?: Options<GetApiTeamMembersData, ThrowOnError>,
+) =>
+  (options?.client ?? client).get<
+    GetApiTeamMembersResponses,
+    GetApiTeamMembersErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    security: [{ scheme: "bearer", type: "http" }],
+    url: "/api/team-members",
+    ...options,
+  });
+
+/**
+ * Create a team member
+ */
+export const postApiTeamMembers = <ThrowOnError extends boolean = false>(
+  options: Options<PostApiTeamMembersData, ThrowOnError>,
 ) =>
   (options.client ?? client).post<
-    PostApiUploadsFileResponses,
-    PostApiUploadsFileErrors,
+    PostApiTeamMembersResponses,
+    PostApiTeamMembersErrors,
     ThrowOnError
   >({
     ...formDataBodySerializer,
     responseType: "json",
-    url: "/api/uploads/file",
+    security: [{ scheme: "bearer", type: "http" }],
+    url: "/api/team-members",
     ...options,
     headers: {
       "Content-Type": null,
@@ -516,19 +543,54 @@ export const postApiUploadsFile = <ThrowOnError extends boolean = false>(
   });
 
 /**
- * Upload applicant resume
+ * Delete a team member
  */
-export const postApiUploadsResume = <ThrowOnError extends boolean = false>(
-  options: Options<PostApiUploadsResumeData, ThrowOnError>,
+export const deleteApiTeamMembersById = <ThrowOnError extends boolean = false>(
+  options: Options<DeleteApiTeamMembersByIdData, ThrowOnError>,
 ) =>
-  (options.client ?? client).post<
-    PostApiUploadsResumeResponses,
-    PostApiUploadsResumeErrors,
+  (options.client ?? client).delete<
+    DeleteApiTeamMembersByIdResponses,
+    DeleteApiTeamMembersByIdErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    security: [{ scheme: "bearer", type: "http" }],
+    url: "/api/team-members/{id}",
+    ...options,
+  });
+
+/**
+ * Get team member by id
+ */
+export const getApiTeamMembersById = <ThrowOnError extends boolean = false>(
+  options: Options<GetApiTeamMembersByIdData, ThrowOnError>,
+) =>
+  (options.client ?? client).get<
+    GetApiTeamMembersByIdResponses,
+    GetApiTeamMembersByIdErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    security: [{ scheme: "bearer", type: "http" }],
+    url: "/api/team-members/{id}",
+    ...options,
+  });
+
+/**
+ * Update a team member
+ */
+export const patchApiTeamMembersById = <ThrowOnError extends boolean = false>(
+  options: Options<PatchApiTeamMembersByIdData, ThrowOnError>,
+) =>
+  (options.client ?? client).patch<
+    PatchApiTeamMembersByIdResponses,
+    PatchApiTeamMembersByIdErrors,
     ThrowOnError
   >({
     ...formDataBodySerializer,
     responseType: "json",
-    url: "/api/uploads/resume",
+    security: [{ scheme: "bearer", type: "http" }],
+    url: "/api/team-members/{id}",
     ...options,
     headers: {
       "Content-Type": null,

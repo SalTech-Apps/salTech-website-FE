@@ -3,6 +3,7 @@ import "./auth.openapi.ts";
 import "./job.openapi.ts";
 import "./applicant.openapi.ts";
 import "./system.openapi.ts";
+import "./team.openapi.ts";
 import { openApiRegistry } from "./registry.ts";
 
 const generator = new OpenApiGeneratorV3(openApiRegistry.definitions);
@@ -23,6 +24,7 @@ export const openApiDocument: GeneratedOpenApiDocument =
 			{ name: "Auth", description: "Authentication endpoints" },
 			{ name: "Jobs", description: "Job management endpoints" },
 			{ name: "Applicants", description: "Applicant management endpoints" },
+			{ name: "Team", description: "Team member management endpoints" },
 			{ name: "System", description: "Health and dashboard endpoints" },
 		],
 	});

@@ -4,11 +4,16 @@ import { useEffect, useMemo, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Button, Modal, ModalBackdrop, ModalContainer, ModalDialog } from "@heroui/react";
+import {
+	Button,
+	Modal,
+	ModalBackdrop,
+	ModalContainer,
+	ModalDialog,
+} from "@heroui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import toast from "react-hot-toast";
-import { postApiApplicants } from "@/client";
 import {
 	careerApplicationDraftAtom,
 	careerApplicationStepAtom,
@@ -90,7 +95,6 @@ export function MultiStepApplicationForm({
 }: MultiStepFormProps) {
 	const [currentStep, setCurrentStep] = useAtom(careerApplicationStepAtom);
 	const [draft, setDraft] = useAtom(careerApplicationDraftAtom);
-	const [isUploadingResume, setIsUploadingResume] = useState(false);
 
 	const form = useForm<ApplicationFormSchema>({
 		resolver: zodResolver(formSchema),
@@ -118,79 +122,48 @@ export function MultiStepApplicationForm({
 		reset,
 	} = form;
 
-	const uploadResume = async (file: File): Promise<string> => {
-		setIsUploadingResume(true);
-		try {
-			const formData = new FormData();
-			formData.append("resume", file);
+	const submitMutation = useMutation({
+		mutationFn: async (values: ApplicationFormSchema) => {
+			const selectedFile = values.cv?.[0];
+			if (!selectedFile) {
+				throw new Error("Upload your resume before submitting");
+			}
 
-			const response = await fetch("/api/uploads/resume", {
+			const body = new FormData();
+			body.append("jobId", jobId);
+			body.append("fullName", values.fullName);
+			body.append("email", values.email);
+			body.append("phone", values.phone);
+			body.append("resume", selectedFile);
+			body.append("coverLetter", values.coverLetter);
+			body.append("status", "NEW");
+
+			if (values.portfolioUrl?.trim()) {
+				body.append("portfolioUrl", values.portfolioUrl.trim());
+			}
+			if (values.linkedinUrl?.trim()) {
+				body.append("linkedinUrl", values.linkedinUrl.trim());
+			}
+			if (values.startDate?.trim()) {
+				body.append("earliestStartDate", values.startDate.trim());
+			}
+
+			const response = await fetch("/api/applicants", {
 				method: "POST",
-				body: formData,
+				body,
 				credentials: "include",
 			});
 
 			const payload = (await response.json()) as {
 				message?: string;
-				data?: { url?: string; fileName?: string };
+				data?: Record<string, unknown>;
 			};
 
-			if (!response.ok || !payload.data?.url) {
-				throw new Error(payload.message || "Failed to upload resume");
+			if (!response.ok || !payload.data) {
+				throw new Error(payload.message || "Failed to submit application");
 			}
 
-			const uploadedUrl = payload.data.url;
-			const uploadedFileName = payload.data.fileName || file.name;
-
-			setDraft((previous) => ({
-				...previous,
-				cvName: uploadedFileName,
-				resumeUrl: uploadedUrl,
-			}));
-			clearErrors("cv");
-			return uploadedUrl;
-		} catch (error) {
-			const parsedError = apiErrorParser(error);
-			setDraft((previous) => ({
-				...previous,
-				resumeUrl: "",
-			}));
-			setError("cv", { type: "manual", message: parsedError.message });
-			throw error;
-		} finally {
-			setIsUploadingResume(false);
-		}
-	};
-
-	const submitMutation = useMutation({
-		mutationFn: async (values: ApplicationFormSchema) => {
-			let resumeUrl = draft.resumeUrl;
-			const selectedFile = values.cv?.[0];
-			if (!resumeUrl && selectedFile) {
-				resumeUrl = await uploadResume(selectedFile);
-			}
-
-			if (!resumeUrl) {
-				throw new Error("Upload your resume before submitting");
-			}
-
-			const response = await postApiApplicants({
-				body: {
-					jobId,
-					fullName: values.fullName,
-					email: values.email,
-					phone: values.phone,
-					resumeUrl,
-					portfolioUrl: values.portfolioUrl || undefined,
-					linkedinUrl: values.linkedinUrl || undefined,
-					coverLetter: values.coverLetter,
-					earliestStartDate: values.startDate,
-					status: "NEW",
-				},
-				throwOnError: true,
-			});
-
-			return response.data.data;
+			return payload.data;
 		},
 		onSuccess: () => {
 			toast.success("Application submitted successfully");
@@ -222,8 +195,8 @@ export function MultiStepApplicationForm({
 			linkedinUrl: watchedValues.linkedinUrl ?? previous.linkedinUrl,
 			coverLetter: watchedValues.coverLetter ?? previous.coverLetter,
 			startDate: watchedValues.startDate ?? previous.startDate,
-			cvName: watchedValues.cv?.[0]?.name ?? previous.cvName,
-			resumeUrl: previous.resumeUrl,
+			cvName: watchedValues.cv?.[0]?.name ?? "",
+			resumeUrl: "",
 		}));
 	}, [
 		watchedValues.fullName,
@@ -267,23 +240,9 @@ export function MultiStepApplicationForm({
 
 		if (currentStep === "DOCUMENTS") {
 			const valid = await trigger(["portfolioUrl", "linkedinUrl"]);
-			const hasFile = Boolean(getValues("cv")?.[0]) || Boolean(draft.cvName);
+			const hasFile = Boolean(getValues("cv")?.[0]);
 			if (!hasFile) {
 				setError("cv", { type: "manual", message: "Upload your CV/Resume" });
-				return;
-			}
-			if (isUploadingResume) {
-				setError("cv", {
-					type: "manual",
-					message: "Please wait for resume upload to complete",
-				});
-				return;
-			}
-			if (!draft.resumeUrl) {
-				setError("cv", {
-					type: "manual",
-					message: "Resume upload is required",
-				});
 				return;
 			}
 			if (valid) setCurrentStep("FINAL");
@@ -332,89 +291,98 @@ export function MultiStepApplicationForm({
 	return (
 		<Modal>
 			<ModalBackdrop isOpen={isOpen} onOpenChange={onOpenChange}>
-			<ModalContainer size="5xl" className="min-h-170 border bg-white p-4 md:p-6">
-				<ModalDialog>
-				{() => (
-					<div className="mx-auto flex h-full w-full max-w-4xl flex-col">
-						<ApplicationModalHeader
-							jobTitle={jobTitle}
-							onBack={closeAndKeepProgress}
-						/>
-
-						<ApplicationStepper
-							steps={STEPS}
-							currentStep={currentStep}
-							stepIndex={stepIndex}
-						/>
-
-						<div className="mx-auto w-full max-w-3xl px-0 pb-2 pt-10">
-							{currentStep === "SUCCESS" ? (
-								<ApplicationSuccessState
-									onDone={closeAndKeepProgress}
-									onReset={resetApplication}
+				<ModalContainer
+					size="5xl"
+					className="min-h-170 border bg-white p-4 md:p-6"
+				>
+					<ModalDialog>
+						{() => (
+							<div className="mx-auto flex h-full w-full max-w-4xl flex-col">
+								<ApplicationModalHeader
+									jobTitle={jobTitle}
+									onBack={closeAndKeepProgress}
 								/>
-							) : (
-								<form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-									{currentStep === "PERSONAL" && (
-										<PersonalInfoFields register={register} errors={errors} />
-									)}
 
-									{currentStep === "DOCUMENTS" && (
-										<DocumentFields
-											register={register}
-											errors={errors}
-											watch={watch}
-											draftCvName={draft.cvName}
-											draftResumeUrl={draft.resumeUrl}
-											isUploadingResume={isUploadingResume}
-											onResumeSelected={uploadResume}
+								<ApplicationStepper
+									steps={STEPS}
+									currentStep={currentStep}
+									stepIndex={stepIndex}
+								/>
+
+								<div className="mx-auto w-full max-w-3xl px-0 pb-2 pt-10">
+									{currentStep === "SUCCESS" ? (
+										<ApplicationSuccessState
+											onDone={closeAndKeepProgress}
+											onReset={resetApplication}
 										/>
-									)}
-
-									{currentStep === "FINAL" && (
-										<FinalDetailsFields register={register} errors={errors} />
-									)}
-
-									<div className="grid grid-cols-2 gap-3 border-t border-[#e5e7eb] pt-6">
-										<Button
-											variant="secondary"
-											className="rounded-xl"
-											onPress={goToPreviousStep}
-											isDisabled={currentStep === "PERSONAL"}
+									) : (
+										<form
+											onSubmit={handleSubmit(onSubmit)}
+											className="space-y-6"
 										>
-											Back
-										</Button>
-										{currentStep !== "FINAL" ? (
-											<Button
-												className="rounded-xl bg-[#c99e2e] text-[#111827]"
-												onPress={goToNextStep}
-												isDisabled={isUploadingResume}
-											>
-												Continue
-											</Button>
-										) : (
-											<Button
-												type="submit"
-												className="rounded-xl bg-[#c99e2e] text-[#111827]"
-												isPending={
-													submitMutation.isPending || isUploadingResume
-												}
-												isDisabled={isUploadingResume}
-											>
-												Submit Application
-											</Button>
-										)}
-										<Button className="rounded-xl" variant="ghost" onPress={closeAndKeepProgress}>
-											Close
-										</Button>
-									</div>
-								</form>
-							)}
-						</div>
-					</div>
-				)}
-				</ModalDialog>
-			</ModalContainer>
+											{currentStep === "PERSONAL" && (
+												<PersonalInfoFields
+													register={register}
+													errors={errors}
+												/>
+											)}
+
+											{currentStep === "DOCUMENTS" && (
+												<DocumentFields
+													register={register}
+													errors={errors}
+													watch={watch}
+													draftCvName={draft.cvName}
+												/>
+											)}
+
+											{currentStep === "FINAL" && (
+												<FinalDetailsFields
+													register={register}
+													errors={errors}
+												/>
+											)}
+
+											<div className="grid grid-cols-2 gap-3 border-t border-[#e5e7eb] pt-6">
+												<Button
+													variant="secondary"
+													className="rounded-xl"
+													onPress={goToPreviousStep}
+													isDisabled={currentStep === "PERSONAL"}
+												>
+													Back
+												</Button>
+												{currentStep !== "FINAL" ? (
+													<Button
+														className="rounded-xl bg-[#c99e2e] text-[#111827]"
+														onPress={goToNextStep}
+													>
+														Continue
+													</Button>
+												) : (
+													<Button
+														type="submit"
+														className="rounded-xl bg-[#c99e2e] text-[#111827]"
+														isPending={submitMutation.isPending}
+													>
+														Submit Application
+													</Button>
+												)}
+												<Button
+													className="rounded-xl"
+													variant="ghost"
+													onPress={closeAndKeepProgress}
+												>
+													Close
+												</Button>
+											</div>
+										</form>
+									)}
+								</div>
+							</div>
+						)}
+					</ModalDialog>
+				</ModalContainer>
 			</ModalBackdrop>
 		</Modal>
 	);

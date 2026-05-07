@@ -84,7 +84,7 @@ export function ConsoleStatCard({
 }: {
 	label: string;
 	value: string | number;
-	change: string;
+	change?: string;
 	icon: IconType;
 	tone: "gold" | "green" | "blue" | "orange";
 }) {
@@ -106,7 +106,7 @@ export function ConsoleStatCard({
 					<p className="font-heading text-4xl font-semibold leading-none text-[#1F2534]">
 						{value}
 					</p>
-					<p className="mt-3 text-xs text-[#1BA14C]">{change}</p>
+					{change && <p className="mt-3 text-xs text-[#1BA14C]">{change}</p>}
 				</div>
 			</div>
 		</ConsolePanel>

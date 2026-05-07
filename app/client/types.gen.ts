@@ -358,37 +358,74 @@ export type DashboardResponse = {
   };
 };
 
-export type FileUploadRequest = {
-  file: Blob | File;
-  name?: string;
-  folder?: string;
+export type CreateTeamMemberRequest = {
+  name: string;
+  position: string;
+  group?: "leadership" | "engineering-design" | "product-operations";
+  shortDescription?: string;
+  detailedDescription?: string;
+  profileImageUrl?: string;
+  email?: string;
+  phone?: string;
+  linkedinUrl?: string;
+  twitterUrl?: string;
 };
 
-export type FileUploadResponse = {
+export type UpdateTeamMemberRequest = {
+  name?: string;
+  position?: string;
+  group?: "leadership" | "engineering-design" | "product-operations";
+  shortDescription?: string;
+  detailedDescription?: string;
+  profileImageUrl?: string;
+  email?: string;
+  phone?: string;
+  linkedinUrl?: string;
+  twitterUrl?: string;
+};
+
+export type TeamMemberResponse = {
   message: string;
   data: {
-    fileName: string;
-    url: string;
-    publicId: string;
-    size: number;
-    mimeType: string;
+    id: string;
+    name: string;
+    position: string;
+    group?: "leadership" | "engineering-design" | "product-operations";
+    shortDescription?: string;
+    detailedDescription?: string;
+    profileImageUrl?: string;
+    email?: string;
+    phone?: string;
+    linkedinUrl?: string;
+    twitterUrl?: string;
+    createdAt: string;
+    updatedAt: string;
   };
 };
 
-export type ResumeUploadRequest = {
-  resume: Blob | File;
-  name?: string;
-  folder?: string;
+export type TeamMembersListResponse = {
+  message: string;
+  data: Array<{
+    id: string;
+    name: string;
+    position: string;
+    group?: "leadership" | "engineering-design" | "product-operations";
+    shortDescription?: string;
+    detailedDescription?: string;
+    profileImageUrl?: string;
+    email?: string;
+    phone?: string;
+    linkedinUrl?: string;
+    twitterUrl?: string;
+    createdAt: string;
+    updatedAt: string;
+  }>;
 };
 
-export type ResumeUploadResponse = {
+export type TeamMemberDeleteResponse = {
   message: string;
   data: {
-    fileName: string;
-    url: string;
-    publicId: string;
-    size: number;
-    mimeType: string;
+    id: string;
   };
 };
 
@@ -1569,88 +1606,260 @@ export type GetApiDashboardResponses = {
 export type GetApiDashboardResponse =
   GetApiDashboardResponses[keyof GetApiDashboardResponses];
 
-export type PostApiUploadsFileData = {
-  body: {
-    file: Blob | File;
-    name?: string;
-    folder?: string;
-  };
+export type GetApiTeamMembersData = {
+  body?: never;
   path?: never;
   query?: never;
-  url: "/api/uploads/file";
+  url: "/api/team-members";
 };
 
-export type PostApiUploadsFileErrors = {
+export type GetApiTeamMembersErrors = {
   /**
-   * Invalid upload request
+   * Unauthorized
    */
-  400: {
+  401: {
     message: string;
     error: string;
   };
 };
 
-export type PostApiUploadsFileError =
-  PostApiUploadsFileErrors[keyof PostApiUploadsFileErrors];
+export type GetApiTeamMembersError =
+  GetApiTeamMembersErrors[keyof GetApiTeamMembersErrors];
 
-export type PostApiUploadsFileResponses = {
+export type GetApiTeamMembersResponses = {
   /**
-   * File uploaded successfully
+   * Team members fetched successfully
    */
-  201: {
+  200: {
     message: string;
-    data: {
-      fileName: string;
-      url: string;
-      publicId: string;
-      size: number;
-      mimeType: string;
-    };
+    data: Array<{
+      id: string;
+      name: string;
+      position: string;
+      group?: "leadership" | "engineering-design" | "product-operations";
+      shortDescription?: string;
+      detailedDescription?: string;
+      profileImageUrl?: string;
+      email?: string;
+      phone?: string;
+      linkedinUrl?: string;
+      twitterUrl?: string;
+      createdAt: string;
+      updatedAt: string;
+    }>;
   };
 };
 
-export type PostApiUploadsFileResponse =
-  PostApiUploadsFileResponses[keyof PostApiUploadsFileResponses];
+export type GetApiTeamMembersResponse =
+  GetApiTeamMembersResponses[keyof GetApiTeamMembersResponses];
 
-export type PostApiUploadsResumeData = {
+export type PostApiTeamMembersData = {
   body: {
-    resume: Blob | File;
-    name?: string;
-    folder?: string;
+    name: string;
+    position: string;
+    group?: "leadership" | "engineering-design" | "product-operations";
+    shortDescription?: string;
+    detailedDescription?: string;
+    profileImageUrl?: string;
+    email?: string;
+    phone?: string;
+    linkedinUrl?: string;
+    twitterUrl?: string;
   };
   path?: never;
   query?: never;
-  url: "/api/uploads/resume";
+  url: "/api/team-members";
 };
 
-export type PostApiUploadsResumeErrors = {
+export type PostApiTeamMembersErrors = {
   /**
-   * Invalid upload request
+   * Validation error
    */
   400: {
     message: string;
     error: string;
   };
+  /**
+   * Unauthorized
+   */
+  401: {
+    message: string;
+    error: string;
+  };
 };
 
-export type PostApiUploadsResumeError =
-  PostApiUploadsResumeErrors[keyof PostApiUploadsResumeErrors];
+export type PostApiTeamMembersError =
+  PostApiTeamMembersErrors[keyof PostApiTeamMembersErrors];
 
-export type PostApiUploadsResumeResponses = {
+export type PostApiTeamMembersResponses = {
   /**
-   * Resume uploaded successfully
+   * Team member created successfully
    */
   201: {
     message: string;
     data: {
-      fileName: string;
-      url: string;
-      publicId: string;
-      size: number;
-      mimeType: string;
+      id: string;
+      name: string;
+      position: string;
+      group?: "leadership" | "engineering-design" | "product-operations";
+      shortDescription?: string;
+      detailedDescription?: string;
+      profileImageUrl?: string;
+      email?: string;
+      phone?: string;
+      linkedinUrl?: string;
+      twitterUrl?: string;
+      createdAt: string;
+      updatedAt: string;
     };
   };
 };
 
-export type PostApiUploadsResumeResponse =
-  PostApiUploadsResumeResponses[keyof PostApiUploadsResumeResponses];
+export type PostApiTeamMembersResponse =
+  PostApiTeamMembersResponses[keyof PostApiTeamMembersResponses];
+
+export type DeleteApiTeamMembersByIdData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/api/team-members/{id}";
+};
+
+export type DeleteApiTeamMembersByIdErrors = {
+  /**
+   * Team member not found
+   */
+  404: {
+    message: string;
+    error: string;
+  };
+};
+
+export type DeleteApiTeamMembersByIdError =
+  DeleteApiTeamMembersByIdErrors[keyof DeleteApiTeamMembersByIdErrors];
+
+export type DeleteApiTeamMembersByIdResponses = {
+  /**
+   * Team member deleted successfully
+   */
+  200: {
+    message: string;
+    data: {
+      id: string;
+    };
+  };
+};
+
+export type DeleteApiTeamMembersByIdResponse =
+  DeleteApiTeamMembersByIdResponses[keyof DeleteApiTeamMembersByIdResponses];
+
+export type GetApiTeamMembersByIdData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/api/team-members/{id}";
+};
+
+export type GetApiTeamMembersByIdErrors = {
+  /**
+   * Team member not found
+   */
+  404: {
+    message: string;
+    error: string;
+  };
+};
+
+export type GetApiTeamMembersByIdError =
+  GetApiTeamMembersByIdErrors[keyof GetApiTeamMembersByIdErrors];
+
+export type GetApiTeamMembersByIdResponses = {
+  /**
+   * Team member fetched successfully
+   */
+  200: {
+    message: string;
+    data: {
+      id: string;
+      name: string;
+      position: string;
+      group?: "leadership" | "engineering-design" | "product-operations";
+      shortDescription?: string;
+      detailedDescription?: string;
+      profileImageUrl?: string;
+      email?: string;
+      phone?: string;
+      linkedinUrl?: string;
+      twitterUrl?: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+  };
+};
+
+export type GetApiTeamMembersByIdResponse =
+  GetApiTeamMembersByIdResponses[keyof GetApiTeamMembersByIdResponses];
+
+export type PatchApiTeamMembersByIdData = {
+  body: {
+    name?: string;
+    position?: string;
+    group?: "leadership" | "engineering-design" | "product-operations";
+    shortDescription?: string;
+    detailedDescription?: string;
+    profileImageUrl?: string;
+    email?: string;
+    phone?: string;
+    linkedinUrl?: string;
+    twitterUrl?: string;
+  };
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/api/team-members/{id}";
+};
+
+export type PatchApiTeamMembersByIdErrors = {
+  /**
+   * Team member not found
+   */
+  404: {
+    message: string;
+    error: string;
+  };
+};
+
+export type PatchApiTeamMembersByIdError =
+  PatchApiTeamMembersByIdErrors[keyof PatchApiTeamMembersByIdErrors];
+
+export type PatchApiTeamMembersByIdResponses = {
+  /**
+   * Team member updated successfully
+   */
+  200: {
+    message: string;
+    data: {
+      id: string;
+      name: string;
+      position: string;
+      group?: "leadership" | "engineering-design" | "product-operations";
+      shortDescription?: string;
+      detailedDescription?: string;
+      profileImageUrl?: string;
+      email?: string;
+      phone?: string;
+      linkedinUrl?: string;
+      twitterUrl?: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+  };
+};
+
+export type PatchApiTeamMembersByIdResponse =
+  PatchApiTeamMembersByIdResponses[keyof PatchApiTeamMembersByIdResponses];

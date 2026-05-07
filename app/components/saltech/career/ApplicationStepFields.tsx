@@ -28,7 +28,9 @@ export function PersonalInfoFields({ register, errors }: CommonStepProps) {
 				<FieldError>{errors.fullName?.message}</FieldError>
 			</TextField>
 			<TextField isInvalid={!!errors.email}>
-				<Label className="text-sm font-medium text-[#111827]">Email Address</Label>
+				<Label className="text-sm font-medium text-[#111827]">
+					Email Address
+				</Label>
 				<Input
 					type="email"
 					placeholder="john@example.com"
@@ -38,7 +40,9 @@ export function PersonalInfoFields({ register, errors }: CommonStepProps) {
 				<FieldError>{errors.email?.message}</FieldError>
 			</TextField>
 			<TextField isInvalid={!!errors.phone}>
-				<Label className="text-sm font-medium text-[#111827]">Phone Number</Label>
+				<Label className="text-sm font-medium text-[#111827]">
+					Phone Number
+				</Label>
 				<Input
 					type="tel"
 					placeholder="+1 (555) 123-4567"
@@ -54,9 +58,6 @@ export function PersonalInfoFields({ register, errors }: CommonStepProps) {
 interface DocumentStepProps extends CommonStepProps {
 	watch: UseFormWatch<ApplicationFormSchema>;
 	draftCvName: string;
-	draftResumeUrl: string;
-	isUploadingResume: boolean;
-	onResumeSelected: (file: File) => Promise<string>;
 }
 
 export function DocumentFields({
@@ -64,18 +65,8 @@ export function DocumentFields({
 	errors,
 	watch,
 	draftCvName,
-	draftResumeUrl,
-	isUploadingResume,
-	onResumeSelected,
 }: DocumentStepProps) {
-	const registerCv = register("cv", {
-		onChange: async (event) => {
-			const file = event.target.files?.[0];
-			if (file) {
-				await onResumeSelected(file);
-			}
-		},
-	});
+	const registerCv = register("cv");
 
 	return (
 		<div className="space-y-5">
@@ -97,13 +88,9 @@ export function DocumentFields({
 						{...registerCv}
 					/>
 				</label>
-				{isUploadingResume && (
-					<p className="mt-2 text-sm text-[#6b7280]">Uploading resume...</p>
-				)}
 				{(watch("cv")?.[0]?.name || draftCvName) && (
 					<p className="mt-2 text-sm text-[#047857]">
 						Attached: {watch("cv")?.[0]?.name || draftCvName}
-						{draftResumeUrl ? " (uploaded)" : ""}
 					</p>
 				)}
 				{errors.cv?.message && (
@@ -111,7 +98,9 @@ export function DocumentFields({
 				)}
 			</div>
 			<TextField isInvalid={!!errors.portfolioUrl}>
-				<Label className="text-sm font-medium text-[#111827]">Portfolio Link</Label>
+				<Label className="text-sm font-medium text-[#111827]">
+					Portfolio Link
+				</Label>
 				<Input
 					type="url"
 					placeholder="https://yourportfolio.com"
@@ -121,7 +110,9 @@ export function DocumentFields({
 				<FieldError>{errors.portfolioUrl?.message}</FieldError>
 			</TextField>
 			<TextField isInvalid={!!errors.linkedinUrl}>
-				<Label className="text-sm font-medium text-[#111827]">LinkedIn Profile</Label>
+				<Label className="text-sm font-medium text-[#111827]">
+					LinkedIn Profile
+				</Label>
 				<Input
 					type="url"
 					placeholder="https://linkedin.com/in/yourprofile"
@@ -138,7 +129,9 @@ export function FinalDetailsFields({ register, errors }: CommonStepProps) {
 	return (
 		<div className="space-y-5">
 			<TextField isInvalid={!!errors.coverLetter}>
-				<Label className="text-sm font-medium text-[#111827]">Cover Letter / Message</Label>
+				<Label className="text-sm font-medium text-[#111827]">
+					Cover Letter / Message
+				</Label>
 				<InputGroup>
 					<InputGroup.TextArea
 						placeholder="Tell us why you are a great fit for this role..."
@@ -150,8 +143,14 @@ export function FinalDetailsFields({ register, errors }: CommonStepProps) {
 				<FieldError>{errors.coverLetter?.message}</FieldError>
 			</TextField>
 			<TextField isInvalid={!!errors.startDate}>
-				<Label className="text-sm font-medium text-[#111827]">Earliest Start Date</Label>
-				<Input type="date" {...register("startDate")} className={inputClassName} />
+				<Label className="text-sm font-medium text-[#111827]">
+					Earliest Start Date
+				</Label>
+				<Input
+					type="date"
+					{...register("startDate")}
+					className={inputClassName}
+				/>
 				<FieldError>{errors.startDate?.message}</FieldError>
 			</TextField>
 		</div>
