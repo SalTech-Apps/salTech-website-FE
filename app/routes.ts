@@ -8,6 +8,7 @@ import {
 export default [
 	route("favicon.ico", "routes/favicon[.]ico.tsx"),
 	route("api/health", "routes/api.health.tsx"),
+	route("api/uploads/resume", "routes/api.uploads.resume.tsx"),
 	route("sitemap.xml", "routes/sitemap[.]xml.tsx"),
 	route("sw.js", "routes/sw[.]js.tsx"),
 	layout("layouts/MainLayout.tsx", [
@@ -21,6 +22,7 @@ export default [
 		route("career", "routes/career/index.tsx"),
 		route("career/:jobId", "routes/career/$jobId.tsx"),
 		route("career/:jobId/success", "routes/career/$jobId.success.tsx"),
+		route("team", "routes/team/index.tsx"),
 		route("terms", "routes/terms/index.tsx"),
 		route("privacy", "routes/privacy/index.tsx"),
 		route("page/:slug", "routes/page/$slug.tsx"),
@@ -28,11 +30,12 @@ export default [
 	route("console", "layouts/ConsoleLayout.tsx", [
 		index("routes/console/index.tsx"),
 		route("jobs", "routes/console/jobs.tsx"),
+		route("team", "routes/console/team.tsx"),
 		route("jobs/new", "routes/console/jobs.new.tsx"),
 		route("jobs/:jobId/edit", "routes/console/jobs.edit.tsx"),
 		route("drafts", "routes/console/drafts.tsx"),
 		route("candidates", "routes/console/candidates.tsx"),
-		route("settings", "routes/console/settings.tsx"),
+		// route("settings", "routes/console/settings.tsx"),
 	]),
 	route("login", "routes/login/index.tsx"),
 ] satisfies RouteConfig;

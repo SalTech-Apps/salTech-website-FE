@@ -47,12 +47,12 @@ export function ConsolePageHeader({
 	action?: ReactNode;
 }) {
 	return (
-		<div className="flex flex-col gap-4 border-b border-[#E7E2D8] pb-6 md:flex-row md:items-start md:justify-between">
+		<div className="flex flex-col gap-4 border-b border-[#E7E2D8] md:flex-row md:items-start md:justify-between">
 			<div>
 				<h1 className="font-heading text-[2.25rem] font-semibold leading-none text-[#1D2433]">
 					{title}
 				</h1>
-				<p className="mt-3 text-sm text-[#7C8192]">{description}</p>
+				<p className="text-sm text-[#7C8192]">{description}</p>
 			</div>
 			{action}
 		</div>
@@ -141,11 +141,20 @@ function toJobStatusLabel(status: ApiJobStatus | string): {
 	};
 }
 
-export function JobStatusChip({ status }: { status: ApiJobStatus | string }) {
+export function JobStatusChip({
+	status,
+	className = "",
+}: {
+	status: ApiJobStatus | string;
+	className?: string;
+}) {
 	const chip = toJobStatusLabel(status);
 
 	return (
-		<Chip variant="secondary" className={`rounded-full ${chip.base}`}>
+		<Chip
+			variant="secondary"
+			className={`rounded-full ${chip.base} ${className}`}
+		>
 			<span className={chip.content}>{chip.label}</span>
 		</Chip>
 	);

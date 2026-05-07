@@ -358,6 +358,40 @@ export type DashboardResponse = {
   };
 };
 
+export type FileUploadRequest = {
+  file: Blob | File;
+  name?: string;
+  folder?: string;
+};
+
+export type FileUploadResponse = {
+  message: string;
+  data: {
+    fileName: string;
+    url: string;
+    publicId: string;
+    size: number;
+    mimeType: string;
+  };
+};
+
+export type ResumeUploadRequest = {
+  resume: Blob | File;
+  name?: string;
+  folder?: string;
+};
+
+export type ResumeUploadResponse = {
+  message: string;
+  data: {
+    fileName: string;
+    url: string;
+    publicId: string;
+    size: number;
+    mimeType: string;
+  };
+};
+
 export type PostApiAuthLoginData = {
   body: {
     email: string;
@@ -1534,3 +1568,89 @@ export type GetApiDashboardResponses = {
 
 export type GetApiDashboardResponse =
   GetApiDashboardResponses[keyof GetApiDashboardResponses];
+
+export type PostApiUploadsFileData = {
+  body: {
+    file: Blob | File;
+    name?: string;
+    folder?: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/api/uploads/file";
+};
+
+export type PostApiUploadsFileErrors = {
+  /**
+   * Invalid upload request
+   */
+  400: {
+    message: string;
+    error: string;
+  };
+};
+
+export type PostApiUploadsFileError =
+  PostApiUploadsFileErrors[keyof PostApiUploadsFileErrors];
+
+export type PostApiUploadsFileResponses = {
+  /**
+   * File uploaded successfully
+   */
+  201: {
+    message: string;
+    data: {
+      fileName: string;
+      url: string;
+      publicId: string;
+      size: number;
+      mimeType: string;
+    };
+  };
+};
+
+export type PostApiUploadsFileResponse =
+  PostApiUploadsFileResponses[keyof PostApiUploadsFileResponses];
+
+export type PostApiUploadsResumeData = {
+  body: {
+    resume: Blob | File;
+    name?: string;
+    folder?: string;
+  };
+  path?: never;
+  query?: never;
+  url: "/api/uploads/resume";
+};
+
+export type PostApiUploadsResumeErrors = {
+  /**
+   * Invalid upload request
+   */
+  400: {
+    message: string;
+    error: string;
+  };
+};
+
+export type PostApiUploadsResumeError =
+  PostApiUploadsResumeErrors[keyof PostApiUploadsResumeErrors];
+
+export type PostApiUploadsResumeResponses = {
+  /**
+   * Resume uploaded successfully
+   */
+  201: {
+    message: string;
+    data: {
+      fileName: string;
+      url: string;
+      publicId: string;
+      size: number;
+      mimeType: string;
+    };
+  };
+};
+
+export type PostApiUploadsResumeResponse =
+  PostApiUploadsResumeResponses[keyof PostApiUploadsResumeResponses];

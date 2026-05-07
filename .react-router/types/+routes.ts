@@ -97,9 +97,6 @@ type Pages = {
   "/console/candidates": {
     params: {};
   };
-  "/console/settings": {
-    params: {};
-  };
   "/login": {
     params: {};
   };
@@ -108,7 +105,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/favicon.ico" | "/api/health" | "/api/uploads/resume" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/career" | "/career/:jobId" | "/career/:jobId/success" | "/team" | "/terms" | "/privacy" | "/page/:slug" | "/console" | "/console/jobs" | "/console/team" | "/console/jobs/new" | "/console/jobs/:jobId/edit" | "/console/drafts" | "/console/candidates" | "/console/settings" | "/login";
+    page: "/" | "/favicon.ico" | "/api/health" | "/api/uploads/resume" | "/sitemap.xml" | "/sw.js" | "/services" | "/case-studies" | "/about" | "/contact" | "/health" | "/projects" | "/career" | "/career/:jobId" | "/career/:jobId/success" | "/team" | "/terms" | "/privacy" | "/page/:slug" | "/console" | "/console/jobs" | "/console/team" | "/console/jobs/new" | "/console/jobs/:jobId/edit" | "/console/drafts" | "/console/candidates" | "/login";
   };
   "routes/favicon[.]ico.tsx": {
     id: "routes/favicon[.]ico";
@@ -192,7 +189,7 @@ type RouteFiles = {
   };
   "layouts/ConsoleLayout.tsx": {
     id: "layouts/ConsoleLayout";
-    page: "/console" | "/console/jobs" | "/console/team" | "/console/jobs/new" | "/console/jobs/:jobId/edit" | "/console/drafts" | "/console/candidates" | "/console/settings";
+    page: "/console" | "/console/jobs" | "/console/team" | "/console/jobs/new" | "/console/jobs/:jobId/edit" | "/console/drafts" | "/console/candidates";
   };
   "routes/console/index.tsx": {
     id: "routes/console/index";
@@ -221,10 +218,6 @@ type RouteFiles = {
   "routes/console/candidates.tsx": {
     id: "routes/console/candidates";
     page: "/console/candidates";
-  };
-  "routes/console/settings.tsx": {
-    id: "routes/console/settings";
-    page: "/console/settings";
   };
   "routes/login/index.tsx": {
     id: "routes/login/index";
@@ -262,6 +255,5 @@ type RouteModules = {
   "routes/console/jobs.edit": typeof import("./app/routes/console/jobs.edit.tsx");
   "routes/console/drafts": typeof import("./app/routes/console/drafts.tsx");
   "routes/console/candidates": typeof import("./app/routes/console/candidates.tsx");
-  "routes/console/settings": typeof import("./app/routes/console/settings.tsx");
   "routes/login/index": typeof import("./app/routes/login/index.tsx");
 };

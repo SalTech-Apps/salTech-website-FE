@@ -1078,3 +1078,101 @@ export const DashboardResponseSchema = {
   },
   required: ["message", "data"],
 } as const;
+
+export const FileUploadRequestSchema = {
+  type: "object",
+  properties: {
+    file: {
+      type: "string",
+      format: "binary",
+    },
+    name: {
+      type: "string",
+    },
+    folder: {
+      type: "string",
+    },
+  },
+  required: ["file"],
+} as const;
+
+export const FileUploadResponseSchema = {
+  type: "object",
+  properties: {
+    message: {
+      type: "string",
+    },
+    data: {
+      type: "object",
+      properties: {
+        fileName: {
+          type: "string",
+        },
+        url: {
+          type: "string",
+          format: "uri",
+        },
+        publicId: {
+          type: "string",
+        },
+        size: {
+          type: "number",
+        },
+        mimeType: {
+          type: "string",
+        },
+      },
+      required: ["fileName", "url", "publicId", "size", "mimeType"],
+    },
+  },
+  required: ["message", "data"],
+} as const;
+
+export const ResumeUploadRequestSchema = {
+  type: "object",
+  properties: {
+    resume: {
+      type: "string",
+      format: "binary",
+    },
+    name: {
+      type: "string",
+    },
+    folder: {
+      type: "string",
+    },
+  },
+  required: ["resume"],
+} as const;
+
+export const ResumeUploadResponseSchema = {
+  type: "object",
+  properties: {
+    message: {
+      type: "string",
+    },
+    data: {
+      type: "object",
+      properties: {
+        fileName: {
+          type: "string",
+        },
+        url: {
+          type: "string",
+          format: "uri",
+        },
+        publicId: {
+          type: "string",
+        },
+        size: {
+          type: "number",
+        },
+        mimeType: {
+          type: "string",
+        },
+      },
+      required: ["fileName", "url", "publicId", "size", "mimeType"],
+    },
+  },
+  required: ["message", "data"],
+} as const;

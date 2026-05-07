@@ -157,3 +157,21 @@ body {
 		0 0 10px var(--color-primary-gold),
 		0 0 5px var(--color-primary-gold) !important;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+	-webkit-text-fill-color: #111827 !important;
+	caret-color: #111827;
+	-webkit-box-shadow: 0 0 0 1000px transparent inset;
+	transition: background-color 9999s ease-out 0s;
+}
+
+input:autofill,
+textarea:autofill {
+	color: #111827 !important;
+	caret-color: #111827;
+}
